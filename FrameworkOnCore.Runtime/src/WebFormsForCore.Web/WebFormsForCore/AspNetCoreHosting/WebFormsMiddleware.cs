@@ -149,6 +149,10 @@ namespace Microsoft.AspNetCore.Builder
 			// IIS's request filtering, on the URL as it is now: the rewritten one (it ran on the URL as sent before URL Rewrite:
 			// UseWebFormsIis, RequestFiltering).
 			if (RequestFiltering(context)) { await AfterFiltering(context); return; }
+			if (Handler(context)) return;
+			// IIS's output cache's profiles (IisOutputCache): their Cache-Control, the handler's answers kept.
+			var outputCache = this.outputCache ??= new Lazy<System.Web.Hosting.IisOutputCache>(() => System.Web.Hosting.IisOutputCache.Load(PhysicalPath));
+			outputCache.Value?.CacheControl(context);
 			// OPTIONS that no handler of the application's takes (IIS's OPTIONSVerbHandler, after the managed handlers of
 			// GET, HEAD, POST and DEBUG, before StaticFile): 200 with the verbs IIS's protocol support module names, no body
 			// (IIS 10: OPTIONS of a page, a static file, a folder; a CORS preflight). The page's handler answered 405, a static
@@ -191,7 +195,18 @@ namespace Microsoft.AspNetCore.Builder
 			// 403).
 			if (host.IsStaticFileWithPathInfo(context))
 			{
-				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
+				// (no static file handler, a folder's web.config removed it: IIS's 404.4; its Read access not given: 403.2; IIS 10)
+				var staticPath = (context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "");
+				var readDenied = IntegratedModeConfiguration.AccessDenied("Read", staticPath);
+				if (!IntegratedModeConfiguration.HasIisHandler("StaticFile", staticPath)) System.Web.Hosting.IisLogStatus.Set(context, 4);
+				else if (readDenied != 0)
+				{
+					System.Web.Hosting.IisLogStatus.Set(context, readDenied);
+					context.Response.StatusCode = 403;
+					IisDecision.Set(context, IisDecision.StaticFile);
+					return;
+				}
+				else System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
 				context.Response.StatusCode = 404;
 				IisDecision.Set(context, IisDecision.StaticFile);
 				return;
@@ -205,7 +220,8 @@ namespace Microsoft.AspNetCore.Builder
 				AllowSynchronousIO(context);
 				IisDecision.Set(context, IisDecision.Managed);
 
-				await host.ProcessRequest(context);
+				if (outputCache.Value == null || !await outputCache.Value.RunAsync(context, () => host.ProcessRequest(context)))
+					await host.ProcessRequest(context);
 			} else {
 				// (no file, no handler: the static file handler's 404 on IIS)
 				IisDecision.Set(context, IisDecision.StaticFile);
@@ -222,6 +238,87 @@ namespace Microsoft.AspNetCore.Builder
 		/// rewritten to "/App_Data/users.xml" is 404.8): UseWebFormsIis runs it before URL Rewrite, Invoke after. It ran
 		/// after only: a protected URL a rule rewrote was served.
 		/// </summary>
+		/// <summary>The default document a folder's URL is served by (null: none), for the modules that see the child request's URL.</summary>
+		internal string DefaultDocument(string virtualPath)
+		{
+			if (host == null || !virtualPath.EndsWith("/", StringComparison.Ordinal)) return null;
+			string physical;
+			try { physical = host.MapPath(virtualPath); }
+			catch (Exception e) when (e is HttpException || e is ArgumentException) { return null; }
+			return physical != null && Directory.Exists(physical) ? host.DefaultDocumentFor(virtualPath, physical) : null;
+		}
+
+		/// <summary>
+		/// The handler IIS maps the request to (IntegratedModeConfiguration.Resolve: the application's, its folders', IIS's own),
+		/// what IIS answers before it runs: none, 404.4 (a folder's clear, StaticFile removed); a managed handler's resourceType
+		/// that is not there, 404.0; an access accessPolicy does not give its requireAccess, 403.1, 403.2, 403.3; native
+		/// modules named with a type, 200 with no body (IIS 10). True when it answered.
+		/// </summary>
+		bool Handler(Core.HttpContext context)
+		{
+			if (host == null) return false;
+			var path = (context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "");
+			if (path.Length == 0) path = "/";
+			// (mapped by the file a path info follows when a handler of its type takes it: "/a.txt/x" is a "*.txt" handler's;
+			// else by the whole URL, a static file's path info the extensionless URLs' handler's, IIS 10)
+			var pathBase = context.Request.PathBase.Value ?? "";
+			var file = pathBase + host.SplitMapped(context, context.Request.Path.Value ?? "/").FilePath;
+			var method = context.Request.Method;
+			var handler = IntegratedModeConfiguration.Resolve(method, file.Length == 0 ? "/" : file, host.IsHandled);
+			bool Answer(int status, int subStatus)
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, subStatus);
+				context.Response.StatusCode = status;
+				IisDecision.Set(context, IisDecision.StaticFile);
+				return true;
+			}
+			if (handler == null) return Answer(404, 4);
+			// The anonymous user's write access to a handler's file of the application's: on IIS the anonymous user is IUSR, whom
+			// the site's files give read access only (IIS's default ACLs), and a verb other than GET, HEAD, POST and OPTIONS asks
+			// for write access (FileAuthorizationModule's iAccess 3): ASP.NET's 401.3 (IIS 10: FOO /a.txt to a "*.txt" handler).
+			// There is no Windows identity here to check it.
+			if (handler.Kind is "Managed" or "NativeTyped" &&
+				!Core.HttpMethods.IsGet(method) && !Core.HttpMethods.IsHead(method) && !Core.HttpMethods.IsPost(method) && !Core.HttpMethods.IsOptions(method) &&
+				FileCache.FileExists(host.MapPath(file)))
+			{
+				IisDecision.Set(context, IisDecision.Managed);
+				context.Response.StatusCode = 401;
+				context.Response.ContentType = "text/html; charset=utf-8";
+				context.Response.Headers.CacheControl = "private";
+				System.Web.Hosting.IisLogStatus.Set(context, 3);
+				_ = Core.HttpResponseWritingExtensions.WriteAsync(context.Response, "<html><head><title>Access is denied.</title></head><body><h1>Server Error in '/' Application.</h1><h2><i>Access is denied.</i></h2>" +
+					"<b>Description:</b> An error occurred while accessing the resources required to serve this request.</body></html>");
+				return true;
+			}
+			if (handler.Kind == "NativeTyped")
+			{
+				IisDecision.Set(context, IisDecision.StaticFile);
+				context.Response.StatusCode = 200;
+				context.Response.ContentLength = 0;
+				// ProtocolSupportModule's: OPTIONS's verbs
+				if (Core.HttpMethods.IsOptions(method) && (handler.Modules ?? "").IndexOf("ProtocolSupportModule", StringComparison.OrdinalIgnoreCase) >= 0)
+				{
+					context.Response.Headers["Allow"] = "OPTIONS, TRACE, GET, HEAD, POST";
+					context.Response.Headers["Public"] = "OPTIONS, TRACE, GET, HEAD, POST";
+				}
+				return true;
+			}
+			if (handler.Kind == "Managed" && !handler.ResourceType.Trim().Equals("Unspecified", StringComparison.OrdinalIgnoreCase))
+			{
+				string physical;
+				try { physical = host.MapPath(file); }
+				catch (Exception e) when (e is HttpException || e is ArgumentException) { physical = null; }
+				var isFile = physical != null && FileCache.FileExists(physical);
+				var isFolder = physical != null && Directory.Exists(physical);
+				var there = handler.ResourceType.Trim().ToLowerInvariant() switch { "file" => isFile, "directory" => isFolder, _ => isFile || isFolder };
+				if (!there) return Answer(404, 0);
+			}
+			var denied = IntegratedModeConfiguration.AccessDenied(handler.RequireAccess, file);
+			return denied != 0 && Answer(403, denied);
+		}
+
+		Lazy<System.Web.Hosting.IisOutputCache> outputCache;
+
 		internal static Task AfterFiltering(Core.HttpContext context) =>
 			context.Response.StatusCode == 413 ? AspNetCoreWorkerRequest.TooLargeAsync(context) : Task.CompletedTask;
 

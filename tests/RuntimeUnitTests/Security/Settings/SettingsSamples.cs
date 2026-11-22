@@ -85,6 +85,7 @@ static class SettingsSamples
         // ---- caching (output caching of the probe handler's answers)
         ["caching/profiles/[add]"] = new() { Item = """<add extension=".probe" policy="CacheForTimePeriod" kernelCachePolicy="DontCache" duration="00:00:30" location="Any" />""", Remove = new[] { """<remove extension=".probe" />""" } },
         ["caching/profiles/[add]@extension"] = new() { Values = new[] { ".probe", ".txt" } },
+        ["caching/profiles/[add]@duration"] = new() { Values = new[] { "00:00:01", "00:00:30", "00:00:31", "00:00:59", "00:01:00", "00:01:40", "00:10:00" } },
         ["caching/profiles/[add]@varyByHeaders"] = new() { Values = new[] { "Accept-Encoding" } },
         ["caching/profiles/[add]@varyByQueryString"] = new() { Values = new[] { "*", "do" } },
 
@@ -152,11 +153,15 @@ static class SettingsSamples
         ["httpProtocol/redirectHeaders/[add]@value"] = new() { Values = new[] { "", "2" } },
 
         // ---- httpRedirect (on, to another host, but for its own attributes)
-        ["httpRedirect"] = new() { WithAttributes = "enabled=\"true\" destination=\"http://example.invalid/target\"" },
+        ["httpRedirect"] = new() { WithAttributes = "enabled=\"true\"" },
+        ["httpRedirect@enabled"] = new() { WithAttributes = "destination=\"http://example.invalid/target\"" },
+        ["httpRedirect@exactDestination"] = new() { WithAttributes = "destination=\"http://example.invalid/target\"" },
+        ["httpRedirect@childOnly"] = new() { WithAttributes = "destination=\"http://example.invalid/target\"" },
+        ["httpRedirect@httpResponseStatus"] = new() { WithAttributes = "destination=\"http://example.invalid/target\"" },
         ["httpRedirect@destination"] = new() { Values = new[] { "http://example.invalid/target", "/s/base/a.txt", "a.txt", "http://example.invalid/$S$Q" } },
         ["httpRedirect/[add]"] = new() { Item = """<add wildcard="*.htm" destination="http://example.invalid/htm" />""", Remove = new[] { """<remove wildcard="*.htm" />""" } },
         ["httpRedirect/[add]@wildcard"] = new() { Values = new[] { "*.htm", "{F}/a.txt", "*/list/*" } },
-        ["httpRedirect/[add]@destination"] = new() { Values = new[] { "/s/base/a.txt$Q", "http://example.invalid/$V" } },
+        ["httpRedirect/[add]@destination"] = new() { WithAttributes = "exactDestination=\"true\"", Values = new[] { "/s/base/a.txt$Q", "http://example.invalid/$V" } },
 
         // ---- authentication
         ["security/authentication/anonymousAuthentication@userName"] = new() { Values = new[] { "", "foc-nobody" } },

@@ -20,8 +20,31 @@ namespace System.Web
 	/// </summary>
 	internal static class IntegratedModeConfiguration
 	{
-		// ResourceType: IIS's resourceType (File, Directory, Either; Unspecified, the default: whatever is there).
-		internal sealed record Handler(string Name, string Path, string Verb, string Type, string ResourceType = "Unspecified");
+		// ResourceType: IIS's resourceType (File, Directory, Either; Unspecified, the default: whatever is there). Kind: Managed
+		// (a type of the managed pipeline's), or IIS's own: AspNet (ASP.NET's -Integrated-4.0 entries, the types the host
+		// gives System.Web), Extensionless (ExtensionlessUrlHandler-Integrated-4.0, "*."), Options, Trace, Static
+		// (StaticFile), Native (native modules: not run here), NativeTyped (native modules named with a type: IIS 10 answers
+		// 200 with no body). RequireAccess: its requireAccess (Script, IIS's default), held to handlers' accessPolicy.
+		internal sealed record Handler(string Name, string Path, string Verb, string Type, string ResourceType = "Unspecified",
+			string Kind = "Managed", string RequireAccess = "Script", string PreCondition = null, string Modules = null);
+
+		// applicationHost.config's handlers (IIS 10, ASP.NET 4.8, integrated mode), in its order: ASP.NET's (the types System.Web
+		// takes here), the extensionless URLs', the verbs', the static files' last. A web.config's are before them.
+		static readonly Handler[] IisHandlers =
+		{
+			new Handler("ASP.NET's -Integrated-4.0 handlers", "*", "GET,HEAD,POST,DEBUG", null, "Unspecified", "AspNet", "Script"),
+			new Handler("ExtensionlessUrlHandler-Integrated-4.0", "*.", "GET,HEAD,POST,DEBUG", null, "Unspecified", "Extensionless", "Script"),
+			new Handler("TRACEVerbHandler", "*", "TRACE", null, "Unspecified", "Trace", "None"),
+			new Handler("OPTIONSVerbHandler", "*", "OPTIONS", null, "Unspecified", "Options", "None"),
+			new Handler("StaticFile", "*", "*", null, "Either", "Static", "Read"),
+		};
+
+		// A preCondition the host's pipeline meets: integrated mode, 64 bits, .NET 4 (an application pool's of ASP.NET 4.8 on
+		// IIS 10; IIS 10 leaves out a handler of classicMode, bitness32 or runtimeVersionv2.0: its file served as static).
+		static bool Meets(string preCondition) =>
+			string.IsNullOrEmpty(preCondition) || !preCondition.Split(',').Select(c => c.Trim()).Any(c =>
+				c.Equals("classicMode", StringComparison.OrdinalIgnoreCase) || c.Equals("bitness32", StringComparison.OrdinalIgnoreCase) ||
+				c.Equals("runtimeVersionv2.0", StringComparison.OrdinalIgnoreCase) || c.Equals("runtimeVersionv1.1", StringComparison.OrdinalIgnoreCase));
 
 		static readonly object gate = new object();
 		static (DateTime Written, List<XElement> Modules, List<Handler> Handlers, bool RunAllManagedModules) cache;
@@ -38,13 +61,13 @@ namespace System.Web
 			if (cached.Modules != null && Environment.TickCount64 < Volatile.Read(ref cacheCheckedUntil)) return (cached.Modules, cached.Handlers, cached.RunAllManagedModules);
 			Volatile.Write(ref cacheCheckedUntil, Environment.TickCount64 + CheckEveryMilliseconds);
 			var file = HostingEnvironment.MapPath("~/web.config");
-			if (file == null || !File.Exists(file)) return (new List<XElement>(), new List<Handler>(), false);
+			if (file == null || !File.Exists(file)) return (new List<XElement>(), new List<Handler>(IisHandlers), false);
 			var written = File.GetLastWriteTimeUtc(file);
 			lock (gate)
 			{
 				if (cache.Modules != null && cache.Written == written) return (cache.Modules, cache.Handlers, cache.RunAllManagedModules);
 				var modules = new List<XElement>();
-				var handlers = new List<Handler>();
+				var handlers = new List<Handler>(IisHandlers);
 				var runAll = false;
 				try
 				{
@@ -70,27 +93,44 @@ namespace System.Web
 			}
 		}
 
-		// A system.webServer section's handlers over the ones before it.
+		// A system.webServer section's handlers over the ones before it: its adds before them, in its order (IIS's handlers
+		// collection: a web.config's entries come first; IIS 10, a folder's "*" before the root's "*.probe" answers it), its
+		// clear and remove of the ones before it (applicationHost.config's own: IisHandlers).
 		static void ApplyHandlers(List<Handler> handlers, XElement section)
 		{
+			var added = new List<Handler>();
 			foreach (var entry in section.Elements().Where(e => e.Name.LocalName == "handlers").Elements())
 			{
 				var name = (string)entry.Attribute("name") ?? "";
 				switch (entry.Name.LocalName)
 				{
-					case "clear": handlers.Clear(); break;
-					case "remove": handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase)); break;
+					case "clear": handlers.Clear(); added.Clear(); break;
+					case "remove":
+						handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+						added.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+						break;
 					case "add":
 						var type = (string)entry.Attribute("type");
 						var path = (string)entry.Attribute("path");
-						// IIS's TransferRequestHandler (extensionless URLs to the managed pipeline): here every
-						// request reaches it already.
-						if (string.IsNullOrEmpty(type) || string.IsNullOrEmpty(path) || type.StartsWith("System.Web.Handlers.TransferRequestHandler", StringComparison.Ordinal)) break;
+						if (string.IsNullOrEmpty(path)) break;
+						var modules = ((string)entry.Attribute("modules") ?? "ManagedPipelineHandler").Trim();
+						var managed = modules.Equals("ManagedPipelineHandler", StringComparison.OrdinalIgnoreCase);
+						// IIS's TransferRequestHandler (extensionless URLs to the managed pipeline, an application's own entry:
+						// verb "*" for its Web API's verbs): the extensionless URLs' handler.
+						var kind = !string.IsNullOrEmpty(type) && type.StartsWith("System.Web.Handlers.TransferRequestHandler", StringComparison.Ordinal) ? "Extensionless"
+							: !string.IsNullOrEmpty(type) ? (managed ? "Managed" : "NativeTyped")
+							: modules.IndexOf("StaticFileModule", StringComparison.OrdinalIgnoreCase) >= 0 ? "Static"
+							: modules.IndexOf("ProtocolSupportModule", StringComparison.OrdinalIgnoreCase) >= 0 ? ((string)entry.Attribute("verb") ?? "").Trim().Equals("TRACE", StringComparison.OrdinalIgnoreCase) ? "Trace" : "Options"
+							: "Native";
 						handlers.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
-						handlers.Add(new Handler(name, path, (string)entry.Attribute("verb") ?? "*", type, (string)entry.Attribute("resourceType") ?? "Unspecified"));
+						added.RemoveAll(h => h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+						added.Add(new Handler(name, path, (string)entry.Attribute("verb") ?? "*", kind is "Managed" ? type : null,
+							(string)entry.Attribute("resourceType") ?? "Unspecified", kind, (string)entry.Attribute("requireAccess") ?? "Script",
+							(string)entry.Attribute("preCondition"), modules));
 						break;
 				}
 			}
+			handlers.InsertRange(0, added);
 		}
 
 		// The handlers of a folder with handlers of its own (a <location path>'s, a folder's web.config's: IIS 10's handlers
@@ -187,33 +227,10 @@ namespace System.Web
 		/// </summary>
 		internal static bool AnswersTrace(string virtualPath) => AnswersVerb("TRACE", virtualPath);
 
-		static bool AnswersVerb(string verb, string virtualPath)
-		{
-			if (FindHandler(verb, virtualPath) != null) return false;
-			var file = HostingEnvironment.MapPath("~/web.config");
-			if (file == null || !File.Exists(file)) return true;
-			var written = File.GetLastWriteTimeUtc(file);
-			var known = verbHandlersRemoved;
-			if (known.Written != written || known.File != file)
-			{
-				bool options = false, trace = false;
-				try
-				{
-					foreach (var entry in XDocument.Load(file).Descendants().Where(e => e.Parent?.Name.LocalName == "handlers"))
-					{
-						var clear = entry.Name.LocalName == "clear";
-						var removed = entry.Name.LocalName == "remove" ? (string)entry.Attribute("name") : null;
-						if (clear || string.Equals(removed, "OPTIONSVerbHandler", StringComparison.OrdinalIgnoreCase)) options = true;
-						if (clear || string.Equals(removed, "TRACEVerbHandler", StringComparison.OrdinalIgnoreCase)) trace = true;
-					}
-				}
-				catch (Exception e) when (e is System.Xml.XmlException || e is IOException) { }
-				verbHandlersRemoved = known = (file, written, options, trace);
-			}
-			return verb == "OPTIONS" ? !known.Options : !known.Trace;
-		}
-
-		static (string File, DateTime Written, bool Options, bool Trace) verbHandlersRemoved;
+		// The verb's entry is the one IIS maps the URL to (a managed handler's first; the folder's web.config's remove of it:
+		// the next one's, the static files' 405.0 for OPTIONS, IIS 10).
+		static bool AnswersVerb(string verb, string virtualPath) =>
+			Resolve(verb, virtualPath, null)?.Kind == (verb == "OPTIONS" ? "Options" : "Trace");
 
 		/// <summary>
 		/// Whether a managed handler of system.webServer/handlers answers the URL where no file or folder is (nopCommerce's
@@ -224,27 +241,88 @@ namespace System.Web
 		internal static bool HandlesWithoutResource(string verb, string virtualPath) =>
 			FindHandler(verb, virtualPath) is { } handler && string.Equals(handler.ResourceType.Trim(), "Unspecified", StringComparison.OrdinalIgnoreCase);
 
+		// The managed handler of system.webServer/handlers that answers the request (System.Web's mapping otherwise): the first
+		// entry for it in IIS's order, if it is a managed one.
 		static Handler FindHandler(string verb, string virtualPath)
 		{
+			var handler = Resolve(verb, virtualPath, null);
+			return handler?.Kind == "Managed" ? handler : null;
+		}
+
+		/// <summary>
+		/// The entry of the handlers in effect for the URL (the application's, its folders', IIS's own: IisHandlers) that IIS maps
+		/// the request to: the first whose path and verb take it and whose preCondition the host meets; null for none (IIS's
+		/// 404.4). aspNet: whether System.Web takes the URL's type (the -Integrated-4.0 entries'); null: none of them answers.
+		/// </summary>
+		internal static Handler Resolve(string verb, string virtualPath, Func<string, bool> aspNet)
+		{
 			var handlers = HandlersFor(virtualPath);
-			if (handlers.Count == 0) return null;
 			var fileName = virtualPath.Substring(virtualPath.LastIndexOf('/') + 1);
 			foreach (var handler in handlers)
 			{
-				// Without a '/', IIS matches the path against the request's file name. With one (seen on IIS 10, a folder's
-				// web.config): from a '/' the whole URL path ("/T/H/Root.ashx"; "/H/Abs.ashx" does not answer /T/H/Abs.ashx);
-				// else the end of the URL's path, whole segments ("Z/R.ashx" answers .../Z/R.ashx and .../X/Z/R.ashx, not
-				// .../XZ/R.ashx; "Y/Redirect.ashx" of the application's answers /Y/Redirect.ashx); '*' within a segment
-				// ("H/*.foo" answers /T/H/a.foo, not /T/H/Sub/a.foo). The host's choice: "~/" is the whole path too (IIS takes
-				// '~' as a character: it never matches).
-				var matches = handler.Path.Contains('/')
-					? Wildcard(handler.Path, segments: true).IsMatch(virtualPath)
-					: Wildcard(handler.Path.TrimStart('~'), segments: false).IsMatch(fileName);
-				if (!matches) continue;
+				if (!Meets(handler.PreCondition)) continue;
+				if (handler.Kind == "AspNet")
+				{
+					if (aspNet == null || !aspNet(virtualPath)) continue;
+				}
+				// "*.": a name without a type (a folder's URL too).
+				else if (handler.Path == "*.")
+				{
+					if (fileName.IndexOf('.') >= 0) continue;
+				}
+				else if (!PathMatches(handler, virtualPath, fileName)) continue;
 				if (handler.Verb != "*" && !handler.Verb.Split(',').Any(v => v.Trim().Equals(verb, StringComparison.OrdinalIgnoreCase))) continue;
 				return handler;
 			}
 			return null;
+		}
+
+		/// <summary>Whether a handler of the application's, of a type's path ("*.txt", not "*"), takes the name.</summary>
+		internal static bool HasManagedHandler(string virtualPath)
+		{
+			var fileName = virtualPath.Substring(virtualPath.LastIndexOf('/') + 1);
+			return HandlersFor(virtualPath).Any(h => h.Kind is "Managed" or "NativeTyped" && h.Path.IndexOf('.') >= 0 && Meets(h.PreCondition) && PathMatches(h, virtualPath, fileName));
+		}
+
+		/// <summary>Whether the folder's handlers have IIS's entry of the name (StaticFile: not removed or cleared).</summary>
+		internal static bool HasIisHandler(string name, string virtualPath) =>
+			HandlersFor(virtualPath).Any(h => h.Kind != "Managed" && h.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+		/// <summary>
+		/// handlers' accessPolicy for the URL (the nearest one's: the original server's, web.config's; applicationHost.config's
+		/// "Read, Script" without them) against a handler's requireAccess: 0 when it has the access, else IIS's 403 substatus
+		/// (IIS 10: Read missing 403.2, Script or Execute 403.1, Write 403.3).
+		/// </summary>
+		internal static int AccessDenied(string requireAccess, string virtualPath)
+		{
+			var required = (requireAccess ?? "Script").Trim();
+			if (required.Equals("None", StringComparison.OrdinalIgnoreCase)) return 0;
+			var policy = "Read, Script";
+			var root = IisConfiguration.Root;
+			if (root != null)
+				foreach (var section in IisConfiguration.For(root, virtualPath))
+					if ((string)IisConfiguration.Child(section.WebServer, "handlers")?.Attribute("accessPolicy") is { } value) policy = value;
+			var flags = new HashSet<string>(policy.Split(',').Select(f => f.Trim()), StringComparer.OrdinalIgnoreCase);
+			switch (required.ToLowerInvariant())
+			{
+				case "read": return flags.Contains("Read") ? 0 : 2;
+				case "write": return flags.Contains("Write") ? 0 : 3;
+				case "execute": return flags.Contains("Execute") ? 0 : 1;
+				default: return flags.Contains("Script") || flags.Contains("Execute") ? 0 : 1;
+			}
+		}
+
+		static bool PathMatches(Handler handler, string virtualPath, string fileName)
+		{
+			// Without a '/', IIS matches the path against the request's file name. With one (seen on IIS 10, a folder's
+			// web.config): from a '/' the whole URL path ("/T/H/Root.ashx"; "/H/Abs.ashx" does not answer /T/H/Abs.ashx);
+			// else the end of the URL's path, whole segments ("Z/R.ashx" answers .../Z/R.ashx and .../X/Z/R.ashx, not
+			// .../XZ/R.ashx; "Y/Redirect.ashx" of the application's answers /Y/Redirect.ashx); '*' within a segment
+			// ("H/*.foo" answers /T/H/a.foo, not /T/H/Sub/a.foo). The host's choice: "~/" is the whole path too (IIS takes
+			// '~' as a character: it never matches).
+			return handler.Path.Contains('/')
+				? Wildcard(handler.Path, segments: true).IsMatch(virtualPath)
+				: Wildcard(handler.Path.TrimStart('~'), segments: false).IsMatch(fileName);
 		}
 
 		static readonly System.Collections.Concurrent.ConcurrentDictionary<string, Tuple<long, int, int>> limitsByFolder =

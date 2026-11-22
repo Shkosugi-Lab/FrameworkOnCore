@@ -48,11 +48,27 @@ namespace System.Web {
         internal HttpForbiddenHandler() {
         }
 
+#if !NETFRAMEWORK
+        static readonly string[] IisForbidden = { ".aspq", ".cshtm", ".cshtml", ".vbhtm", ".vbhtml" };
+#endif
+
 
         /// <devdoc>
         ///    <para>Drives web processing execution.</para>
         /// </devdoc>
         public void ProcessRequest(HttpContext context) {
+#if !NETFRAMEWORK
+            // FrameworkOnCore: the root web.config's system.web/httpHandlers stand for IIS's integrated handlers, which forbid
+            // five types only (applicationHost.config: .aspq, .cshtm, .cshtml, .vbhtm, .vbhtml); the root web.config's other
+            // forbidden types (.config, .cs, .mdf...) IIS leaves to its request filtering, and a type a web.config allows
+            // there is its static file handler's (IIS 10: .config allowed is 404.3, no MIME type). Not a handler of
+            // system.webServer/handlers' (an application's forbidden type: 403).
+            if (System.Web.IntegratedModeConfiguration.FindHandlerType(context.Request.HttpMethod, context.Request.FilePathObject) == null &&
+                !IisForbidden.Contains(System.IO.Path.GetExtension(context.Request.FilePath), StringComparer.OrdinalIgnoreCase)) {
+                StaticFileHandler.ProcessRequestInternal(context, null);
+                return;
+            }
+#endif
             PerfCounters.IncrementCounter(AppPerfCounter.REQUESTS_NOT_FOUND);
 
             throw new HttpException(403, 

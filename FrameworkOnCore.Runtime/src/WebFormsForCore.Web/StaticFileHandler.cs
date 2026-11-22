@@ -292,6 +292,15 @@ namespace System.Web {
         }
 
         public void ProcessRequest(HttpContext context) {
+#if !NETFRAMEWORK
+            // FrameworkOnCore: a web.config's handler of this type (system.webServer/handlers) is ASP.NET's static file handler
+            // as IIS runs it: its Cache-Control public, its Expires a day ahead, its 404 (IIS 10); not IIS's static file module
+            // the host has it be otherwise.
+            if (IntegratedModeConfiguration.FindHandlerType(context.Request.HttpMethod, context.Request.FilePathObject)?.StartsWith("System.Web.StaticFileHandler", StringComparison.Ordinal) == true) {
+                ProcessRequestInternal(context, overrideVirtualPath: null, aspNet: true);
+                return;
+            }
+#endif
             ProcessRequestInternal(context, overrideVirtualPath: null);
         }
 
@@ -479,18 +488,26 @@ namespace System.Web {
                 HttpUtilityInternal.FormatHttpDateTime(lastModified));
 #endif
 			response.AppendHeader("Accept-Ranges", "bytes");
-            response.AppendHeader("ETag", etag);
+            // (none with clientCache's setEtag false: IisStaticFile gives none; IIS 10's 206 has none then)
+            if (etag != null) response.AppendHeader("ETag", etag);
 #if NETFRAMEWORK
             response.AppendHeader("Cache-Control", "public");
 #else
-            AsIisStaticFile(response);
+            if (aspNetHandler) response.AppendHeader("Cache-Control", "public");
+            else AsIisStaticFile(response);
 #endif
 
             handled = true;
             return handled;
         }
 
-        internal static void ProcessRequestInternal(HttpContext context, string overrideVirtualPath) {
+        internal static void ProcessRequestInternal(HttpContext context, string overrideVirtualPath) => ProcessRequestInternal(context, overrideVirtualPath, aspNet: false);
+
+        // aspNet: as ASP.NET's own handler answers (a web.config's handler of its type), not as IIS's static file module.
+        internal static void ProcessRequestInternal(HttpContext context, string overrideVirtualPath, bool aspNet) {
+#if !NETFRAMEWORK
+            aspNetHandler = aspNet;   // (this request's, before anything answers it: the range's answer reads it)
+#endif
             HttpRequest request = context.Request;
             HttpResponse response = context.Response;
             string virtualPathWithPathInfo;
@@ -523,11 +540,11 @@ namespace System.Web {
             // Path info after a file ("/robots.txt/x": the worker request takes the first segment that is a file as the
             // path, the rest as path info) is no static file's URL: IIS answers 404. The file was served, whatever the
             // types denied for it: the request filtering had seen the last segment only ("/appsettings.json/x").
-            if (overrideVirtualPath == null && !String.IsNullOrEmpty(request.PathInfo) && IisStaticFile.NotFoundForPathInfo(context, physicalPath)) {
+            if (!aspNet && overrideVirtualPath == null && !String.IsNullOrEmpty(request.PathInfo) && IisStaticFile.NotFoundForPathInfo(context, physicalPath)) {
                 return;
             }
             // As IIS's static file module serves it (IisStaticFile); a directory as before.
-            if (IisStaticFile.Serve(context, virtualPathWithPathInfo, physicalPath)) {
+            if (!aspNet && IisStaticFile.Serve(context, virtualPathWithPathInfo, physicalPath)) {
                 return;
             }
 #endif
@@ -585,6 +602,8 @@ namespace System.Web {
 #if NETFRAMEWORK
             // Set an expires in the future.
             response.Cache.SetExpires(utcNow.AddDays(1));
+#else
+            if (aspNetHandler) response.Cache.SetExpires(utcNow.AddDays(1));
 #endif
             // always set Last-Modified
             response.Cache.SetLastModified(lastModifiedInUtc);
@@ -594,9 +613,13 @@ namespace System.Web {
             // always set Cache-Control to public
             response.Cache.SetCacheability(HttpCacheability.Public);
 #else
-            AsIisStaticFile(response);
+            if (aspNetHandler) response.Cache.SetCacheability(HttpCacheability.Public);
+            else AsIisStaticFile(response);
 #endif
         }
+
+        // The request's answer is ASP.NET's handler's own (ProcessRequestInternal's aspNet).
+        [ThreadStatic] static bool aspNetHandler;
 
 #if !NETFRAMEWORK
         // As IIS's static file module serves a file (the integrated pipeline, which the applications were written for), not

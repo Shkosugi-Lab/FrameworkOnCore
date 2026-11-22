@@ -152,6 +152,7 @@ public sealed class SettingsTests : IClassFixture<SettingsTests.Server>
         // (FOC_SETTINGS_PRINT=file: the port's answers written there, to read them all)
         if (Environment.GetEnvironmentVariable("FOC_SETTINGS_PRINT") is { } print)
             lock (Json) File.AppendAllLines(print, port.Select(p => id + "\t" + p.Key + "\t" + p.Value));
+        SettingsAllowed.Baseline = probe => golden.Value.Baseline.GetValueOrDefault(probe);
         var problems = new List<string>();
         foreach (var (name, answer) in port)
         {

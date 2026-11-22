@@ -89,7 +89,12 @@ namespace Microsoft.AspNetCore.Builder
 			});
 			app.UseWebFormsUrlRewrite();
 			var redirect = System.Web.Hosting.IisHttpRedirect.Load(contentRoot);
-			if (redirect != null) app.UseMiddleware<System.Web.Hosting.IisHttpRedirect.Middleware>(redirect);
+			if (redirect != null)
+			{
+				// (a folder's URL is redirected as its default document's, the child request IIS's module sees)
+				redirect.DefaultDocument = path => pipeline.Middleware?.DefaultDocument(path);
+				app.UseMiddleware<System.Web.Hosting.IisHttpRedirect.Middleware>(redirect);
+			}
 			return app;
 		}
 	}

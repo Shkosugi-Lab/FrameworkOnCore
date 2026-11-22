@@ -6,7 +6,7 @@
     "stubs": 23,
     "Error entries": 0,
     "Raised entries": 2,
-    "Iis entries": 3,
+    "Iis entries": 4,
     "Unsupported entries": 37,
     "Stub entries": 23,
     "Platform entries": 198,
@@ -687,6 +687,7 @@
       "BlogEngine.NET: Newtonsoft.Json 7.0.1 -> 13.0.4: it compiles; a JSON deeper than 64 levels is refused (MaxDepth, from 13) (replaced by Newtonsoft.Json 13.0.4: replacedPackages)"
     ],
     "Iis": [
+      "handlers' access policy (handlers accessPolicy): 対応(Web.Config): Read, Write, Script, Execute: applied as IIS applies it",
       "managed handlers (handlers): 対応(Web.Config)",
       "managed modules (modules): 対応(Web.Config)",
       "static content (staticContent): 対応(Web.Config): MIME map, clientCache"

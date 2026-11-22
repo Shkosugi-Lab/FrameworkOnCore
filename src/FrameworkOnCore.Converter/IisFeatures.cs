@@ -190,13 +190,14 @@ public static class IisFeatures
             foreach (var rules in new[] { "rules", "globalRules" })
                 if (False(Child(rewrite, rules), "useOriginalURLEncoding"))
                     Add("URL Rewrite (rewrite/" + rules + " useOriginalURLEncoding)", Status.Unsupported, "false not applied: the rules see the URL as with true (the default)");
-            if (Child(webServer, "handlers")?.Attribute("accessPolicy") is { } policy && !policy.Value.Contains("Script", StringComparison.OrdinalIgnoreCase))
-                Add("handlers' access policy (handlers accessPolicy)", Status.Unsupported, policy.Value + ": not applied; the handlers that need Script access (ASP.NET's) run");
+            // (applied: the handlers' requireAccess held to it, IIS's 403.1, 403.2, 403.3; the host's tests' iis-settings.json)
+            if (Child(webServer, "handlers")?.Attribute("accessPolicy") is { } policy)
+                Add("handlers' access policy (handlers accessPolicy)", Status.Supported, policy.Value + ": applied as IIS applies it");
             if (Child(webServer, "staticContent") != null) Add("static content (staticContent)", Status.Supported, "MIME map, clientCache");
             if (Child(webServer, "defaultDocument") != null) Add("default documents (defaultDocument)", Status.Supported, "");
             if (Child(webServer, "directoryBrowse") != null) Add("directory browsing (directoryBrowse)", Status.Supported, "");
             if (Child(webServer, "httpLogging") != null) Add("HTTP logging (httpLogging)", Status.Supported, "dontLog");
-            if (Child(webServer, "caching") != null) Add("output caching (caching)", Status.Partial, "enabled, enableKernelCache read; the profiles (caching/profiles) not");
+            if (Child(webServer, "caching") != null) Add("output caching (caching)", Status.Supported, "enabled, enableKernelCache, the profiles (caching/profiles: their Cache-Control, the handlers' answers kept)");
             var modules = Child(webServer, "modules");
             var native = modules?.Elements().Where(e => e.Name.LocalName == "add" && e.Attribute("type") == null).Select(e => (string?)e.Attribute("name")).ToList();
             if (native?.Count > 0) Add("native modules (modules)", Status.Unsupported, string.Join(", ", native) + ": IIS's native modules, not run");

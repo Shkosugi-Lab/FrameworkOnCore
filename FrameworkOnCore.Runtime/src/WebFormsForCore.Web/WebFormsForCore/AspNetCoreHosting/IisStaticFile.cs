@@ -26,6 +26,21 @@ namespace System.Web
 			var response = context.Response;
 			var request = context.Request;
 			response.SuppressVersionHeader = true;
+			// IIS's StaticFile handler for the URL (a default document's child request too): a folder's web.config that removed
+			// it or cleared the handlers, IIS's 404.4; its Read access not given by accessPolicy, 403.2 (IIS 10).
+			if (!IntegratedModeConfiguration.HasIisHandler("StaticFile", virtualPath))
+			{
+				NotFound(context, 4, 0);
+				return true;
+			}
+			if (IntegratedModeConfiguration.AccessDenied("Read", virtualPath) is var denied && denied != 0)
+			{
+				Decided(context);
+				IisLogStatus.Set((context.WorkerRequest as AspNetCoreWorkerRequest)?.Context, denied, 0);
+				response.SuppressDefaultCacheControlHeader = true;
+				response.StatusCode = 403;
+				return true;
+			}
 			// The path's state as FileCache keeps it (IIS's file cache): no file system call for a file served before.
 			var file = FileCache.Get(physicalPath);
 			if (file.IsDirectory && FileUtil.DirectoryExists(physicalPath))   // (a name FileUtil does not take as a folder's: not one)
@@ -40,6 +55,15 @@ namespace System.Web
 				if (!virtualPath.EndsWith("/", StringComparison.Ordinal))
 				{
 					Decided(context);
+					// The courtesy redirect is the default document module's and the listing's: with neither (defaultDocument
+					// enabled false, directoryBrowse off) IIS 10 answers 403.14; without names (a clear) the module still redirects.
+					if (folderWorker?.Host?.DefaultDocumentsEnabled(virtualPath) == false && DirectoryBrowsing(virtualPath + "/") == null)
+					{
+						IisLogStatus.Set(folderWorker.Context, 14, 0);
+						response.SuppressDefaultCacheControlHeader = true;
+						response.StatusCode = 403;
+						return true;
+					}
 					CourtesyRedirect(context, virtualPath);
 					return true;
 				}
@@ -100,6 +124,8 @@ namespace System.Web
 				// module's answer to the extensionless handler's request for it (IIS 10; it was 404.3).
 				if (Path.GetExtension(physicalPath).Length == 0) NotFound(context, 17, 50);
 				else NotFound(context, 3, 50);  // IIS: 404.3, Win32 50 (ERROR_NOT_SUPPORTED)
+				// (the file's Expires of clientCache's UseExpires is sent with it: IIS 10)
+				if (clientCache.Mode == "UseExpires" && !string.IsNullOrEmpty(clientCache.HttpExpires)) response.AppendHeader("Expires", clientCache.HttpExpires);
 				return true;
 			}
 
@@ -164,7 +190,7 @@ namespace System.Web
 				// range is not one to answer.
 				var range = request.Headers["Range"];
 				if (range != null && range.StartsWith("bytes", StringComparison.OrdinalIgnoreCase) &&
-					StaticFileHandler.ProcessRangeRequest(context, physicalPath, snapshot.Length, range, etag, lastModified, Send))
+					StaticFileHandler.ProcessRangeRequest(context, physicalPath, snapshot.Length, range, clientCache.SetEtag ? etag : null, lastModified, Send))
 				{
 					clientCache.Apply(response);
 					return true;
@@ -247,7 +273,9 @@ namespace System.Web
 		/// </summary>
 		internal static void VerbNotAllowed(HttpContext context)
 		{
-			if (!FileCache.Get(context.Request.PhysicalPath).IsFile)
+			// (a folder is there too: IIS 10's FOO of a folder's URL is 405.0)
+			var there = FileCache.Get(context.Request.PhysicalPath);
+			if (!there.IsFile && !(there.IsDirectory && FileUtil.DirectoryExists(context.Request.PhysicalPath)))
 			{
 				NotFound(context, 0, 2);
 				return;

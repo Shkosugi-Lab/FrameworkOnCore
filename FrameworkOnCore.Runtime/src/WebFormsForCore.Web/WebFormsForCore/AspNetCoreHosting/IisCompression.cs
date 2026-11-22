@@ -54,6 +54,7 @@ namespace System.Web.Hosting
 			public bool Dynamic = true;
 			public int FrequentHitThreshold = 2;
 			public TimeSpan FrequentHitTimePeriod = TimeSpan.FromSeconds(10);
+			public List<(Regex Type, bool Enabled)> StaticTypes, DynamicTypes;   // null: the server's
 		}
 
 		sealed class Hits
@@ -109,32 +110,49 @@ namespace System.Web.Hosting
 			}
 		}
 
-		static List<(Regex, bool)> TypesOf(XElement types)
+		// The types' list: the one it is under (null: none), the element's clear, remove and add in order.
+		static List<(Regex Type, bool Enabled)> TypesOf(XElement types, List<(Regex Type, bool Enabled)> under = null) => TypesOf(types, under, out _);
+
+		// error: an entry IIS does not take (no mimeType, an enabled that is not a bool, a type the list has already).
+		static List<(Regex Type, bool Enabled)> TypesOf(XElement types, List<(Regex Type, bool Enabled)> under, out bool error)
 		{
+			error = false;
 			if (types == null) return null;
-			var list = new List<(Regex, bool)>();
+			var list = under == null ? new List<(Regex Type, bool Enabled)>() : new List<(Regex Type, bool Enabled)>(under);
 			foreach (var item in types.Elements())
 			{
 				var type = (string)item.Attribute("mimeType");
 				switch (item.Name.LocalName)
 				{
 					case "clear": list.Clear(); break;
-					case "add" when !string.IsNullOrEmpty(type):
+					case "remove" when !string.IsNullOrEmpty(type):
+						var pattern = TypePattern(type).ToString();
+						list.RemoveAll(t => t.Type.ToString() == pattern);
+						break;
+					case "add":
 						bool enabled;
-						list.Add((TypePattern(type), !bool.TryParse((string)item.Attribute("enabled"), out enabled) || enabled));
+						var given = (string)item.Attribute("enabled");
+						if (string.IsNullOrEmpty(type) || given != null && !bool.TryParse(given, out _) || list.Any(t => t.Type.ToString() == TypePattern(type).ToString()))
+						{
+							error = true;
+							break;
+						}
+						list.Add((TypePattern(type), !bool.TryParse(given, out enabled) || enabled));
 						break;
 				}
 			}
 			return list;
 		}
 
-		// A type's entry: the first that matches (IIS's order), its enabled.
+		// A type's entry, the most exact that matches (IIS 10: the type's own, then "text/*", then "*/*", wherever each is in
+		// the list: a folder's "text/*" after the server's "*/*" is taken), its enabled.
 		static bool Takes(List<(Regex Type, bool Enabled)> types, string contentType)
 		{
 			var type = (contentType ?? "").Split(';')[0].Trim();
 			if (type.Length == 0) return false;
-			foreach (var (pattern, enabled) in types)
-				if (pattern.IsMatch(type)) return enabled;
+			static int Wildcards(Regex pattern) => pattern.ToString().Split("[^;]*").Length - 1 + (pattern.ToString().StartsWith("^[^;]*", StringComparison.Ordinal) ? 1 : 0);
+			foreach (var (pattern, enabled) in types.Where(t => t.Type.IsMatch(type)).OrderBy(t => Wildcards(t.Type)))
+				return enabled;
 			return false;
 		}
 
@@ -147,6 +165,20 @@ namespace System.Web.Hosting
 				var url = IisConfiguration.Child(section.WebServer, "urlCompression");
 				if (bool.TryParse((string)url?.Attribute("doStaticCompression"), out flag)) folder.Static = flag;
 				if (bool.TryParse((string)url?.Attribute("doDynamicCompression"), out flag)) folder.Dynamic = flag;
+				// The types of a web.config's httpCompression over the server's (IIS 10: a folder's dynamicTypes without text/*
+				// is a text file's first answer uncompressed, the one its dynamic compression gives); its other attributes are
+				// the server's only.
+				// A section with an entry IIS does not take is not read at all (IIS 10: no 500.19, the server's types).
+				if (!section.Server && IisConfiguration.Child(section.WebServer, "httpCompression") is { } compression)
+				{
+					var staticTypes = TypesOf(IisConfiguration.Child(compression, "staticTypes"), folder.StaticTypes ?? server.StaticTypes, out var staticError);
+					var dynamicTypes = TypesOf(IisConfiguration.Child(compression, "dynamicTypes"), folder.DynamicTypes ?? server.DynamicTypes, out var dynamicError);
+					if (!staticError && !dynamicError)
+					{
+						folder.StaticTypes = staticTypes ?? folder.StaticTypes;
+						folder.DynamicTypes = dynamicTypes ?? folder.DynamicTypes;
+					}
+				}
 				var runtime = IisConfiguration.Child(section.WebServer, "serverRuntime");
 				int threshold;
 				if (int.TryParse((string)runtime?.Attribute("frequentHitThreshold"), out threshold)) folder.FrequentHitThreshold = threshold;
@@ -198,11 +230,11 @@ namespace System.Web.Hosting
 				// A static file's hits counted whatever the client takes (IIS's frequent hits: its file cache's).
 				var frequent = server.IgnoreHitFrequency || Frequent(file.PhysicalPath, folder);
 				if (scheme == null) return null;
-				if (server.StaticModule && folder.Static && frequent && file.Length >= server.MinFileSize && Takes(server.StaticTypes, response.ContentType))
+				if (server.StaticModule && folder.Static && frequent && file.Length >= server.MinFileSize && Takes(folder.StaticTypes ?? server.StaticTypes, response.ContentType))
 					return (scheme, true);
 			}
 			if (scheme == null) return null;
-			if (server.DynamicModule && folder.Dynamic && Takes(server.DynamicTypes, response.ContentType)) return (scheme, false);
+			if (server.DynamicModule && folder.Dynamic && Takes(folder.DynamicTypes ?? server.DynamicTypes, response.ContentType)) return (scheme, false);
 			return null;
 		}
 

@@ -423,11 +423,30 @@ public class IisHttpErrorsTests
         Assert.Equal("the error page", Site.Body(result));
     }
 
-    [Fact] // the host's choice (summary): the page run is not replaced in turn, even if it answers an error; a relative path is its folder's
-    public async Task The_page_run_is_not_replaced_again()
+    [Fact] // IIS 10 (the host's tests' iis-settings.json): an ExecuteURL path that is not the site's ("a.htm") runs nothing: the status, no body
+    public async Task A_relative_execute_url_runs_nothing()
     {
         using var site = new Site("<configuration><location path='sub'><system.webServer><httpErrors>" +
             "<error statusCode='500' path='oops.aspx' responseMode='ExecuteURL' /></httpErrors></system.webServer></location></configuration>");
+        var paths = new List<string>();
+        RequestDelegate app = async context =>
+        {
+            paths.Add(context.Request.Path);
+            context.Features.Set(new IisErrorFlags { SystemWeb = true });
+            context.Response.StatusCode = 500;
+            await Task.CompletedTask;
+        };
+        var result = await Run(site, app, target: "/sub/page.aspx");
+        Assert.Equal(new[] { "/sub/page.aspx" }, paths);
+        Assert.Equal(500, result.Response.StatusCode);
+        Assert.Equal("", Site.Body(result));
+    }
+
+    [Fact] // the host's choice (summary): the page run is not replaced in turn, even if it answers an error
+    public async Task The_page_run_is_not_replaced_again()
+    {
+        using var site = new Site("<configuration><location path='sub'><system.webServer><httpErrors>" +
+            "<error statusCode='500' path='/sub/oops.aspx' responseMode='ExecuteURL' /></httpErrors></system.webServer></location></configuration>");
         var paths = new List<string>();
         RequestDelegate app = async context =>
         {

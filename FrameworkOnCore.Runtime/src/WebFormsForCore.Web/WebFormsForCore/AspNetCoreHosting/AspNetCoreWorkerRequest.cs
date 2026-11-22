@@ -31,7 +31,6 @@ namespace System.Web.Hosting
 
 		private const int MaxHeaderBytes = 32 * 1024;
 
-		private static readonly char[] BadPathChars = new[] { '%', '>', '<', ':', '\\' };
 
 
 		private TaskCompletionSource<bool> Completed = new TaskCompletionSource<bool>();
@@ -800,10 +799,15 @@ namespace System.Web.Hosting
 			}
 		}
 
+		private static readonly char[] BadPathChars = new[] { '>', '<', ':', '\\' };
+
 		private bool IsBadPath()
 		{
 			ParseRequest();
 
+			// ('%' is ASP.NET's request validation's to refuse, its HttpException's 400 page: IIS 10's "/a%252Etxt" with
+			// allowDoubleEscaping; the worker request answered an empty 400 before it. The others the file system's mapping
+			// does not take.)
 			if (path.IndexOfAny(BadPathChars) >= 0)
 			{
 				return true;

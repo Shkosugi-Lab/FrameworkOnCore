@@ -68,6 +68,27 @@ namespace System.Web.Hosting
 
         /// <summary>A name of a type IIS maps to ASP.NET's handlers (HandleExtensions, Web Pages'): where IisUrl.Split takes the file.</summary>
         internal bool IsHandled(string name) => HandleExtensions.Any(ext => name.EndsWith(ext, StringComparison.OrdinalIgnoreCase)) || IsWebPagesFile(name);
+
+        // A file's name System.Web answers with path info after it: a handled type's, or a managed handler's of the
+        // application's web.config (IIS 10: "/a.txt/x" with a "*.txt" handler is the handler's, a.txt and its path info).
+        internal bool IsHandledOrMapped(string name) => IsHandled(name);
+
+        // The URL's file and path info, a handler of the application's taking a segment as the file (with the application's base).
+        // A file followed by path info whose handler is a managed one of the application's (any path: "*" too) is System.Web's.
+        internal (string FilePath, string PathInfo) SplitMapped(Core.HttpContext context, string path)
+        {
+            var handled = IisUrl.Split(path, IsHandled);
+            if (handled.PathInfo.Length > 0) return handled;
+            var pathBase = context.Request.PathBase.Value ?? "";
+            var split = IisUrl.Split(path, IsHandled, candidate =>
+            {
+                if (IntegratedModeConfiguration.HasManagedHandler(pathBase + candidate)) return true;
+                try { return FileCache.FileExists(MapPath(pathBase + candidate)); }
+                catch (Exception e) when (e is HttpException || e is ArgumentException) { return false; }
+            });
+            return split.PathInfo.Length > 0 && IntegratedModeConfiguration.Resolve(context.Request.Method, pathBase + split.FilePath, null)?.Kind is "Managed" or "NativeTyped"
+                ? split : (path, "");
+        }
         // IIS's defaultDocument, in its order and with its names (Default.asp, classic ASP, left out): a folder's file is found by
         // them without regard to case. It was another order, "iisstart.htm" was "iistart.htm".
         public string[] DefaultDocuments { get; set; } = new string[] { "Default.htm", "index.htm", "index.html", "iisstart.htm", "default.aspx" };
@@ -238,6 +259,17 @@ namespace System.Web.Hosting
                 }
                 return enabled ? documents : Array.Empty<string>();
             });
+        }
+
+        /// <summary>Whether defaultDocument is enabled for the folder (the nearest enabled attribute's; IIS's default true).</summary>
+        internal bool DefaultDocumentsEnabled(string path)
+        {
+            var root = physicalPath;
+            if (root == null) return true;
+            var enabled = true;
+            foreach (var section in IisConfiguration.For(root, path).Select(s => IisConfiguration.Child(s.WebServer, "defaultDocument")).Where(s => s != null))
+                if ((string)section.Attribute("enabled") is { } value) enabled = !string.Equals(value, "false", StringComparison.OrdinalIgnoreCase);
+            return enabled;
         }
 
         static readonly string[] IisDefaultDocuments = { "Default.htm", "index.htm", "index.html", "iisstart.htm", "default.aspx" };
@@ -447,7 +479,7 @@ namespace System.Web.Hosting
         internal bool IsStaticFileWithPathInfo(Core.HttpContext context)
         {
             var path = context.Request.Path.Value ?? "";
-            if (IisUrl.Split(path, IsHandled).PathInfo.Length > 0) return false;
+            if (SplitMapped(context, path).PathInfo.Length > 0) return false;
             var (_, pathInfo) = IisUrl.Split(path, IsHandled, candidate =>
             {
                 try { return FileCache.FileExists(MapPath((context.Request.PathBase.Value ?? "") + candidate)); }
@@ -470,8 +502,11 @@ namespace System.Web.Hosting
 			if (HandleExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) ) || IsWebPagesFile(path))
                 return true;
             // A handled file with path info of any depth (/a.aspx/x/y: the worker request's /a.aspx and /x/y, IisUrl.Split).
-            if (IisUrl.Split(path, IsHandled).PathInfo.Length > 0) return true;
-            if (ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) return false;
+            if (SplitMapped(context, path).PathInfo.Length > 0) return true;
+            // (IIS's own denied types are its request filtering's, which ran: one a web.config allows is a file of the
+            // application's, its static file handler's; the port's own are never)
+            if (ProhibitedExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase) &&
+                (!IntegratedModeConfiguration.IisDeniedExtensions.Contains(ext, StringComparer.OrdinalIgnoreCase) || DeniedByFiltering((context.Request.PathBase.Value ?? "") + context.Request.Path.Value, ext)))) return false;
 
             // A path ASP.NET does not map (a name with a trailing dot or space, an 8.3 short name, a ".." above the root: its
             // UserMapPath's HttpException): none of the application's files, 404 as IIS (it was Kestrel's 500).
@@ -506,6 +541,14 @@ namespace System.Web.Hosting
 		static readonly string[] ExtensionlessVerbs = { "GET", "HEAD", "POST", "DEBUG" };
 
 		/// <summary>A URL whose last segment has no '.' (IIS's handler path "*.": "/", "/sub/", "/foo").</summary>
+        // (the type's request filtering for the URL: denied, unless a web.config allows it)
+        static bool DeniedByFiltering(string path, string extension)
+        {
+            var filtering = IntegratedModeConfiguration.RequestFiltering(path);
+            if (filtering.AlwaysAllowedUrls.Contains(path)) return false;
+            return filtering.Extensions.TryGetValue(extension, out var allowed) ? !allowed : !filtering.AllowUnlisted;
+        }
+
 		internal static bool IsExtensionless(string path)
 		{
 			var name = path.Substring(path.LastIndexOf('/') + 1);
@@ -522,8 +565,11 @@ namespace System.Web.Hosting
 		{
 			var files = FileCache.FileNames(physicalPath);
 			var folder = virtualPath.TrimEnd('/');
-			var document = DefaultDocumentsFor(folder.Length == 0 ? "/" : folder).FirstOrDefault(doc => files.Contains(doc, StringComparer.OrdinalIgnoreCase));
-			return document == null ? null : folder + "/" + document;
+			// (a name with a folder in it: the file there, IIS 10's "list/a.txt" of a folder served as its default document)
+			var document = DefaultDocumentsFor(folder.Length == 0 ? "/" : folder).FirstOrDefault(doc => doc.IndexOf('/') >= 0
+				? FileCache.FileExists(Path.Combine(physicalPath, doc.TrimStart('/').Replace('/', Path.DirectorySeparatorChar)))
+				: files.Contains(doc, StringComparer.OrdinalIgnoreCase));
+			return document == null ? null : folder + "/" + document.TrimStart('/');
 		}
 
 		public bool IsVirtualPathInApp(String path)

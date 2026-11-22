@@ -185,6 +185,10 @@ namespace System.Web.Hosting
 			{
 				response.ContentType = "text/html; charset=utf-8";
 				response.Headers.CacheControl = "private";
+				// (its Cache-Control the page's own: a customHeaders' Cache-Control is not added to it, IIS 10)
+				var pageFlags = context.Features.Get<IisErrorFlags>();
+				if (pageFlags == null) context.Features.Set(pageFlags = new IisErrorFlags());
+				pageFlags.DetailedPage = true;
 				await WriteAsync(response, DetailedPage(context, status, subStatus));
 				return;
 			}
@@ -219,6 +223,13 @@ namespace System.Web.Hosting
 				}
 				case ResponseMode.ExecuteURL:
 				{
+					// A path that is not the site's ("a.htm": a URL from '/' is) runs nothing: the status, no body (IIS 10).
+					if (!entry.Path.StartsWith("/", StringComparison.Ordinal))
+					{
+						response.Headers.ContentType = default;
+						response.Headers.CacheControl = default;
+						return;
+					}
 					// IIS runs the page in the request's place: 200 unless it says, its query string the status and the URL
 					// that failed ("404;http://host/folder/page.aspx?k=v"), Request.RawUrl the one asked for.
 					var failed = request.Scheme + "://" + request.Host.Value + AspNetCoreWorkerRequest.RawTarget(context);
@@ -507,6 +518,7 @@ namespace System.Web.Hosting
 		public bool TrySkipIisCustomErrors;
 		public bool Executing;
 		public bool SystemWeb;   // System.Web answered it
+		public bool DetailedPage;   // IIS's detailed error page answers it
 	}
 }
 

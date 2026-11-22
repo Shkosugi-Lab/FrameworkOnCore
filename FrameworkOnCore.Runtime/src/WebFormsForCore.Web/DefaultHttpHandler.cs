@@ -64,6 +64,13 @@ namespace System.Web {
            if (HttpRuntime.UseIntegratedPipeline) {
                 throw new PlatformNotSupportedException(SR.GetString(SR.Method_Not_Supported_By_Iis_Integrated_Mode, "DefaultHttpHandler.BeginProcessRequest"));
            }
+#if !NETFRAMEWORK
+           // FrameworkOnCore: the host's own catch-all is this handler in the classic pipeline it runs; a web.config's handler of
+           // this type (system.webServer/handlers) is IIS's integrated pipeline's, where it throws (IIS 10).
+           if (IntegratedModeConfiguration.FindHandlerType(context.Request.HttpMethod, context.Request.FilePathObject)?.StartsWith("System.Web.DefaultHttpHandler", StringComparison.Ordinal) == true) {
+                throw new PlatformNotSupportedException(SR.GetString(SR.Method_Not_Supported_By_Iis_Integrated_Mode, "DefaultHttpHandler.BeginProcessRequest"));
+           }
+#endif
 
             _context = context;
             HttpResponse response = _context.Response;

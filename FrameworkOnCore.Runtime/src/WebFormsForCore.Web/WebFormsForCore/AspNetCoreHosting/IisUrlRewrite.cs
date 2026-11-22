@@ -122,12 +122,19 @@ namespace System.Web.Hosting
 
 		static Dictionary<string, Map> NewMaps() => new Dictionary<string, Map>(StringComparer.OrdinalIgnoreCase);
 		HashSet<string> allowedServerVariables;   // null: any (no profile to say)
+		readonly bool proxy;
 		readonly List<string> unsupported = new List<string>();
 
 		IisUrlRewrite(string contentRoot)
 		{
 			this.contentRoot = contentRoot;
-			siteId = IisProfile.SiteId(IisProfile.Of(contentRoot)) ?? "1";
+			var profile = IisProfile.Of(contentRoot);
+			siteId = IisProfile.SiteId(profile) ?? "1";
+			// With the server's settings: the variables it lets rules set are its list, none without one (IIS 10: a folder's
+			// rule that sets HTTP_X_FOC is 500.50); without them, any (the port's choice: the server's list is not known).
+			if (profile != null) allowedServerVariables = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+			// ARR (its reverse proxy) on the server: a rewrite to another server; else IIS has no handler for it (404.4).
+			proxy = profile?.Element("globalModules")?.Elements("add").Any(e => ((string)e.Attribute("name") ?? "").StartsWith("ApplicationRequestRouting", StringComparison.OrdinalIgnoreCase)) ?? true;
 		}
 
 		/// <summary>The rules of the application in the folder (its profile's, its web.config files'); null without any.</summary>
@@ -326,6 +333,7 @@ namespace System.Web.Hosting
 			public Dictionary<string, string> Variables;
 			public Dictionary<string, Map> Maps;   // the maps of the rules running
 			public byte[] Body;   // the answer's body, when the rules answered
+			public bool BadReference;   // a {R:n} beyond the match's groups
 		}
 
 		/// <summary>Runs the rules: true when they answered the request (a redirect, a response of their own, an abort).</summary>
@@ -408,10 +416,13 @@ namespace System.Web.Hosting
 					case ActionType.Rewrite:
 					{
 						var url = Expand(rule.Url, r, c, state);
+						if (state.BadReference) return BadReference(state);
 						if (IsAbsolute(url))
 						{
 							IisDecision.Set(state.Context, IisDecision.Rewrite);
-							state.Body = Respond(state.Context, 502, 3, null);   // ARR's: no reverse proxy here
+							// Without ARR, IIS has no handler for another server's URL: 404.4 (IIS 10); with it, its reverse proxy,
+							// which the port has not (502.3).
+							state.Body = proxy ? Respond(state.Context, 502, 3, null) : Respond(state.Context, 404, 4, null);
 							return true;
 						}
 						var (path, query) = Target(url, rule, state);
@@ -425,6 +436,7 @@ namespace System.Web.Hosting
 					{
 						// Without the spaces it ends in (IIS 10: "/go/y.secret%20" of "^go/(.*)$" to "/{R:1}" is Location .../y.secret).
 						var url = Expand(rule.Url, r, c, state).TrimEnd();
+						if (state.BadReference) return BadReference(state);
 						string location;
 						if (IsAbsolute(url))
 						{
@@ -446,7 +458,8 @@ namespace System.Web.Hosting
 						IisDecision.Set(state.Context, IisDecision.Rewrite);
 						// No statusCode (0, the global rules' default): no answer, the connection closed (IIS 10; it was an
 						// empty 200).
-						if (rule.StatusCode == 0)
+						// A redirection's status (300-307, the schema's exclusion) the same (IIS 10: 301 closed).
+						if (rule.StatusCode == 0 || rule.StatusCode >= 300 && rule.StatusCode <= 307)
 						{
 							state.Context.Abort();
 							return true;
@@ -543,6 +556,9 @@ namespace System.Web.Hosting
 			if ((name == "R" || name == "C") && int.TryParse(argument, NumberStyles.None, CultureInfo.InvariantCulture, out index))
 			{
 				var captures = name == "R" ? r : c;
+				// A group the rule's pattern has not: IIS's 500.50 (IIS 10: "rw/*" to "{R:1}"); a negated rule has none to
+				// give, its {R:n} empty.
+				if (name == "R" && index >= captures.Length && captures != NoCaptures) state.BadReference = true;
 				return index < captures.Length ? captures[index] : "";
 			}
 			var value = Expand(argument, r, c, state);
@@ -736,6 +752,13 @@ namespace System.Web.Hosting
 			return CultureInfo.InstalledUICulture.TwoLetterISOLanguageName == "ja"
 				? "<head><title>ドキュメント移動</title></head>\n<body><h1>オブジェクトは移動しました</h1>このドキュメントは<a HREF=\"" + href + "\">ここ</a>で見つかる可能性があります</body>"
 				: "<head><title>Document Moved</title></head>\n<body><h1>Object Moved</h1>This document may be found <a HREF=\"" + href + "\">here</a></body>";
+		}
+
+		bool BadReference(State state)
+		{
+			IisDecision.Set(state.Context, IisDecision.Rewrite);
+			state.Body = Respond(state.Context, 500, 50, null);
+			return true;
 		}
 
 		// A response of the rules' own: the status, IIS's page for it, its substatus in the log.

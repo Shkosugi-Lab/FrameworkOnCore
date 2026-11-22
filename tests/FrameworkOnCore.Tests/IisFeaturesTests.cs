@@ -103,7 +103,6 @@ public class IisFeaturesTests : IDisposable
     [InlineData("""<serverRuntime appConcurrentRequestLimit="10" />""", "server runtime")]
     [InlineData("""<webSocket enabled="false" />""", "WebSocket off")]
     [InlineData("""<rewrite><rules useOriginalURLEncoding="false" /></rewrite>""", "useOriginalURLEncoding")]
-    [InlineData("""<handlers accessPolicy="Read" />""", "handlers' access policy")]
     public void Settings_the_host_does_not_read_are_reported(string setting, string feature)
     {
         var findings = Analyze($"<configuration><system.webServer>{setting}</system.webServer></configuration>");
@@ -116,7 +115,7 @@ public class IisFeaturesTests : IDisposable
     [InlineData("""<staticContent enableDocFooter="false" defaultDocFooter="x" />""")]
     [InlineData("""<webSocket enabled="true" />""")]
     [InlineData("""<rewrite><rules useOriginalURLEncoding="true" /></rewrite>""")]
-    [InlineData("""<handlers accessPolicy="Read, Script" />""")]
+    [InlineData("""<handlers accessPolicy="Read" />""")]
     public void The_defaults_of_those_settings_are_not_reported(string setting)
     {
         var findings = Analyze($"<configuration><system.webServer>{setting}</system.webServer></configuration>");

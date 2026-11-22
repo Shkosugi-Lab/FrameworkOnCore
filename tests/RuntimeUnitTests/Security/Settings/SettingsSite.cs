@@ -208,6 +208,10 @@ static class SettingsProbes
         foreach (var name in Kept)
         {
             var values = answer.All(name).ToList();
+            // An Expires of the moment's (ASP.NET's a day ahead): the day after, not its time.
+            if (name == "Expires" && values.Count == 1 && DateTime.TryParse(values[0], System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.AdjustToUniversal, out var expires) &&
+                Math.Abs((expires - DateTime.UtcNow).TotalDays) < 7)
+                values[0] = "{" + Math.Round((expires - DateTime.UtcNow).TotalDays) + " days ahead}";
             if (values.Count > 0) text.Append(" | ").Append(name).Append(": ").Append(Normal(string.Join(", ", values)));
         }
         foreach (var name in Present)

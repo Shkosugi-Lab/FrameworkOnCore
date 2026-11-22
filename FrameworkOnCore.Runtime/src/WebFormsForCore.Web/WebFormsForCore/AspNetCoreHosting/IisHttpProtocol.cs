@@ -80,7 +80,17 @@ namespace System.Web.Hosting
 			var redirect = response.StatusCode >= 300 && response.StatusCode < 400;
 			if (headers.Custom.Length == 0 && (!redirect || headers.Redirect.Length == 0)) return Task.CompletedTask;
 			// Not kept with a static file's response (StaticResponseCache): added again when it is answered.
-			foreach (var (name, value) in headers.Custom) { Core.HeaderDictionaryExtensions.Append(response.Headers, name, value); IisAddedHeaders.Add(context, name); }
+			var detailedPage = context.Features.Get<IisErrorFlags>()?.DetailedPage == true;
+			foreach (var (name, value) in headers.Custom)
+			{
+				if (detailedPage && string.Equals(name, "Cache-Control", StringComparison.OrdinalIgnoreCase)) continue;
+				// Cache-Control the answer has already: one header, the values joined by "," (IIS 10: "Cache-Control: private,1");
+				// another header both send, sent twice.
+				if (string.Equals(name, "Cache-Control", StringComparison.OrdinalIgnoreCase) && response.Headers.TryGetValue(name, out var existing) && existing.Count > 0)
+					response.Headers[name] = existing.ToString() + "," + value;
+				else Core.HeaderDictionaryExtensions.Append(response.Headers, name, value);
+				IisAddedHeaders.Add(context, name);
+			}
 			if (redirect)
 				foreach (var (name, value) in headers.Redirect) { Core.HeaderDictionaryExtensions.Append(response.Headers, name, value); IisAddedHeaders.Add(context, name); }
 			return Task.CompletedTask;
@@ -158,6 +168,9 @@ namespace System.Web.Hosting
 
 		IisHttpRedirect(string contentRoot) { this.contentRoot = contentRoot; }
 
+		/// <summary>A folder's URL's default document (WebFormsMiddleware.DefaultDocument); null: none.</summary>
+		internal Func<string, string> DefaultDocument;
+
 		/// <summary>The application's HTTP redirection; null when no section turns it on.</summary>
 		internal static IisHttpRedirect Load(string contentRoot)
 		{
@@ -221,12 +234,23 @@ namespace System.Web.Hosting
 			if (!settings.Enabled) return null;
 			var query = request.QueryString.HasValue ? request.QueryString.Value : "";
 			var remainder = Rest(path, settings.Base);
-			foreach (var (_, destination, pattern) in settings.Wildcards)
+			// The wildcards only without a destination of the section's (IIS 10: with one, its destination for every URL), on
+			// the URL and, for a folder's, its default document's (the child request: "/" is redirected by "*.htm" as
+			// "/Default.htm").
+			if (string.IsNullOrEmpty(settings.Destination))
 			{
-				var match = pattern.Match(remainder);
-				if (match.Success) return Target(destination, match, remainder, path, query, settings.Exact);
+				foreach (var candidate in new[] { path, path.EndsWith("/", StringComparison.Ordinal) && settings.Wildcards.Count > 0 ? DefaultDocument?.Invoke(path) : null })
+				{
+					if (candidate == null) continue;
+					var rest = Rest(candidate, settings.Base);
+					foreach (var (_, destination, pattern) in settings.Wildcards)
+					{
+						var match = pattern.Match(rest);
+						if (match.Success) return Target(destination, match, rest, candidate, query, settings.Exact);
+					}
+				}
+				return null;
 			}
-			if (string.IsNullOrEmpty(settings.Destination)) return null;
 			// childOnly: the folder's own files (and the folder), not what is in its sub-folders.
 			if (settings.ChildOnly && remainder.LastIndexOf('/') > 0) return null;
 			return Target(settings.Destination, null, remainder, path, query, settings.Exact);
@@ -238,7 +262,7 @@ namespace System.Web.Hosting
 			// "/%C3%A9.txt" redirected to ".../%C3%A9.txt"; the port's Location had the "é" itself).
 			rest = Escaped(rest);
 			path = Escaped(path);
-			var target = destination;
+			var target = exact ? destination : destination.TrimEnd('/');
 			// $0-$9: what the wildcard's stars matched.
 			if (wildcard != null)
 				target = Regex.Replace(target, @"\$([0-9])", m =>
@@ -247,7 +271,10 @@ namespace System.Web.Hosting
 					return group < wildcard.Groups.Count ? wildcard.Groups[group].Value : "";
 				});
 			target = target.Replace("$S", rest).Replace("$Q", query).Replace("$P", query.Length > 0 ? query.Substring(1) : "").Replace("$V", path);
-			if (!exact) target = target.TrimEnd('/') + rest;
+			// (the destination's own trailing '/' taken off before its variables are put in, the rest after it: IIS 10's
+			// "http://x/$S$Q" of the folder's URL is "http://x///", of the folder's without its '/' "http://x/"; "http://x/" of
+			// "/a" "http://x/a")
+			if (!exact) target += rest;
 			return target.Length == 0 ? "/" : target;
 		}
 

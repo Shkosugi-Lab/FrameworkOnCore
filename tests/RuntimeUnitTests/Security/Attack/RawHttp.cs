@@ -29,11 +29,29 @@ static class RawHttp
     /// Sends the request (its head given as text, latin-1 bytes unless the text has non-ASCII characters, written as UTF-8;
     /// "\u00XX" in a target: the byte XX), then the body; closes the sending side when told (a body that ends early).
     /// </summary>
+    // A connection to the server; again a moment later when the machine's local ports are all taken for a while (the
+    // settings tests' tens of thousands of connections, each closed: their TIME_WAIT).
+    static TcpClient Connect(int port)
+    {
+        for (var attempt = 0; ; attempt++)
+        {
+            var client = new TcpClient { NoDelay = true };
+            try
+            {
+                client.Connect("127.0.0.1", port);
+                return client;
+            }
+            catch (SocketException e) when (e.SocketErrorCode is SocketError.AddressAlreadyInUse or SocketError.NoBufferSpaceAvailable && attempt < 20)
+            {
+                client.Dispose();
+                Thread.Sleep(500);
+            }
+        }
+    }
+
     public static Answer Send(int port, byte[] request, bool closeSending = false, int timeout = 15000, Action<NetworkStream> during = null)
     {
-        using var client = new TcpClient();
-        client.NoDelay = true;
-        client.Connect("127.0.0.1", port);
+        using var client = Connect(port);
         client.ReceiveTimeout = timeout;
         client.SendTimeout = timeout;
         var stream = client.GetStream();

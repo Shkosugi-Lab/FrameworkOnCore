@@ -766,11 +766,20 @@ public class IisUrlRewriteTests
         Assert.Equal("/content/default.aspx", await Value("{ToLower:{URL}}", "/Content/Default.aspx"));
     }
 
-    [Fact] // the reference: {R:N}, N 0 to 9; the host's choice: a group the pattern has not is empty, an unclosed brace kept as written
-    public async Task Back_references_out_of_range_and_unclosed_braces()
+    [Fact] // the reference: {R:N}, N 0 to 9; the host's choice: a condition's group it has not is empty, an unclosed brace kept as written
+    public async Task Back_references_and_unclosed_braces()
     {
-        using var site = new Site(Rules(Rule("^(a)$", "type='Rewrite' url='/b{R:0}{R:1}[{R:5}][{C:1}]{R:1' appendQueryString='false'")));
-        Assert.Equal("/baa[][]{R:1", await PathAfter(site, "/a"));
+        using var site = new Site(Rules(Rule("^(a)$", "type='Rewrite' url='/b{R:0}{R:1}[{C:1}]{R:1' appendQueryString='false'")));
+        Assert.Equal("/baa[]{R:1", await PathAfter(site, "/a"));
+    }
+
+    [Fact] // IIS 10 (the host's tests' iis-settings.json: "rw/*" to "{R:1}"): a group the rule's pattern has not is URL Rewrite's 500.50
+    public async Task A_back_reference_out_of_range_is_500_50()
+    {
+        using var site = new Site(Rules(Rule("^(a)$", "type='Rewrite' url='/b[{R:5}]'")));
+        var (_, context) = await Run(site, "/a");
+        Assert.Equal(500, context.Response.StatusCode);
+        Assert.Equal(50, context.Features.Get<System.Web.Hosting.IisLogStatus>()?.SubStatus);
     }
 
     [Fact] // the host's choice (summary: providers not done): an unknown function or map gives ""

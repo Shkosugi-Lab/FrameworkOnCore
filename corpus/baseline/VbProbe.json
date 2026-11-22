@@ -15,8 +15,7 @@
   "files": {
     "added": [
       ".dockerignore ac4b85991d240f36",
-      "App_Data/culture-profile.json 60c62cdc0e33604a",
-      "App_Data/machine.config a4f0dc59cd3c3033",
+      "App_Data/culture-profile.json b2d502cca264cf1c",
       "Directory.Build.props (project: see projects)",
       "Dockerfile f86ccc96464200d7",
       "FrameworkOnCore.slnx 03f273596a217a27",
@@ -28,7 +27,7 @@
       "deploy/casefs/linux-arm64/libfoccase.so (binary)",
       "deploy/casefs/linux-x64/libfoccase.so (binary)",
       "deploy/icu/build-icu-data.sh 37302c5e6c5ae4da",
-      "deploy/icu/culture-profile.json 60c62cdc0e33604a",
+      "deploy/icu/culture-profile.json b2d502cca264cf1c",
       "deploy/icu/tool/CultureIcu.deps.json d7f6885ece48a164",
       "deploy/icu/tool/CultureIcu.dll (binary)",
       "deploy/icu/tool/CultureIcu.exe (binary)",
@@ -38,7 +37,7 @@
     ],
     "changed": [
       "Probe.vb 4fc1f11ef32d3f17 (+1 -1 lines)",
-      "Runtime.aspx.vb a8ee0af83dfc8828 (+38 -38 lines)",
+      "Runtime.aspx.vb 1102c7aa7eee0d5b (+38 -38 lines)",
       "VbProbe.vbproj (project: see projects)"
     ],
     "removed": []
@@ -125,7 +124,7 @@
     "Stub": [],
     "Platform": [
       "Probe.vb: 1 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: Convert.ToString x1)",
-      "Runtime.aspx.vb: 21 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: string concatenation x15, conversion of a String to a Double x5, conversion to String x1)",
+      "Runtime.aspx.vb: 24 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: string concatenation x18, conversion of a String to a Double x5, conversion to String x1)",
       "Runtime.aspx.vb:100: Microsoft.VisualBasic.Strings.Format -> FrameworkOnCore.VisualBasicText.Format (Visual Basic's Format of a double: as .NET Framework wrote it (the named formats Fixed, Standard, Currency, Percent...); anything else the runtime's)",
       "Runtime.aspx.vb:100: Microsoft.VisualBasic.Strings.Format -> FrameworkOnCore.VisualBasicText.Format (Visual Basic's Format of a double: as .NET Framework wrote it (the named formats Fixed, Standard, Currency, Percent...); anything else the runtime's)",
       "Runtime.aspx.vb:100: Microsoft.VisualBasic.Strings.Format -> FrameworkOnCore.VisualBasicText.Format (Visual Basic's Format of a double: as .NET Framework wrote it (the named formats Fixed, Standard, Currency, Percent...); anything else the runtime's)",

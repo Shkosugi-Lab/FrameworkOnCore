@@ -87,6 +87,21 @@ public class RewriteTests
         Assert.Contains("Uri UG(Uri b, string s) => new Uri(b, s);", written);
     }
 
+    [Fact] // LocaleProbe: a replaced member of a replaced expression - both replaced (new CultureInfo("fr-FR").DisplayName was
+           // FrameworkCultures.Create("fr-FR").DisplayName: .NET's name, the UI language's)
+    public void A_replaced_member_of_a_replaced_expression_is_replaced_too()
+    {
+        var written = CSharp(InClass(
+            "string DA(System.Globalization.CultureInfo c) => c.DisplayName;\n" +
+            "string DB() => new System.Globalization.CultureInfo(\"fr-FR\").DisplayName;\n" +
+            "string DC() => System.Globalization.CultureInfo.GetCultureInfo(\"zh-CHS\").DisplayName;\n" +
+            "string DD(System.Globalization.CultureInfo c) => \"n = \" + c.DisplayName + \" / \" + new System.Globalization.CultureInfo(\"fr-FR\").DisplayName + \" / \" + System.Globalization.CultureInfo.GetCultureInfo(\"zh-CHS\").DisplayName;"));
+        Assert.Contains("\" / \" + global::FrameworkOnCore.FrameworkCultures.DisplayName(global::FrameworkOnCore.FrameworkCultures.Create(\"fr-FR\")) + \" / \" + global::FrameworkOnCore.FrameworkCultures.DisplayName(global::FrameworkOnCore.FrameworkCultures.GetCultureInfo(\"zh-CHS\"));", written);
+        Assert.Contains("string DA(System.Globalization.CultureInfo c) => global::FrameworkOnCore.FrameworkCultures.DisplayName(c);", written);
+        Assert.Contains("string DB() => global::FrameworkOnCore.FrameworkCultures.DisplayName(global::FrameworkOnCore.FrameworkCultures.Create(\"fr-FR\"));", written);
+        Assert.Contains("string DC() => global::FrameworkOnCore.FrameworkCultures.DisplayName(global::FrameworkOnCore.FrameworkCultures.GetCultureInfo(\"zh-CHS\"));", written);
+    }
+
     [Fact] // read with ?.: the whole access replaced (the binding alone, .Name, is not an expression of its own)
     public void Platform_members_read_with_conditional_access_are_replaced_whole()
     {

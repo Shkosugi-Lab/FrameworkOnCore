@@ -15,8 +15,7 @@
   "files": {
     "added": [
       ".dockerignore ac4b85991d240f36",
-      "App_Data/culture-profile.json 60c62cdc0e33604a",
-      "App_Data/machine.config 23f23d8a26c3427c",
+      "App_Data/culture-profile.json b2d502cca264cf1c",
       "Directory.Build.props (project: see projects)",
       "Dockerfile f86ccc96464200d7",
       "FrameworkOnCore.slnx 795dbc9940e3d652",
@@ -28,7 +27,7 @@
       "deploy/casefs/linux-arm64/libfoccase.so (binary)",
       "deploy/casefs/linux-x64/libfoccase.so (binary)",
       "deploy/icu/build-icu-data.sh 37302c5e6c5ae4da",
-      "deploy/icu/culture-profile.json 60c62cdc0e33604a",
+      "deploy/icu/culture-profile.json b2d502cca264cf1c",
       "deploy/icu/tool/CultureIcu.deps.json d7f6885ece48a164",
       "deploy/icu/tool/CultureIcu.dll (binary)",
       "deploy/icu/tool/CultureIcu.exe (binary)",

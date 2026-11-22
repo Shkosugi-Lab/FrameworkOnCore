@@ -38,12 +38,22 @@ namespace System.Web.Util
                             using var document = JsonDocument.Parse(File.ReadAllText(file));
                             if (document.RootElement.TryGetProperty("Cultures", out var all))
                                 foreach (var culture in all.EnumerateObject()) table[culture.Name] = culture.Value.Clone();
+                            if (document.RootElement.TryGetProperty("LanguagePacks", out var packs) && packs.ValueKind == JsonValueKind.Array)
+                                languagePacks = packs.EnumerateArray().Where(p => p.ValueKind == JsonValueKind.String).Select(p => p.GetString()).ToArray();
                         }
                     }
                     catch (Exception e) when (e is IOException || e is JsonException || e is UnauthorizedAccessException) { }
                     return cultures = table;
                 }
             }
+        }
+
+        static string[] languagePacks;
+
+        /// <summary>The original server's .NET Framework language packs (the culture profile's LanguagePacks: "ja"); null without a profile.</summary>
+        internal static string[] LanguagePacks
+        {
+            get { _ = Cultures; return languagePacks; }
         }
 
         // A name of the culture as the original server's Windows had it (EnglishName, NativeName), or null.

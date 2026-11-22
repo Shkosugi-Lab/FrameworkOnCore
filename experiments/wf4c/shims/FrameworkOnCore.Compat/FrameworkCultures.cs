@@ -164,9 +164,20 @@ namespace FrameworkOnCore
             // Without the names (FrameworkOnCore's translations, or none): the language pack's language as .NET names it, else English
             // (the original server's Windows' name from the culture profile: ICU's are "Chinese (Taiwan)" for "Chinese (Traditional, Taiwan)");
             // a culture Windows makes up (LCID 4096: xx-YY) as .NET Framework, by its native name.
+            // The original server's (its culture profile): mscorlib's names in English, but the UI culture's own in its
+            // language where the server has its language pack (IIS 10, LocaleProbe: with the UI culture ja-JP, ja-JP is
+            // "日本語 (日本)" and fr-FR "French (France)"; with de-DE, no pack, "German (Germany)"). FrameworkOnCore's own
+            // translations in bin are no such pack: they made every name the UI language's.
             if (Names.Count == 0)
-                return culture.LCID == 4096 && !culture.IsNeutralCulture ? NativeName(culture)
-                    : HasLanguagePack(CultureInfo.CurrentUICulture) ? culture.DisplayName : EnglishName(culture);
+            {
+                if (culture.LCID == 4096 && !culture.IsNeutralCulture) return NativeName(culture);
+                var ui = CultureInfo.CurrentUICulture;
+                _ = ProfileName(culture, "EnglishName");
+                if (profilePacks == null) return HasLanguagePack(ui) ? culture.DisplayName : EnglishName(culture);
+                var pack = Array.Exists(profilePacks, p => ui.Name.Equals(p, StringComparison.OrdinalIgnoreCase) || ui.TwoLetterISOLanguageName.Equals(p, StringComparison.OrdinalIgnoreCase));
+                // (the UI culture's language: UICulture "auto" of "ja" is the neutral ja, its ja-JP "日本語 (日本)")
+                return pack && culture.TwoLetterISOLanguageName.Equals(ui.TwoLetterISOLanguageName, StringComparison.OrdinalIgnoreCase) ? NativeName(culture) : EnglishName(culture);
+            }
             for (var ui = CultureInfo.CurrentUICulture; ui != null && ui.Name.Length > 0; ui = ui.Parent)
             {
                 if (Names.TryGetValue(ui.Name, out var localized) && localized.TryGetValue(culture.Name, out var name)) return name;
@@ -211,6 +222,7 @@ namespace FrameworkOnCore
         public static string NativeName(CultureInfo culture) => ProfileName(culture, "NativeName") ?? culture.NativeName;
 
         static Dictionary<string, Dictionary<string, string>> profileNames;
+        static string[] profilePacks;   // the profile's LanguagePacks (the original server's .NET Framework language packs); null: no profile
 
         // App_Data\culture-profile.json (capture-culture.ps1, which the converter places): its cultures' names.
         static string ProfileName(CultureInfo culture, string property)
@@ -225,6 +237,12 @@ namespace FrameworkOnCore
                     try
                     {
                         using var document = System.Text.Json.JsonDocument.Parse(File.ReadAllText(file));
+                        if (document.RootElement.TryGetProperty("LanguagePacks", out var packs) && packs.ValueKind == System.Text.Json.JsonValueKind.Array)
+                        {
+                            var list = new List<string>();
+                            foreach (var p in packs.EnumerateArray()) if (p.ValueKind == System.Text.Json.JsonValueKind.String) list.Add(p.GetString());
+                            profilePacks = list.ToArray();
+                        }
                         if (document.RootElement.TryGetProperty("Cultures", out var cultures))
                             foreach (var c in cultures.EnumerateObject())
                             {

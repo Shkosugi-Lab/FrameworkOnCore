@@ -39,7 +39,17 @@ $port = $Port
 foreach ($probe in $probes) {
     $log = Join-Path $out "$($probe.name).$($platform.ToLowerInvariant()).log"
     $ErrorActionPreference = 'Continue'
-    $arguments = @{ Name = $probe.name; Port = $port }
+    # The conversion's decisions, as it made them (before the application runs and writes in its folder)
+    $holder = @{ Decisions = $null }
+    $snapshotArguments = @('--source', (Join-Path $repo "samples\$($probe.name)"), '--baseline', (Join-Path $baselines "$($probe.name).json"),
+        '--exit', 0, '--diff', (Join-Path $out "$($probe.name).decisions-diff.txt"))
+    if ($UpdateBaseline) { $snapshotArguments += '--update' }
+    $afterConvert = {
+        param($converted)
+        & dotnet $converter snapshot $converted @snapshotArguments | Out-Null
+        $holder.Decisions = $UpdateBaseline -or $LASTEXITCODE -eq 0
+    }.GetNewClosure()
+    $arguments = @{ Name = $probe.name; Port = $port; AfterConvert = $afterConvert }
     if ($Linux) { $arguments.Linux = $true } else { $arguments.Windows = $true }
     try { $text = & $parity @arguments *>&1 | Out-String }
     catch { $text = "$text`n$($_.Exception.Message)" }
@@ -49,22 +59,14 @@ foreach ($probe in $probes) {
     $run = if ($line -match '^RESULT: OK') { 'OK' } elseif ($line) { 'FAIL' } else { 'no result' }
     # Only the probe's known differences (probes.json's known: documented, with why): as expected.
     $differing = @($text -split "`n" | Where-Object { $_ -match '^\s+NG\s+(.+?)\s*$' } | ForEach-Object { $Matches[1] })
-    if ($run -eq 'FAIL' -and $probe.known -and $differing.Count -gt 0 -and -not ($differing | Where-Object { $probe.known.snapshots -notcontains $_ })) {
+    if ($run -eq 'FAIL' -and $probe.known -and $differing.Count -gt 0 -and -not ($differing | Where-Object { @($probe.known.snapshots) + $(if ($Linux) { @($probe.known.linux) } else { @() }) -notcontains $_ })) {
         $run = 'OK'
         $line = "$line (known: $($differing -join ', '))"
     }
     $detail = if ($line) { "$line".Trim() } else { (($text -split "`n" | Where-Object { $_ -match 'Exception|failed|error' } | Select-Object -First 1) -replace '\s+', ' ').Trim() }
 
-    # The conversion's decisions (sample-parity.ps1's conversion: experiments\wf4c\_samples\<name>\converted)
     $converted = Join-Path $repo "experiments\wf4c\_samples\$($probe.name)\converted"
-    $decisions = $null
-    if (Test-Path $converted) {
-        $snapshotArguments = @($converted, '--source', (Join-Path $repo "samples\$($probe.name)"), '--baseline', (Join-Path $baselines "$($probe.name).json"),
-            '--exit', 0, '--diff', (Join-Path $out "$($probe.name).decisions-diff.txt"))
-        if ($UpdateBaseline) { $snapshotArguments += '--update' }
-        & dotnet $converter snapshot @snapshotArguments | Out-Null
-        $decisions = $UpdateBaseline -or $LASTEXITCODE -eq 0
-    }
+    $decisions = $holder.Decisions
     $results[$probe.name] = [ordered]@{ Converted = Test-Path $converted; Decisions = $decisions; Run = $run; Detail = $detail }
     Write-Host ("{0}: {1} {2}" -f $probe.name, $run, $detail)
 }

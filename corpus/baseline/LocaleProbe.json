@@ -9,14 +9,13 @@
     "Iis entries": 0,
     "Unsupported entries": 1,
     "Stub entries": 0,
-    "Platform entries": 7,
+    "Platform entries": 9,
     "Project entries": 7
   },
   "files": {
     "added": [
       ".dockerignore ac4b85991d240f36",
-      "App_Data/culture-profile.json 8b120a6901cd76bc",
-      "App_Data/machine.config a4f0dc59cd3c3033",
+      "App_Data/culture-profile.json 026e89d6aa6b0018",
       "Directory.Build.props (project: see projects)",
       "Dockerfile f86ccc96464200d7",
       "FrameworkOnCore.slnx 5b8427d8541849ef",
@@ -28,7 +27,7 @@
       "deploy/casefs/linux-arm64/libfoccase.so (binary)",
       "deploy/casefs/linux-x64/libfoccase.so (binary)",
       "deploy/icu/build-icu-data.sh 37302c5e6c5ae4da",
-      "deploy/icu/culture-profile.json 8b120a6901cd76bc",
+      "deploy/icu/culture-profile.json 026e89d6aa6b0018",
       "deploy/icu/tool/CultureIcu.deps.json d7f6885ece48a164",
       "deploy/icu/tool/CultureIcu.dll (binary)",
       "deploy/icu/tool/CultureIcu.exe (binary)",
@@ -37,7 +36,7 @@
       "deploy/start.sh 1f41040d9b436887"
     ],
     "changed": [
-      "Auto.aspx.cs f84531811d3c0064 (+5 -5 lines)",
+      "Auto.aspx.cs 639bb2f07b098e46 (+5 -5 lines)",
       "LocaleProbe.csproj (project: see projects)"
     ],
     "removed": []
@@ -112,6 +111,8 @@
       "Auto.aspx.cs: 2 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: string concatenation x2)",
       "Auto.aspx.cs:30: System.Globalization.CultureInfo.Parent -> FrameworkOnCore.FrameworkCultures.Parent (.NET Framework's parents of zh-CN and zh-TW (zh-SG, zh-HK, zh-MO) were zh-CHS and zh-CHT, .NET's are zh-Hans and zh-Hant: as .NET Framework)",
       "Auto.aspx.cs:42: System.Globalization.CultureInfo..ctor -> FrameworkOnCore.FrameworkCultures.Create (a name .NET Framework does not know throws CultureNotFoundException; on Linux ICU makes a culture of any well-formed name (new CultureInfo(\"Auto\"): BlogEngine.NET's admin pages in English, its fallback in the catch skipped): as .NET Framework)",
+      "Auto.aspx.cs:42: System.Globalization.CultureInfo.DisplayName -> FrameworkOnCore.FrameworkCultures.DisplayName (.NET's is in the language of Windows' UI (Linux: ICU's, in the UI culture's); .NET Framework's in the UI culture's language when its language pack was installed, else English: as .NET Framework)",
+      "Auto.aspx.cs:42: System.Globalization.CultureInfo.DisplayName -> FrameworkOnCore.FrameworkCultures.DisplayName (.NET's is in the language of Windows' UI (Linux: ICU's, in the UI culture's); .NET Framework's in the UI culture's language when its language pack was installed, else English: as .NET Framework)",
       "Auto.aspx.cs:42: System.Globalization.CultureInfo.DisplayName -> FrameworkOnCore.FrameworkCultures.DisplayName (.NET's is in the language of Windows' UI (Linux: ICU's, in the UI culture's); .NET Framework's in the UI culture's language when its language pack was installed, else English: as .NET Framework)",
       "Auto.aspx.cs:42: System.Globalization.CultureInfo.GetCultureInfo -> FrameworkOnCore.FrameworkCultures.GetCultureInfo (a name .NET Framework does not know throws CultureNotFoundException; on Linux ICU makes a culture of any well-formed name (new CultureInfo(\"Auto\"): BlogEngine.NET's admin pages in English, its fallback in the catch skipped): as .NET Framework)",
       "Auto.aspx.cs:43: System.Globalization.CultureInfo.EnglishName -> FrameworkOnCore.FrameworkCultures.EnglishName (ICU's names differ from Windows' (Chinese (Taiwan) for Chinese (Traditional, Taiwan)): the original server's, from its culture profile)",

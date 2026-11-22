@@ -26,6 +26,8 @@ param(
     # Also record what the converted application showed (_samples\<Name>\recorded-windows.json, recorded-linux.json).
     [switch]$Diff,
     [int]$Port = 5096,
+    # Run with the converted folder once converted, before it runs (corpus\run.ps1: the conversion's decisions as it made them)
+    [scriptblock]$AfterConvert,
     # The original server's IIS settings for the site (capture-iis.ps1), given to the converter (--iis-profile).
     [string]$IisProfile
 )
@@ -168,6 +170,7 @@ elseif ($env:FOC_CULTURE_PROFILE) { $cultureArguments = @('--culture-profile', (
 if ($IisProfile) { $cultureArguments += @('--iis-profile', (Resolve-Path $IisProfile).Path) }
 & dotnet $converter (Join-Path $sample $projectFile) --out $converted --root $sample --deploy container @cultureArguments
 if ($LASTEXITCODE -ne 0) { throw 'the conversion failed' }
+if ($AfterConvert) { & $AfterConvert $converted }
 
 $exit = 0
 if ($Windows) {

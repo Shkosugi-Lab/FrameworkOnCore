@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 
 namespace System.Web.Util
 {
@@ -62,9 +63,23 @@ namespace System.Web.Util
             // Without the names (FrameworkOnCore's translations, or none): the language pack's language as .NET names it, else English
             // (the original server's Windows' name from the culture profile: ICU's are "Chinese (Taiwan)" for "Chinese (Traditional, Taiwan)");
             // a culture Windows makes up (LCID 4096: xx-YY) as .NET Framework, by its native name.
+            // The original server's (its culture profile): mscorlib's names in English, but the UI culture's own in its
+            // language where the server has its language pack (IIS 10, LocaleProbe: with the UI culture ja-JP, ja-JP is
+            // "日本語 (日本)" and fr-FR "French (France)"; with de-DE, no pack, "German (Germany)"). FrameworkOnCore's own
+            // translations in bin are no such pack: they made every name the UI language's.
             if (Names.Count == 0)
-                return culture.LCID == 4096 && !culture.IsNeutralCulture ? CultureOverlay.Name(culture, "NativeName") ?? culture.NativeName
-                    : HasLanguagePack(CultureInfo.CurrentUICulture) ? culture.DisplayName : (CultureOverlay.Name(culture, "EnglishName") ?? culture.EnglishName);
+            {
+                if (culture.LCID == 4096 && !culture.IsNeutralCulture) return CultureOverlay.Name(culture, "NativeName") ?? culture.NativeName;
+                var ui = CultureInfo.CurrentUICulture;
+                var packs = CultureOverlay.LanguagePacks;
+                var pack = packs != null ? packs.Any(p => ui.Name.Equals(p, StringComparison.OrdinalIgnoreCase) || ui.TwoLetterISOLanguageName.Equals(p, StringComparison.OrdinalIgnoreCase))
+                    : HasLanguagePack(ui);
+                if (packs == null) return pack ? culture.DisplayName : (CultureOverlay.Name(culture, "EnglishName") ?? culture.EnglishName);
+                // (the UI culture's language: UICulture "auto" of "ja" is the neutral ja, its ja-JP "日本語 (日本)")
+                return pack && culture.TwoLetterISOLanguageName.Equals(ui.TwoLetterISOLanguageName, StringComparison.OrdinalIgnoreCase)
+                    ? CultureOverlay.Name(culture, "NativeName") ?? culture.NativeName
+                    : CultureOverlay.Name(culture, "EnglishName") ?? culture.EnglishName;
+            }
             for (var ui = CultureInfo.CurrentUICulture; ui != null && ui.Name.Length > 0; ui = ui.Parent)
             {
                 if (Names.TryGetValue(ui.Name, out var localized) && localized.TryGetValue(culture.Name, out var name)) return name;

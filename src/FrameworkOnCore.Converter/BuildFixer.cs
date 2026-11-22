@@ -54,7 +54,9 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     // CS9258 ("field" in a property's accessor, which C# 14 binds to the backing field; the source meant its type's
     // member named field: N2's Castle DynamicProxy).
     static readonly Regex pointedAt = new(@"^(?<file>.+?)\((?<line>\d+),(?<col>\d+)\): warning (?<code>FOC100\d|SYSLIB0007|CS9258): (?<msg>.*?)(?: \[[^\]\[]+\])?$", RegexOptions.Compiled);
-    readonly Dictionary<string, Dictionary<(string Code, int Line, int Column), Pointed>> pointed = new(StringComparer.OrdinalIgnoreCase);
+    // (a place by its code, its line, its column and its length: an expression and a member of it start at the same column -
+    // new CultureInfo("fr-FR") and new CultureInfo("fr-FR").DisplayName -, and one replaced the other: its .DisplayName left)
+    readonly Dictionary<string, Dictionary<(string Code, int Line, int Column, int? Length), Pointed>> pointed = new(StringComparer.OrdinalIgnoreCase);
     string? analyzersTargets;
     bool analyzersWritten;
 
@@ -142,7 +144,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     internal void Point(string file, Pointed place)
     {
         if (!pointed.TryGetValue(file, out var places)) pointed[file] = places = new();
-        places[(place.Code, place.Line, place.Column)] = place;
+        places[(place.Code, place.Line, place.Column, place.Length)] = place;
     }
 
     // Whether the name is used where only a constant can be, in any of the converted sources of the language (by

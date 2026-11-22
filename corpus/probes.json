@@ -1,5 +1,5 @@
 {
-  "_comment": "The probes of the corpus (samples/<name>): each converted by the converter, run on Windows and on Linux, its parity scenario's snapshots compared with the answers its original gave on IIS (golden-webforms.json). exclude: the original's sources left out of the conversion's build. known: snapshots that differ for a documented reason (the port cannot give .NET Framework's), with why: the probe passes when only they differ.",
+  "_comment": "The probes of the corpus (samples/<name>): each converted by the converter, run on Windows and on Linux, its parity scenario's snapshots compared with the answers its original gave on IIS (golden-webforms.json). exclude: the original's sources left out of the conversion's build. known: snapshots that differ for a documented reason (the port cannot give .NET Framework's), with why (linux: the snapshots that differ on Linux only): the probe passes when only they differ.",
   "probes": [
     {
       "name": "AuthProbe",
@@ -42,7 +42,10 @@
         "snapshots": [
           "data"
         ],
-        "why": "DataTable's and DataView's .NET 10 behavior (a double's text: 0.30000000000000004) where .NET Framework's differs (PORT-CANDIDATES.md)"
+        "why": "DataTable's and DataView's .NET 10 behavior (a double's text: 0.30000000000000004) where .NET Framework's differs (PORT-CANDIDATES.md); on Linux, the files' order and names (ICU's sort, a Windows path's parts: experiments/wf4c/README.md, DataFileProbe)",
+        "linux": [
+          "files"
+        ]
       }
     },
     {
@@ -67,7 +70,18 @@
     },
     {
       "name": "LocaleProbe",
-      "project": "LocaleProbe.csproj"
+      "project": "LocaleProbe.csproj",
+      "known": {
+        "snapshots": [
+          "auto-zh-cn",
+          "auto-zh-hk",
+          "form-ja-JP"
+        ],
+        "why": "mscorlib's own English names of zh-CN and zh-HK (Chinese (Simplified, PRC), (Traditional, Hong Kong S.A.R.)) come with Microsoft's language packs only (the converter's --language-packs framework, Windows only: their license); the Calendar's titles in FrameworkOnCore's own translation (前月を表示) where Microsoft's language pack says 先月へ移動; on Linux, a culture ICU has not (xx-YY: Windows makes it \"不明なロケール (xx-YY)\" with data near the invariant culture's, ICU \"xx (YY)\" with the default locale's; PORT-CANDIDATES.md)",
+        "linux": [
+          "auto-unknown-first"
+        ]
+      }
     },
     {
       "name": "MasterProbe",

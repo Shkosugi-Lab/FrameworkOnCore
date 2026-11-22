@@ -26,6 +26,11 @@ static class SettingsAllowed
         // without statusReason is none ("403 ").
         if (variant.Section == "rewrite/rules" && variant.Setting.StartsWith("/[rule]/action@", StringComparison.Ordinal) && iis == WithoutReason(port))
             return "Kestrel writes the status's reason phrase (IIS none for a rule's own status without statusReason)";
+        // URL Rewrite's ignoreCase false: IIS 10 matched "RW/a.txt" with "^rw/" in two recordings of three, not in the other
+        // (and a map's key "X" with "x" the same): its own cache of the URLs it rewrote, by its timing. The port does as the
+        // reference says (the case taken).
+        if (variant.Section.StartsWith("rewrite/", StringComparison.Ordinal) && variant.Setting.EndsWith("@ignoreCase", StringComparison.Ordinal) && probe is "RW/a.txt" or "map/X")
+            return "IIS's rewrite cache answers a URL of another case as the one it rewrote, or not, by its timing";
         // IIS's output cache keeps a page or not by its timing as much as by the profile: of the profiles' variants
         // recorded, the first one's page was not kept whatever its duration (00:01:40 not kept when it was the first,
         // kept when another was; iis-settings.json). The port keeps it as IIS does for the others.
@@ -50,9 +55,9 @@ static class SettingsAllowed
     /// <summary>Not done by the port, and told so by the conversion report.</summary>
     static readonly Dictionary<string, string> Unsupported = new()
     {
+        ["security/authentication/windowsAuthentication"] = "Windows authentication: requests are anonymous to the port (and IIS's module, IIS-WindowsAuthentication, is not installed where it was recorded: no challenge)" + Reported,
+        ["security/authentication/anonymousAuthentication@userName"] = "the anonymous user's account: the port has no Windows accounts to log on (IIS's 401.2 for one that is not there)" + Reported,
         ["rewrite/outboundRules"] = "URL Rewrite's outbound rules: the responses are not rewritten" + Reported,
-        ["security/authentication/windowsAuthentication"] = "Windows authentication: requests are anonymous to the port" + Reported,
-        ["security/authentication/anonymousAuthentication"] = "anonymous authentication's settings: the port answers anonymous requests" + Reported,
         ["security/access"] = "sslFlags: requests without TLS or a client certificate are answered" + Reported,
         ["serverRuntime"] = "serverRuntime's settings are not applied" + Reported,
         ["httpProtocol@allowKeepAlive"] = "keep-alive off is not applied: connections are kept alive" + Reported,

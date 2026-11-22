@@ -136,21 +136,29 @@ public static class IisFeatures
         {
             var authorization = Child(security, "authorization");
             if (authorization != null && authorization.Elements().Any(e => !(e.Name.LocalName == "add" && string.Equals((string?)e.Attribute("accessType"), "Allow", StringComparison.OrdinalIgnoreCase) && (string?)e.Attribute("users") == "*")))
-                Add("URL authorization (security/authorization)", Status.Unsupported, "IIS's rules not applied (system.web's <authorization> is: ASP.NET's)");
+                Add("URL authorization (security/authorization)", Status.Partial,
+                    "applied to anonymous requests as IIS applies it (a Deny before any Allow, 401.2); a rule of named users or roles is not to a request with a user of its own (System.Web's to say who it is)");
             var ip = Child(security, "ipSecurity");
             if (ip != null && (ip.Elements().Any() || False(ip, "allowUnlisted")))
-                Add("IP restrictions (security/ipSecurity)", Status.Unsupported, "not applied: every address is answered");
+            {
+                var domains = ip.Elements().Any(e => e.Attribute("domainName") != null);
+                Add("IP restrictions (security/ipSecurity)", domains ? Status.Partial : Status.Supported,
+                    "applied as IIS applies it (the entries, allowUnlisted, denyAction, enableProxyMode)" + (domains ? "; domainName entries not (no reverse DNS)" : ""));
+            }
             if (Child(security, "dynamicIpSecurity")?.Elements().Any(e => True(e, "enabled")) == true)
                 Add("dynamic IP restrictions (security/dynamicIpSecurity)", Status.Unsupported, "not applied");
             var authentication = Child(security, "authentication");
             if (authentication != null)
             {
-                foreach (var (name, label) in new[] { ("windowsAuthentication", "Windows authentication"), ("basicAuthentication", "basic authentication"),
+                // (basic authentication: its challenge sent to anonymous requests, the credentials not checked: no Windows accounts)
+                if (True(Child(authentication, "basicAuthentication"), "enabled"))
+                    Add("basic authentication (security/authentication/basicAuthentication)", Status.Partial, "the challenge is sent (401.2, its realm); the credentials are not checked (no Windows accounts): 401.1");
+                foreach (var (name, label) in new[] { ("windowsAuthentication", "Windows authentication"),
                     ("digestAuthentication", "digest authentication"), ("clientCertificateMappingAuthentication", "client certificate mapping"),
                     ("iisClientCertificateMappingAuthentication", "IIS client certificate mapping") })
                     if (True(Child(authentication, name), "enabled")) Add($"{label} (security/authentication/{name})", Status.Unsupported, "not done: requests are anonymous to the host");
                 if (False(Child(authentication, "anonymousAuthentication"), "enabled") && !source.Server)
-                    Add("anonymous authentication off (security/authentication/anonymousAuthentication)", Status.Unsupported, "the host answers anonymous requests");
+                    Add("anonymous authentication off (security/authentication/anonymousAuthentication)", Status.Partial, "anonymous requests refused as IIS refuses them (401.2, the schemes' challenges); no credentials can be checked");
             }
             var filtering = Child(security, "requestFiltering");
             if (filtering != null && !source.Server)

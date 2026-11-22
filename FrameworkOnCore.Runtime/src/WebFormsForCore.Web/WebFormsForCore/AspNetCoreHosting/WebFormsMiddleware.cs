@@ -149,6 +149,8 @@ namespace Microsoft.AspNetCore.Builder
 			// IIS's request filtering, on the URL as it is now: the rewritten one (it ran on the URL as sent before URL Rewrite:
 			// UseWebFormsIis, RequestFiltering).
 			if (RequestFiltering(context)) { await AfterFiltering(context); return; }
+			// IIS's IP restrictions, authentication and URL authorization (IisAccess)
+			if (System.Web.Hosting.IisAccess.Refuses(context, PhysicalPath)) return;
 			if (Handler(context)) return;
 			// IIS's output cache's profiles (IisOutputCache): their Cache-Control, the handler's answers kept.
 			var outputCache = this.outputCache ??= new Lazy<System.Web.Hosting.IisOutputCache>(() => System.Web.Hosting.IisOutputCache.Load(PhysicalPath));

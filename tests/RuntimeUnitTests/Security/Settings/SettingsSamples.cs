@@ -61,14 +61,9 @@ static class SettingsSamples
         ["rewrite/providers"] = "URL Rewrite's providers: not run by the port (reported)",
         ["applicationInitialization"] = "set at the application's root only; its warm-up requests are not answers",
         ["modules"] = "set at the application's root only (a folder's is IIS's 500.19): not yet tried at the root",
-        ["security/dynamicIpSecurity"] = "dynamic IP restrictions: IIS's module" + Installed,
-        ["security/ipSecurity"] = "IP restrictions: IIS's module (IIS-IPSecurity)" + Installed,
-        ["security/authorization"] = "IIS's URL authorization (IIS-URLAuthorization)" + Installed,
-        ["security/authentication/basicAuthentication"] = "basic authentication (IIS-BasicAuthentication)" + Installed,
         ["security/authentication/digestAuthentication"] = "digest authentication" + Installed,
         ["security/authentication/clientCertificateMappingAuthentication"] = "client certificates: the probes are plain HTTP",
         ["security/authentication/iisClientCertificateMappingAuthentication"] = "client certificates: the probes are plain HTTP",
-        ["webSocket"] = "WebSocket (IIS-WebSockets)" + Installed + "; the probes are plain HTTP",
         ["management/authentication"] = "IIS Manager's delegation (administration.config): no setting of a site",
         ["management/authorization"] = "IIS Manager's delegation (administration.config): no setting of a site",
         ["management/trustedProviders"] = "IIS Manager's delegation (administration.config): no setting of a site",
@@ -171,6 +166,34 @@ static class SettingsSamples
         ["security/authentication/windowsAuthentication/providers/[add]@value"] = new() { Values = new[] { "Negotiate", "Negotiate:Kerberos", "NTLM" } },
         ["security/authentication/windowsAuthentication/extendedProtection/[spn]"] = new() { Item = """<spn name="HTTP/foc" />""" },
         ["security/authentication/windowsAuthentication/extendedProtection/[spn]@name"] = new() { Values = new[] { "HTTP/foc" } },
+
+        // ---- URL authorization (IIS's own, security/authorization: the probes are anonymous)
+        ["security/authorization/[add]"] = new() { Item = """<add accessType="Deny" users="?" />""", Remove = new[] { """<remove users="*" roles="" verbs="" />""" }, Duplicate = """<add accessType="Allow" users="*" />""" },
+        ["security/authorization/[add]@users"] = new() { Values = new[] { "?", "*", "foc" } },
+        ["security/authorization/[add]@roles"] = new() { Values = new[] { "foc" } },
+        ["security/authorization/[add]@verbs"] = new() { Values = new[] { "POST", "GET", "GET,HEAD" } },
+        ["security/authorization@bypassLoginPages"] = new() { With = """<add accessType="Deny" users="?" />""" },
+
+        // ---- IP restrictions (the probes come from 127.0.0.1)
+        ["security/ipSecurity/[add]"] = new() { Item = """<add ipAddress="127.0.0.1" allowed="false" />""" },
+        ["security/ipSecurity/[add]@ipAddress"] = new() { Values = new[] { "127.0.0.1", "10.0.0.1", "127.0.0.0", "127.0.0.2", "127.0.1.0", "127.1.0.0", "128.0.0.0", "0.0.0.0" } },
+        ["security/ipSecurity/[add]@subnetMask"] = new() { Values = new[] { "255.0.0.0", "255.255.255.0" } },
+        ["security/ipSecurity/[add]@domainName"] = new() { Item = """<add domainName="localhost" allowed="false" />""", Values = new[] { "localhost", "foc.example" } },
+        ["security/ipSecurity@denyAction"] = new() { With = """<add ipAddress="127.0.0.1" allowed="false" />""" },
+        ["security/ipSecurity@enableReverseDns"] = new() { With = """<add domainName="localhost" allowed="false" />""" },
+        ["security/ipSecurity@enableProxyMode"] = new() { With = """<add ipAddress="127.0.0.1" allowed="false" />""" },
+
+        // ---- dynamic IP restrictions (the probes are sent one after another, as fast as answered)
+        ["security/dynamicIpSecurity/denyByRequestRate@maxRequests"] = new() { With = """<denyByRequestRate enabled="true" />""", Values = new[] { "1", "5", "100000" } },
+        ["security/dynamicIpSecurity/denyByRequestRate@requestIntervalInMilliseconds"] = new() { With = """<denyByRequestRate enabled="true" maxRequests="5" />""", Values = new[] { "10", "1000", "100000" } },
+        ["security/dynamicIpSecurity/denyByConcurrentRequests@maxConcurrentRequests"] = new() { With = """<denyByConcurrentRequests enabled="true" />""", Values = new[] { "0", "1" } },
+        ["security/dynamicIpSecurity@denyAction"] = new() { With = """<denyByRequestRate enabled="true" maxRequests="5" requestIntervalInMilliseconds="100000" />""" },
+        ["security/dynamicIpSecurity@enableLoggingOnlyMode"] = new() { With = """<denyByRequestRate enabled="true" maxRequests="5" requestIntervalInMilliseconds="100000" />""" },
+
+        // ---- basic authentication (anonymous off: the probes have no credentials)
+        ["security/authentication/basicAuthentication"] = new() { WithAttributes = "enabled=\"true\"", Beside = AnonymousOff },
+        ["security/authentication/basicAuthentication@realm"] = new() { Values = new[] { "foc" } },
+        ["security/authentication/basicAuthentication@defaultLogonDomain"] = new() { Values = new[] { "foc" } },
 
         // ---- request filtering
         ["security/requestFiltering/fileExtensions/[add]"] = new() { Item = """<add fileExtension=".foo" allowed="false" />""", Remove = new[] { """<remove fileExtension=".config" />""" }, Duplicate = """<add fileExtension=".config" allowed="false" />""" },

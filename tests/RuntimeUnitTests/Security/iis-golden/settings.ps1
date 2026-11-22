@@ -2,10 +2,12 @@
 # tried and what shows into IIS-SETTINGS.md: the variants are made from this machine's IIS configuration schema
 # (%windir%\system32\inetsrv\config\schema), each a folder's web.config of a throwaway site, the same probes sent to each.
 #
-# Record again (Windows with IIS 10, ASP.NET 4.8, URL Rewrite 2.1; an elevated PowerShell, from the repository's root):
+# Record again (Windows with IIS 10, ASP.NET 4.8, URL Rewrite 2.1, the Windows features IIS-URLAuthorization, IIS-IPSecurity,
+# IIS-BasicAuthentication and IIS-WebSockets; an elevated PowerShell, from the repository's root):
 #   powershell -ExecutionPolicy Bypass -File tests/RuntimeUnitTests/Security/iis-golden/settings.ps1
 # It makes a site (its own application pool) on a free port of 127.0.0.1 over a folder in %TEMP%, unlocks for that site only
-# the sections IIS locks by default that are tried (security/access, anonymous and Windows authentication, serverRuntime:
+# the sections IIS locks by default that are tried (security/access, anonymous, basic and Windows authentication, IP and
+# dynamic IP restrictions, serverRuntime, webSocket:
 # an application that has them in its web.config ran on a server that had them unlocked), runs the test
 # SettingsTests.Record against it (FOC_IIS_SETTINGS=port;folder;schema), then removes the site, the pool, the site's
 # location in applicationHost.config and the folder. The other sites are not touched.
@@ -23,7 +25,8 @@ $name = 'foc-iis-settings'
 $root = Join-Path $env:TEMP ($name + '-' + [guid]::NewGuid().ToString('N').Substring(0, 8))
 New-Item -ItemType Directory -Path $root | Out-Null
 & icacls $root /grant 'IIS_IUSRS:(OI)(CI)RX' 'IUSR:(OI)(CI)RX' | Out-Null
-$unlocked = @('security/access', 'security/authentication/anonymousAuthentication', 'security/authentication/windowsAuthentication', 'serverRuntime')
+$unlocked = @('security/access', 'security/authentication/anonymousAuthentication', 'security/authentication/windowsAuthentication',
+    'security/authentication/basicAuthentication', 'security/ipSecurity', 'security/dynamicIpSecurity', 'serverRuntime', 'webSocket')
 try {
     & $appcmd add apppool /name:$name /managedRuntimeVersion:v4.0 /managedPipelineMode:Integrated | Out-Null
     & $appcmd add site /name:$name "/bindings:http/127.0.0.1:${port}:" /physicalPath:$root | Out-Null

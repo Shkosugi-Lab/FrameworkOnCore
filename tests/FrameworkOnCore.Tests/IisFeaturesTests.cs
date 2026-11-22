@@ -147,6 +147,19 @@ public class IisFeaturesTests : IDisposable
             "<iisProfile><location path=\"\"><system.webServer><security><authentication><windowsAuthentication enabled=\"true\" /></authentication></security></system.webServer></location></iisProfile>"),
             "Windows authentication").Status);
 
+    [Theory] // what the host applies of the access settings (the host's tests' iis-settings.json): IP restrictions whole, the others in part
+    [InlineData("""<security><ipSecurity allowUnlisted="false" /></security>""", "IP restrictions", IisFeatures.Status.Supported)]
+    [InlineData("""<security><ipSecurity><add domainName="x.example" /></ipSecurity></security>""", "IP restrictions", IisFeatures.Status.Partial)]
+    [InlineData("""<security><authorization><add accessType="Deny" users="?" /></authorization></security>""", "URL authorization", IisFeatures.Status.Partial)]
+    [InlineData("""<security><authentication><anonymousAuthentication enabled="false" /></authentication></security>""", "anonymous authentication off", IisFeatures.Status.Partial)]
+    [InlineData("""<security><authentication><basicAuthentication enabled="true" /></authentication></security>""", "basic authentication", IisFeatures.Status.Partial)]
+    [InlineData("""<security><authentication><windowsAuthentication enabled="true" /></authentication></security>""", "Windows authentication", IisFeatures.Status.Unsupported)]
+    public void Access_settings_are_told_as_the_host_applies_them(string setting, string feature, IisFeatures.Status status)
+    {
+        var findings = Analyze($"<configuration><system.webServer>{setting}</system.webServer></configuration>");
+        Assert.Equal(status, Assert.Single(findings, f => f.Feature.StartsWith(feature)).Status);
+    }
+
     [Fact] // the server's own: IIS's default authorization (everyone allowed) is no rule
     public void The_default_authorization_is_none() =>
         Assert.DoesNotContain(Analyze("<configuration />",

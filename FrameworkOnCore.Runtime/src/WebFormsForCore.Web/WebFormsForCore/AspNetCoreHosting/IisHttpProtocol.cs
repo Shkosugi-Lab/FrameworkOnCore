@@ -267,6 +267,7 @@ namespace System.Web.Hosting
 					return;
 				}
 				var status = redirect.For((context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "/")).Status;
+				IisDecision.Set(context, IisDecision.Redirect);
 				var body = IisUrlRewrite.Redirect(context, status, location.Replace(" ", "%20"));
 				if (!Core.HttpMethods.IsHead(context.Request.Method)) await context.Response.Body.WriteAsync(body, 0, body.Length);
 			}

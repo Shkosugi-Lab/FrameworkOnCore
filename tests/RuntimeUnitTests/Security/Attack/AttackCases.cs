@@ -11,11 +11,21 @@ sealed class Target
     public string Root;
     public bool Iis;
     public string Host => "127.0.0.1:" + Port;
+    /// <summary>
+    /// A request's mark for IIS's trace of it (iis-golden/trace.ps1: the header X-Foc-Case, by which a trace is its case's);
+    /// none when the answers are recorded or compared.
+    /// </summary>
+    public string Marker;
 
     /// <summary>A request's head (its lines without the final empty one; "{host}" the server's), Connection: close added.</summary>
     public RawHttp.Answer Raw(string head, byte[] body = null, bool closeSending = false, int timeout = 15000, Action<NetworkStream> during = null)
     {
         var text = head.Replace("{host}", Host) + "\r\nConnection: close\r\n\r\n";
+        if (Marker != null)
+        {
+            var end = text.IndexOf('\n');
+            if (end >= 0) text = text[..(end + 1)] + "X-Foc-Case: " + Marker + "\r\n" + text[(end + 1)..];
+        }
         var bytes = RawHttp.Bytes(text);
         if (body != null) bytes = bytes.Concat(body).ToArray();
         return RawHttp.Send(Port, bytes, closeSending, timeout, during);
@@ -253,6 +263,11 @@ static class AttackCases
         yield return new("headers", "an unknown method", t => t.Raw("FOO /a.txt HTTP/1.1\r\nHost: {host}"));
         yield return new("headers", "TRACE", t => t.Raw("TRACE /a.txt HTTP/1.1\r\nHost: {host}"));
         yield return new("headers", "TRACK", t => t.Raw("TRACK /a.txt HTTP/1.1\r\nHost: {host}"));
+        yield return new("headers", "TRACE a page", t => t.Raw("TRACE /default.aspx HTTP/1.1\r\nHost: {host}"));
+        yield return new("headers", "TRACE a handler", t => t.Raw("TRACE /echo.ashx HTTP/1.1\r\nHost: {host}"));
+        yield return new("headers", "TRACE nothing", t => t.Raw("TRACE /nothing HTTP/1.1\r\nHost: {host}"));
+        yield return new("headers", "TRACE a URL a rule redirects", t => t.Raw("TRACE /go/a.txt HTTP/1.1\r\nHost: {host}"));
+        yield return new("headers", "TRACE a protected file", t => t.Raw("TRACE /App_Data/users.xml HTTP/1.1\r\nHost: {host}"));
         yield return new("headers", "a method of 300 characters", t => t.Raw(new string('M', 300) + " /a.txt HTTP/1.1\r\nHost: {host}"));
         yield return new("headers", "GET with a Range of many parts", t => t.Get("/a.txt", "Range: bytes=" + string.Join(",", Enumerable.Range(0, 200).Select(i => "0-1"))));
         yield return new("headers", "GET with an invalid Range", t => t.Get("/a.txt", "Range: bytes=5-2"));
@@ -289,6 +304,9 @@ static class AttackCases
         yield return new("bodies", "POST 100 KB to a static file", t => t.Post("/a.txt", "application/x-www-form-urlencoded", Form(100 * 1024)));
         yield return new("bodies", "POST 300 KB (over maxAllowedContentLength 200,000)", t => t.Post("/post.ashx", "application/x-www-form-urlencoded", Form(300 * 1024)));
         yield return new("bodies", "POST 300 KB to a static file", t => t.Post("/a.txt", "application/x-www-form-urlencoded", Form(300 * 1024)));
+        yield return new("bodies", "POST 300 KB to a URL a rule redirects", t => t.Post("/go/a.txt", "application/x-www-form-urlencoded", Form(300 * 1024)));
+        yield return new("bodies", "POST 300 KB to a protected file", t => t.Post("/App_Data/users.xml", "application/x-www-form-urlencoded", Form(300 * 1024)));
+        yield return new("bodies", "POST 300 KB to a URL a rule rewrites", t => t.Post("/rw/post.ashx", "application/x-www-form-urlencoded", Form(300 * 1024)));
         yield return new("bodies", "POST announcing 300 KB, headers only", t => t.Raw("POST /post.ashx HTTP/1.1\r\nHost: {host}\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: 307200", timeout: 10000));
         yield return new("bodies", "POST announcing 300 KB with Expect: 100-continue", t => t.Raw("POST /post.ashx HTTP/1.1\r\nHost: {host}\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: 307200\r\nExpect: 100-continue", timeout: 10000));
         yield return new("bodies", "POST a body that ends early (closed)", t => t.Raw("POST /post.ashx HTTP/1.1\r\nHost: {host}\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: 1000", Form(10), closeSending: true, timeout: 10000));

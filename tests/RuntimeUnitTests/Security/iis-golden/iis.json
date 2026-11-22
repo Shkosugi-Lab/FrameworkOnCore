@@ -7693,6 +7693,41 @@
     },
     {
       "category": "headers",
+      "name": "TRACE a page",
+      "status": 501,
+      "sub": "501.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "headers",
+      "name": "TRACE a handler",
+      "status": 501,
+      "sub": "501.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "headers",
+      "name": "TRACE nothing",
+      "status": 501,
+      "sub": "501.0",
+      "kind": "iis error"
+    },
+    {
+      "category": "headers",
+      "name": "TRACE a URL a rule redirects",
+      "status": 301,
+      "kind": "other text/html; charset=UTF-8",
+      "location": "http://{host}/a.txt"
+    },
+    {
+      "category": "headers",
+      "name": "TRACE a protected file",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "headers",
       "name": "a method of 300 characters",
       "status": 400,
       "kind": "http.sys Bad Request - Invalid Verb"
@@ -8145,6 +8180,27 @@
     {
       "category": "bodies",
       "name": "POST 300 KB to a static file",
+      "status": 413,
+      "sub": "413.1",
+      "kind": "iis error"
+    },
+    {
+      "category": "bodies",
+      "name": "POST 300 KB to a URL a rule redirects",
+      "status": 413,
+      "sub": "413.1",
+      "kind": "iis error"
+    },
+    {
+      "category": "bodies",
+      "name": "POST 300 KB to a protected file",
+      "status": 404,
+      "sub": "404.8",
+      "kind": "iis error"
+    },
+    {
+      "category": "bodies",
+      "name": "POST 300 KB to a URL a rule rewrites",
       "status": 413,
       "sub": "413.1",
       "kind": "iis error"

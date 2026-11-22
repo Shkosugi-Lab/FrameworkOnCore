@@ -84,7 +84,7 @@ namespace Microsoft.AspNetCore.Builder
 			var pipeline = WebFormsPipeline.Of(app);
 			app.Use(async (context, next) =>
 			{
-				if (pipeline.Middleware?.RequestFiltering(context) == true) return;
+				if (pipeline.Middleware?.RequestFiltering(context) == true) { await WebFormsMiddleware.AfterFiltering(context); return; }
 				await next(context);
 			});
 			app.UseWebFormsUrlRewrite();

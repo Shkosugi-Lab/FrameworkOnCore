@@ -71,7 +71,54 @@ public class IisFeaturesTests : IDisposable
     {
         var findings = Analyze("<configuration><system.webServer><security><requestFiltering><requestLimits maxAllowedContentLength=\"100\" /><fileExtensions><add fileExtension=\".log\" allowed=\"false\" /></fileExtensions></requestFiltering></security></system.webServer></configuration>");
         Assert.Contains(findings, f => f.Feature.StartsWith("request limits") && f.Status == IisFeatures.Status.Supported);
-        Assert.Contains(findings, f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Partial && f.Text.Contains("fileExtensions"));
+        // (the host's request filtering reads the denied extensions: it was reported as not applied)
+        Assert.Contains(findings, f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Supported && f.Text.Contains("fileExtensions"));
+        Assert.DoesNotContain(findings, f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Partial);
+    }
+
+    [Fact] // what the host's request filtering reads is told as done, what it does not as not applied
+    public void Request_filtering_is_told_part_by_part()
+    {
+        var findings = Analyze("""
+            <configuration><system.webServer><security><requestFiltering allowDoubleEscaping="true" unescapeQueryString="false">
+              <hiddenSegments><add segment="private" /></hiddenSegments>
+              <denyUrlSequences><add sequence=".." /></denyUrlSequences>
+              <verbs allowUnlisted="false"><add verb="GET" allowed="true" /></verbs>
+              <denyQueryStringSequences><add sequence="x" /></denyQueryStringSequences>
+            </requestFiltering></security></system.webServer></configuration>
+            """);
+        var done = Assert.Single(findings, f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Supported);
+        Assert.Contains("hiddenSegments, denyUrlSequences, allowDoubleEscaping", done.Text);
+        var not = Assert.Single(findings, f => f.Feature.StartsWith("request filtering") && f.Status == IisFeatures.Status.Partial);
+        Assert.Contains("verbs, denyQueryStringSequences, unescapeQueryString", not.Text);
+        Assert.DoesNotContain("hiddenSegments", not.Text);
+    }
+
+    [Theory] // settings of IIS's schema the host does not read, each of which changes what is answered: reported
+    [InlineData("""<security><access sslFlags="Ssl, SslRequireCert" /></security>""", "TLS required")]
+    [InlineData("""<httpProtocol allowKeepAlive="false" />""", "keep-alive off")]
+    [InlineData("""<staticContent enableDocFooter="true" defaultDocFooter="x" />""", "document footer")]
+    [InlineData("""<serverRuntime appConcurrentRequestLimit="10" />""", "server runtime")]
+    [InlineData("""<webSocket enabled="false" />""", "WebSocket off")]
+    [InlineData("""<rewrite><rules useOriginalURLEncoding="false" /></rewrite>""", "useOriginalURLEncoding")]
+    [InlineData("""<handlers accessPolicy="Read" />""", "handlers' access policy")]
+    public void Settings_the_host_does_not_read_are_reported(string setting, string feature)
+    {
+        var findings = Analyze($"<configuration><system.webServer>{setting}</system.webServer></configuration>");
+        Assert.Contains(findings, f => f.Feature.Contains(feature) && f.Status == IisFeatures.Status.Unsupported);
+    }
+
+    [Theory] // the same settings at their defaults: nothing reported
+    [InlineData("""<security><access sslFlags="None" /></security>""")]
+    [InlineData("""<httpProtocol allowKeepAlive="true" />""")]
+    [InlineData("""<staticContent enableDocFooter="false" defaultDocFooter="x" />""")]
+    [InlineData("""<webSocket enabled="true" />""")]
+    [InlineData("""<rewrite><rules useOriginalURLEncoding="true" /></rewrite>""")]
+    [InlineData("""<handlers accessPolicy="Read, Script" />""")]
+    public void The_defaults_of_those_settings_are_not_reported(string setting)
+    {
+        var findings = Analyze($"<configuration><system.webServer>{setting}</system.webServer></configuration>");
+        Assert.DoesNotContain(findings, f => f.Status == IisFeatures.Status.Unsupported);
     }
 
     [Fact] // the server's static compression (its module, not turned off for the site): done as IIS does it; off for the site: nothing

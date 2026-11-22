@@ -28,6 +28,18 @@ namespace FrameworkOnCore.Runtime.Tests.Hosting
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession();
             var app = builder.Build();
+            // The step that answered, for a request marked as a case's (Target.Marker): the module of IIS's it stands for
+            // (IisDecision), which the tests hold to the one IIS's own trace names.
+            app.Use((context, next) =>
+            {
+                if (context.Request.Headers.ContainsKey("X-Foc-Case"))
+                    context.Response.OnStarting(() =>
+                    {
+                        if (context.Features.Get<System.Web.Hosting.IisDecision>() is { } decision) context.Response.Headers["X-Foc-Decided"] = decision.Module;
+                        return Task.CompletedTask;
+                    });
+                return next(context);
+            });
             app.UseWebFormsIis();
             app.UseSession();
             app.UseWebForms(options => options.PhysicalPath(root).UseAspNetCoreSessionProvider());

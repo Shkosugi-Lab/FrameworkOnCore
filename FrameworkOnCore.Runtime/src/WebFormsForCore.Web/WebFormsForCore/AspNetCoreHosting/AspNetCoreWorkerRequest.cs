@@ -1110,27 +1110,35 @@ namespace System.Web.Hosting
 						"<hr><p>HTTP Error 400. The request URL is invalid.</p>\r\n</BODY></HTML>\r\n";
 					break;
 				case 413:
-					// The status line as IIS writes it (Kestrel's is RFC 9110's "Payload Too Large").
-					var feature = Context.Features.Get<Core.Features.IHttpResponseFeature>();
-					if (feature != null) feature.ReasonPhrase = "Request Entity Too Large";
-					break;
+					await TooLargeAsync(Context);
+					return;
 			}
 			if (page != null) await Core.HttpResponseWritingExtensions.WriteAsync(Context.Response, page);
 			await Context.Response.CompleteAsync();
-			// A body too large: read to its end (beyond Kestrel's limit), as IIS takes it, so that the client, still sending,
-			// gets the answer and not a connection closed under it. Not a body the client waits to be asked for (Expect:
-			// 100-continue): IIS answers 413 without asking for it (reading it made Kestrel send 100 Continue first).
-			if (status == 413 && !string.Equals(Context.Request.Headers.Expect.ToString(), "100-continue", StringComparison.OrdinalIgnoreCase))
+		}
+
+		/// <summary>
+		/// IIS's request filtering's 413.1 (a Content-Length beyond requestLimits' maxAllowedContentLength), the status set: its
+		/// status line as IIS writes it (Kestrel's is RFC 9110's "Payload Too Large"), its page httpErrors' (IisHttpErrors).
+		/// </summary>
+		internal static async Task TooLargeAsync(Core.HttpContext context)
+		{
+			context.Response.StatusCode = 413;
+			var feature = context.Features.Get<Core.Features.IHttpResponseFeature>();
+			if (feature != null) feature.ReasonPhrase = "Request Entity Too Large";
+			await context.Response.CompleteAsync();
+			// The body read to its end (beyond Kestrel's limit), as IIS takes it, so that the client, still sending, gets the
+			// answer and not a connection closed under it. Not a body the client waits to be asked for (Expect: 100-continue):
+			// IIS answers 413 without asking for it (reading it made Kestrel send 100 Continue first).
+			if (string.Equals(context.Request.Headers.Expect.ToString(), "100-continue", StringComparison.OrdinalIgnoreCase)) return;
+			var bodySize = context.Features.Get<Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>();
+			if (bodySize != null && !bodySize.IsReadOnly) bodySize.MaxRequestBodySize = null;
+			try
 			{
-				var bodySize = Context.Features.Get<Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>();
-				if (bodySize != null && !bodySize.IsReadOnly) bodySize.MaxRequestBodySize = null;
-				try
-				{
-					await Context.Request.Body.CopyToAsync(Stream.Null);
-				}
-				catch (Exception e) when (e is IOException || e is Microsoft.AspNetCore.Http.BadHttpRequestException || e is OperationCanceledException)
-				{
-				}
+				await context.Request.Body.CopyToAsync(Stream.Null);
+			}
+			catch (Exception e) when (e is IOException || e is Microsoft.AspNetCore.Http.BadHttpRequestException || e is OperationCanceledException)
+			{
 			}
 		}
 

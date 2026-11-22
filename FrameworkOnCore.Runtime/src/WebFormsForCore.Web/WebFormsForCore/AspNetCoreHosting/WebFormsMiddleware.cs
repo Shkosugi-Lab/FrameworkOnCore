@@ -145,10 +145,10 @@ namespace Microsoft.AspNetCore.Builder
 			}
 			// A static file's response kept as IIS's kernel cache keeps it: answered before System.Web, as IIS answers it
 			// before its pipeline (StaticResponseCache).
-			if (await StaticResponseCache.TryServe(context)) return;
+			if (await StaticResponseCache.TryServe(context)) { IisDecision.Set(context, IisDecision.StaticFile); return; }
 			// IIS's request filtering, on the URL as it is now: the rewritten one (it ran on the URL as sent before URL Rewrite:
 			// UseWebFormsIis, RequestFiltering).
-			if (RequestFiltering(context)) return;
+			if (RequestFiltering(context)) { await AfterFiltering(context); return; }
 			// OPTIONS that no handler of the application's takes (IIS's OPTIONSVerbHandler, after the managed handlers of
 			// GET, HEAD, POST and DEBUG, before StaticFile): 200 with the verbs IIS's protocol support module names, no body
 			// (IIS 10: OPTIONS of a page, a static file, a folder; a CORS preflight). The page's handler answered 405, a static
@@ -160,7 +160,18 @@ namespace Microsoft.AspNetCore.Builder
 				context.Response.StatusCode = 200;
 				context.Response.Headers["Allow"] = "OPTIONS, TRACE, GET, HEAD, POST";
 				context.Response.Headers["Public"] = "OPTIONS, TRACE, GET, HEAD, POST";
+				IisDecision.Set(context, IisDecision.ProtocolSupport);
 				context.Response.ContentLength = 0;
+				return;
+			}
+			// TRACE that no handler of the application's takes (IIS's TRACEVerbHandler: its protocol support module's 501.0, of a
+			// page, a handler, a static file, of nothing; after its request filtering - TRACE of App_Data is 404.8 - and URL
+			// Rewrite - of a rule's URL its 301). ASP.NET's handlers answered 405.
+			if (Core.HttpMethods.IsTrace(context.Request.Method) && (context.Request.Path.Value ?? "").StartsWith('/') && IntegratedModeConfiguration.AnswersTrace((context.Request.PathBase.Value ?? "") + (context.Request.Path.Value ?? "")))
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, 0);
+				context.Response.StatusCode = 501;
+				IisDecision.Set(context, IisDecision.ProtocolSupport);
 				return;
 			}
 			// The handler's stage (after URL Rewrite and httpRedirect: IIS 10's "/go/y.secret%20" is the rule's 301, not a 404).
@@ -172,6 +183,7 @@ namespace Microsoft.AspNetCore.Builder
 			{
 				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
 				context.Response.StatusCode = 404;
+				IisDecision.Set(context, IisDecision.StaticFile);
 				return;
 			}
 			// A static file's name with path info after it ("/x.cs/x", "/global.asax/x": no handler's type, IisUrl.Split):
@@ -181,6 +193,7 @@ namespace Microsoft.AspNetCore.Builder
 			{
 				System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
 				context.Response.StatusCode = 404;
+				IisDecision.Set(context, IisDecision.StaticFile);
 				return;
 			}
 			if (IsLegacyRequest(context))
@@ -190,9 +203,12 @@ namespace Microsoft.AspNetCore.Builder
 				if (flags == null) context.Features.Set(flags = new IisErrorFlags());
 				flags.SystemWeb = true;
 				AllowSynchronousIO(context);
+				IisDecision.Set(context, IisDecision.Managed);
 
 				await host.ProcessRequest(context);
 			} else {
+				// (no file, no handler: the static file handler's 404 on IIS)
+				IisDecision.Set(context, IisDecision.StaticFile);
 				await next.Invoke(context);
 			}
 		}
@@ -206,6 +222,9 @@ namespace Microsoft.AspNetCore.Builder
 		/// rewritten to "/App_Data/users.xml" is 404.8): UseWebFormsIis runs it before URL Rewrite, Invoke after. It ran
 		/// after only: a protected URL a rule rewrote was served.
 		/// </summary>
+		internal static Task AfterFiltering(Core.HttpContext context) =>
+			context.Response.StatusCode == 413 ? AspNetCoreWorkerRequest.TooLargeAsync(context) : Task.CompletedTask;
+
 		internal bool RequestFiltering(Core.HttpContext context)
 		{
 			// (A folder's URL without its '/': IIS's courtesy redirect comes after the managed pipeline has run for it, from its
@@ -223,6 +242,7 @@ namespace Microsoft.AspNetCore.Builder
 			{
 				System.Web.Hosting.IisLogStatus.Set(context, doubleEscaped ? 11 : 5);
 				context.Response.StatusCode = 404;
+				IisDecision.Set(context, IisDecision.RequestFiltering);
 				return true;
 			}
 			// requestLimits' maxUrl (404.14) and maxQueryString (404.15), for every URL (the worker request checked them for
@@ -233,6 +253,7 @@ namespace Microsoft.AspNetCore.Builder
 			{
 				System.Web.Hosting.IisLogStatus.Set(context, requestPath.Length > limits.MaxUrl ? 14 : 15);
 				context.Response.StatusCode = 404;
+				IisDecision.Set(context, IisDecision.RequestFiltering);
 				return true;
 			}
 			var hidden = AspNetCoreWorkerRequest.IsHidden(context.Request.Path.Value ?? "", requestPath);
@@ -241,6 +262,17 @@ namespace Microsoft.AspNetCore.Builder
 				var name = System.IO.Path.GetFileName(context.Request.Path.Value ?? "");
 				System.Web.Hosting.IisLogStatus.Set(context, hidden || string.Equals(name, "web.config", StringComparison.OrdinalIgnoreCase) ? 8 : 7);
 				context.Response.StatusCode = 404;
+				IisDecision.Set(context, IisDecision.RequestFiltering);
+				return true;
+			}
+			// requestLimits' maxAllowedContentLength (413.1), after the URL's checks (IIS 10: 300 KB posted to App_Data is
+			// 404.8) and before URL Rewrite (posted to a rule's URL it is 413.1, not the rule's redirect). The worker request
+			// checked it, for System.Web's requests, after the rules: the redirect was answered.
+			if (context.Request.ContentLength > limits.MaxAllowedContentLength)
+			{
+				System.Web.Hosting.IisLogStatus.Set(context, 1);
+				context.Response.StatusCode = 413;
+				IisDecision.Set(context, IisDecision.RequestFiltering);
 				return true;
 			}
 			// A last segment ending in '.' or a space ("/a.txt.", "/old/x.", "/sub%20") of a URL ASP.NET's handlers take (no
@@ -260,6 +292,7 @@ namespace Microsoft.AspNetCore.Builder
 				{
 					System.Web.Hosting.IisLogStatus.Set(context, 0, 2);
 					context.Response.StatusCode = 404;
+					IisDecision.Set(context, IisDecision.Managed);
 					return true;
 				}
 			}

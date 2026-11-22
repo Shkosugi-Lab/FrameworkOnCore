@@ -39,6 +39,7 @@ namespace System.Web
 				var folderWorker = context.WorkerRequest as AspNetCoreWorkerRequest;
 				if (!virtualPath.EndsWith("/", StringComparison.Ordinal))
 				{
+					Decided(context);
 					CourtesyRedirect(context, virtualPath);
 					return true;
 				}
@@ -64,11 +65,13 @@ namespace System.Web
 				if (showFlags != null)
 				{
 					response.ContentType = "text/html; charset=UTF-8";
+					Decided(context);
 					response.Write(Listing(context, virtualPath, physicalPath, showFlags));
 					return true;
 				}
 				// The status only: its page is IIS's httpErrors' (IisHttpErrors).
 				IisLogStatus.Set((context.WorkerRequest as AspNetCoreWorkerRequest)?.Context, 14);
+				Decided(context);
 				response.StatusCode = 403;
 				return true;
 			}
@@ -112,6 +115,7 @@ namespace System.Web
 
 				response.ContentType = contentType;
 				response.SuppressDefaultCacheControlHeader = true;
+				Decided(context);
 
 				void Send(long offset, long length)
 				{
@@ -220,8 +224,12 @@ namespace System.Web
 			return true;
 		}
 
+		// The static files' answer (IisDecision: the tests').
+		static void Decided(HttpContext context) => IisDecision.Set((context.WorkerRequest as AspNetCoreWorkerRequest)?.Context, IisDecision.StaticFile);
+
 		static void NotFound(HttpContext context, int subStatus, int win32Status)
 		{
+			Decided(context);
 			var response = context.Response;
 			// What IIS logs of it (the W3C log's sc-substatus, sc-win32-status).
 			// The status only: its page is IIS's httpErrors' (IisHttpErrors); no Cache-Control (System.Web's private), as IIS's.

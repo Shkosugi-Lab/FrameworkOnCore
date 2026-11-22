@@ -85,7 +85,6 @@ static class Allowed
             "Kestrel gives OPTIONS * the root's path, a folder's URL: the managed pipeline runs for it and ASP.NET's static file handler refuses the verb (405, " +
             "as for OPTIONS on a static file; it was the default document's page, 200, before the folder's URL ran the pipeline as on IIS); IIS's URL Rewrite fails on it (500.50)",
             (_, p) => p.Status == 405);
-        Allow("headers", "TRACE", Rule.Refused, "TRACE refused by both (IIS 501, ASP.NET's 405 on the port); no request echoed");
         Allow("headers", "TRACK", Rule.SameStatus, "405: IIS's static file module's page, ASP.NET's on the port");
         Allow("headers", "an unknown method", Rule.SameStatus, "405: IIS's static file module's page, ASP.NET's on the port");
         Allow("bodies", "POST 100 KB to a static file", Rule.SameStatus, "405: IIS's static file module's page, ASP.NET's on the port");

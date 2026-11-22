@@ -397,6 +397,7 @@ namespace System.Web.Hosting
 					{
 						// IIS: 500.50, a server variable the server does not let rules set (the 2.0 reference: the
 						// distributed rules only; the global rules set any).
+						IisDecision.Set(state.Context, IisDecision.Rewrite);
 						state.Body = Respond(state.Context, 500, 50, null);
 						return true;
 					}
@@ -409,6 +410,7 @@ namespace System.Web.Hosting
 						var url = Expand(rule.Url, r, c, state);
 						if (IsAbsolute(url))
 						{
+							IisDecision.Set(state.Context, IisDecision.Rewrite);
 							state.Body = Respond(state.Context, 502, 3, null);   // ARR's: no reverse proxy here
 							return true;
 						}
@@ -436,14 +438,17 @@ namespace System.Web.Hosting
 							var (path, query) = Target(url, rule, state);
 							location = path + (query.Length > 0 ? "?" + query : "");
 						}
+						IisDecision.Set(state.Context, IisDecision.Rewrite);
 						state.Body = Redirect(state.Context, rule.RedirectStatus, location.Replace(" ", "%20"));
 						return true;
 					}
 					case ActionType.CustomResponse:
+						IisDecision.Set(state.Context, IisDecision.Rewrite);
 						state.Body = Respond(state.Context, rule.StatusCode, rule.SubStatusCode, rule.StatusReason);
 						return true;
 					case ActionType.AbortRequest:
 						IisLogStatus.SetNotLogged(state.Context);   // IIS writes no line for it
+						IisDecision.Set(state.Context, IisDecision.Rewrite);
 						state.Context.Abort();
 						return true;
 				}

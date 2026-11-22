@@ -156,18 +156,41 @@ public static class IisFeatures
             if (filtering != null && !source.Server)
             {
                 if (Child(filtering, "requestLimits") != null) Add("request limits (requestFiltering/requestLimits)", Status.Supported, "maxAllowedContentLength, maxUrl, maxQueryString");
-                var parts = new[] { "fileExtensions", "hiddenSegments", "denyUrlSequences", "verbs", "headerLimits", "filteringRules", "alwaysAllowedUrls", "alwaysAllowedQueryStrings", "denyQueryStringSequences" }
-                    .Where(n => Child(filtering, n)?.Elements().Any() == true || Child(filtering, n)?.Attributes().Any() == true).ToList();
+                // What the host's request filtering reads (IntegratedModeConfiguration.RequestFiltering) and what it does not.
+                bool Set(string n) => Child(filtering, n)?.Elements().Any() == true || Child(filtering, n)?.Attributes().Any() == true;
+                var applied = new[] { "fileExtensions", "hiddenSegments", "denyUrlSequences" }.Where(Set).ToList();
+                if (filtering.Attribute("allowDoubleEscaping") != null) applied.Add("allowDoubleEscaping");
+                if (applied.Count > 0) Add("request filtering (requestFiltering)", Status.Supported, string.Join(", ", applied) + ": applied as IIS applies them");
+                var parts = new[] { "verbs", "headerLimits", "filteringRules", "alwaysAllowedUrls", "alwaysAllowedQueryStrings", "denyQueryStringSequences" }.Where(Set).ToList();
                 if (Child(Child(filtering, "requestLimits"), "headerLimits")?.Elements().Any() == true) parts.Add("requestLimits/headerLimits");
-                if (parts.Count > 0) Add("request filtering (requestFiltering)", Status.Partial, string.Join(", ", parts) + ": not applied (IIS's default denied extensions and hidden segments are)");
-                if (True(filtering, "allowDoubleEscaping") || False(filtering, "allowHighBitCharacters") || filtering.Attribute("removeServerHeader") != null)
-                    Add("request filtering (requestFiltering)", Status.Partial, "allowDoubleEscaping, allowHighBitCharacters, removeServerHeader: not applied");
+                if (False(filtering, "allowHighBitCharacters")) parts.Add("allowHighBitCharacters");
+                if (filtering.Attribute("removeServerHeader") != null) parts.Add("removeServerHeader");
+                if (False(filtering, "unescapeQueryString")) parts.Add("unescapeQueryString");
+                if (parts.Count > 0) Add("request filtering (requestFiltering)", Status.Partial, string.Join(", ", parts) + ": not applied");
             }
+            // (sslFlags: IIS refuses a request without TLS, 403.4, or without a client certificate)
+            var access = Child(security, "access");
+            if (access?.Attribute("sslFlags") is { } ssl && !string.Equals(ssl.Value.Trim(), "None", StringComparison.OrdinalIgnoreCase) && ssl.Value.Trim().Length > 0)
+                Add("TLS required (security/access sslFlags)", Status.Unsupported, ssl.Value + ": not applied; requests without TLS or a client certificate are answered");
         }
 
         // What the host does as IIS does it (told so that the report shows what was looked at)
         if (!source.Server)
         {
+            // Settings the host does not read (IIS's schema's attributes compared with what the host reads).
+            if (False(protocol, "allowKeepAlive")) Add("keep-alive off (httpProtocol allowKeepAlive)", Status.Unsupported, "not applied: connections are kept alive");
+            var content = Child(webServer, "staticContent");
+            if (True(content, "enableDocFooter") && content?.Attribute("defaultDocFooter") != null)
+                Add("document footer (staticContent defaultDocFooter)", Status.Unsupported, "not added to the static files");
+            var runtime = Child(webServer, "serverRuntime");
+            var runtimeSet = new[] { "enabled", "appConcurrentRequestLimit", "maxRequestEntityAllowed", "uploadReadAheadSize", "alternateHostName", "authenticatedUserOverride" }.Where(n => runtime?.Attribute(n) != null).ToList();
+            if (runtimeSet.Count > 0) Add("server runtime (serverRuntime)", Status.Unsupported, string.Join(", ", runtimeSet) + ": not applied");
+            if (False(Child(webServer, "webSocket"), "enabled")) Add("WebSocket off (webSocket)", Status.Unsupported, "not applied");
+            foreach (var rules in new[] { "rules", "globalRules" })
+                if (False(Child(rewrite, rules), "useOriginalURLEncoding"))
+                    Add("URL Rewrite (rewrite/" + rules + " useOriginalURLEncoding)", Status.Unsupported, "false not applied: the rules see the URL as with true (the default)");
+            if (Child(webServer, "handlers")?.Attribute("accessPolicy") is { } policy && !policy.Value.Contains("Script", StringComparison.OrdinalIgnoreCase))
+                Add("handlers' access policy (handlers accessPolicy)", Status.Unsupported, policy.Value + ": not applied; the handlers that need Script access (ASP.NET's) run");
             if (Child(webServer, "staticContent") != null) Add("static content (staticContent)", Status.Supported, "MIME map, clientCache");
             if (Child(webServer, "defaultDocument") != null) Add("default documents (defaultDocument)", Status.Supported, "");
             if (Child(webServer, "directoryBrowse") != null) Add("directory browsing (directoryBrowse)", Status.Supported, "");

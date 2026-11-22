@@ -178,28 +178,42 @@ namespace System.Web
 		/// verb (theirs come before IIS's: a Web API's ExtensionlessUrlHandler with verb "*"), and the application's web.config
 		/// does not remove it (a Web API's &lt;remove name="OPTIONSVerbHandler" /&gt;, a &lt;clear /&gt;).
 		/// </summary>
-		internal static bool AnswersOptions(string virtualPath)
+		internal static bool AnswersOptions(string virtualPath) => AnswersVerb("OPTIONS", virtualPath);
+
+		/// <summary>
+		/// Whether IIS's own TRACEVerbHandler answers TRACE for the URL (its protocol support module's 501.0: IIS 10 answers
+		/// TRACE of a page, a handler, a static file and of nothing so, after its request filtering and URL Rewrite): no managed
+		/// handler of the application's takes the verb, and its web.config does not remove the handler.
+		/// </summary>
+		internal static bool AnswersTrace(string virtualPath) => AnswersVerb("TRACE", virtualPath);
+
+		static bool AnswersVerb(string verb, string virtualPath)
 		{
-			if (FindHandler("OPTIONS", virtualPath) != null) return false;
+			if (FindHandler(verb, virtualPath) != null) return false;
 			var file = HostingEnvironment.MapPath("~/web.config");
 			if (file == null || !File.Exists(file)) return true;
 			var written = File.GetLastWriteTimeUtc(file);
-			var known = optionsRemoved;
-			if (known.Written == written && known.File == file) return !known.Removed;
-			var removed = false;
-			try
+			var known = verbHandlersRemoved;
+			if (known.Written != written || known.File != file)
 			{
-				foreach (var entry in XDocument.Load(file).Descendants().Where(e => e.Parent?.Name.LocalName == "handlers"))
-					if (entry.Name.LocalName == "clear" ||
-						(entry.Name.LocalName == "remove" && string.Equals((string)entry.Attribute("name"), "OPTIONSVerbHandler", StringComparison.OrdinalIgnoreCase)))
-						removed = true;
+				bool options = false, trace = false;
+				try
+				{
+					foreach (var entry in XDocument.Load(file).Descendants().Where(e => e.Parent?.Name.LocalName == "handlers"))
+					{
+						var clear = entry.Name.LocalName == "clear";
+						var removed = entry.Name.LocalName == "remove" ? (string)entry.Attribute("name") : null;
+						if (clear || string.Equals(removed, "OPTIONSVerbHandler", StringComparison.OrdinalIgnoreCase)) options = true;
+						if (clear || string.Equals(removed, "TRACEVerbHandler", StringComparison.OrdinalIgnoreCase)) trace = true;
+					}
+				}
+				catch (Exception e) when (e is System.Xml.XmlException || e is IOException) { }
+				verbHandlersRemoved = known = (file, written, options, trace);
 			}
-			catch (Exception e) when (e is System.Xml.XmlException || e is IOException) { }
-			optionsRemoved = (file, written, removed);
-			return !removed;
+			return verb == "OPTIONS" ? !known.Options : !known.Trace;
 		}
 
-		static (string File, DateTime Written, bool Removed) optionsRemoved;
+		static (string File, DateTime Written, bool Options, bool Trace) verbHandlersRemoved;
 
 		/// <summary>
 		/// Whether a managed handler of system.webServer/handlers answers the URL where no file or folder is (nopCommerce's

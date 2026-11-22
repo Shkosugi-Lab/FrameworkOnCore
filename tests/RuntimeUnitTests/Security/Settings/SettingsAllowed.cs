@@ -55,7 +55,6 @@ static class SettingsAllowed
     /// <summary>Not done by the port, and told so by the conversion report.</summary>
     static readonly Dictionary<string, string> Unsupported = new()
     {
-        ["security/authentication/windowsAuthentication"] = "Windows authentication: requests are anonymous to the port (and IIS's module, IIS-WindowsAuthentication, is not installed where it was recorded: no challenge)" + Reported,
         ["security/authentication/anonymousAuthentication@userName"] = "the anonymous user's account: the port has no Windows accounts to log on (IIS's 401.2 for one that is not there)" + Reported,
         ["rewrite/outboundRules"] = "URL Rewrite's outbound rules: the responses are not rewritten" + Reported,
         ["security/access"] = "sslFlags: requests without TLS or a client certificate are answered" + Reported,

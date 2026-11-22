@@ -141,9 +141,9 @@ public class IisFeaturesTests : IDisposable
         Assert.Contains("NCSA", weekly.Text);
     }
 
-    [Fact] // the site's Windows authentication (applicationHost.config's location for the site)
-    public void Windows_authentication_is_not_done() =>
-        Assert.Equal(IisFeatures.Status.Unsupported, Single(Analyze("<configuration />",
+    [Fact] // the site's Windows authentication (applicationHost.config's location for the site): its challenge only, no credentials checked
+    public void Windows_authentication_is_done_in_part() =>
+        Assert.Equal(IisFeatures.Status.Partial, Single(Analyze("<configuration />",
             "<iisProfile><location path=\"\"><system.webServer><security><authentication><windowsAuthentication enabled=\"true\" /></authentication></security></system.webServer></location></iisProfile>"),
             "Windows authentication").Status);
 
@@ -153,7 +153,7 @@ public class IisFeaturesTests : IDisposable
     [InlineData("""<security><authorization><add accessType="Deny" users="?" /></authorization></security>""", "URL authorization", IisFeatures.Status.Partial)]
     [InlineData("""<security><authentication><anonymousAuthentication enabled="false" /></authentication></security>""", "anonymous authentication off", IisFeatures.Status.Partial)]
     [InlineData("""<security><authentication><basicAuthentication enabled="true" /></authentication></security>""", "basic authentication", IisFeatures.Status.Partial)]
-    [InlineData("""<security><authentication><windowsAuthentication enabled="true" /></authentication></security>""", "Windows authentication", IisFeatures.Status.Unsupported)]
+    [InlineData("""<security><authentication><windowsAuthentication enabled="true" /></authentication></security>""", "Windows authentication", IisFeatures.Status.Partial)]
     public void Access_settings_are_told_as_the_host_applies_them(string setting, string feature, IisFeatures.Status status)
     {
         var findings = Analyze($"<configuration><system.webServer>{setting}</system.webServer></configuration>");

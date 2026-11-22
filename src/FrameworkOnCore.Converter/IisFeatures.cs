@@ -153,7 +153,9 @@ public static class IisFeatures
                 // (basic authentication: its challenge sent to anonymous requests, the credentials not checked: no Windows accounts)
                 if (True(Child(authentication, "basicAuthentication"), "enabled"))
                     Add("basic authentication (security/authentication/basicAuthentication)", Status.Partial, "the challenge is sent (401.2, its realm); the credentials are not checked (no Windows accounts): 401.1");
-                foreach (var (name, label) in new[] { ("windowsAuthentication", "Windows authentication"),
+                if (True(Child(authentication, "windowsAuthentication"), "enabled"))
+                    Add("Windows authentication (security/authentication/windowsAuthentication)", Status.Partial, "the challenge is sent (401.2, its providers); the credentials are not checked (no Windows accounts): 401.1");
+                foreach (var (name, label) in new[] {
                     ("digestAuthentication", "digest authentication"), ("clientCertificateMappingAuthentication", "client certificate mapping"),
                     ("iisClientCertificateMappingAuthentication", "IIS client certificate mapping") })
                     if (True(Child(authentication, name), "enabled")) Add($"{label} (security/authentication/{name})", Status.Unsupported, "not done: requests are anonymous to the host");

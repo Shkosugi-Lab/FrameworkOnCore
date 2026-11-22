@@ -148,7 +148,13 @@ dotnet build (Join-Path $repo 'src\FrameworkOnCore.Converter') --nologo -v q | O
 # (capture-culture.ps1, Windows PowerShell), given to the converter (--culture-profile): Linux's ICU data made the same.
 $cultureArguments = @()
 $culturesFile = Join-Path $sample 'cultures.txt'
-if (Test-Path $culturesFile) {
+# The corpus's own capture of them (FOC_CULTURE_PROFILES\<Name>.json: corpus\cultures, captured once where the golden data
+# was recorded): a capture of its own each time is another file (its time), the conversion's decisions another.
+$keptProfile = if ($env:FOC_CULTURE_PROFILES) { Join-Path $env:FOC_CULTURE_PROFILES "$Name.json" } else { $null }
+if ($keptProfile -and (Test-Path $keptProfile)) {
+    $cultureArguments = @('--culture-profile', (Resolve-Path $keptProfile).Path)
+}
+elseif (Test-Path $culturesFile) {
     $cultureProfile = Join-Path $work 'culture-profile.json'
     $cultures = @((Get-Content $culturesFile -Raw).Split(@(',', "`r", "`n"), [StringSplitOptions]::RemoveEmptyEntries) | ForEach-Object { $_.Trim() } | Where-Object { $_ })
     $capture = Join-Path $PSScriptRoot 'capture-culture.ps1'
@@ -156,6 +162,9 @@ if (Test-Path $culturesFile) {
     if ($LASTEXITCODE -ne 0) { throw 'capture-culture.ps1 failed' }
     $cultureArguments = @('--culture-profile', $cultureProfile)
 }
+# Without cultures.txt, a culture profile given (FOC_CULTURE_PROFILE: the corpus's, corpus\culture-profile.json, captured where
+# the golden data was recorded): the converter's own capture of this machine is its caller's UI language's.
+elseif ($env:FOC_CULTURE_PROFILE) { $cultureArguments = @('--culture-profile', (Resolve-Path $env:FOC_CULTURE_PROFILE).Path) }
 if ($IisProfile) { $cultureArguments += @('--iis-profile', (Resolve-Path $IisProfile).Path) }
 & dotnet $converter (Join-Path $sample $projectFile) --out $converted --root $sample --deploy container @cultureArguments
 if ($LASTEXITCODE -ne 0) { throw 'the conversion failed' }

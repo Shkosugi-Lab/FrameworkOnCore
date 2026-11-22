@@ -1,0 +1,131 @@
+{
+  "summary": {
+    "build": 1,
+    "report": true,
+    "unresolved": 0,
+    "stubs": 0,
+    "Error entries": 0,
+    "Raised entries": 0,
+    "Iis entries": 0,
+    "Unsupported entries": 1,
+    "Stub entries": 0,
+    "Platform entries": 7,
+    "Project entries": 7
+  },
+  "files": {
+    "added": [
+      ".dockerignore ac4b85991d240f36",
+      "App_Data/culture-profile.json 8b120a6901cd76bc",
+      "App_Data/machine.config a4f0dc59cd3c3033",
+      "Directory.Build.props (project: see projects)",
+      "Dockerfile f86ccc96464200d7",
+      "FrameworkOnCore.slnx 5b8427d8541849ef",
+      "Program.cs 998783ebd1e7cc50",
+      "appsettings.json ce28c53587647b64",
+      "deploy/README.md 0f7e7d0ab6e73445",
+      "deploy/casefs/casemap.h 49393123abe9fb50",
+      "deploy/casefs/foccase.c b93211a7b8f3ca20",
+      "deploy/casefs/linux-arm64/libfoccase.so (binary)",
+      "deploy/casefs/linux-x64/libfoccase.so (binary)",
+      "deploy/icu/build-icu-data.sh 37302c5e6c5ae4da",
+      "deploy/icu/culture-profile.json 8b120a6901cd76bc",
+      "deploy/icu/tool/CultureIcu.deps.json d7f6885ece48a164",
+      "deploy/icu/tool/CultureIcu.dll (binary)",
+      "deploy/icu/tool/CultureIcu.exe (binary)",
+      "deploy/icu/tool/CultureIcu.pdb (binary)",
+      "deploy/icu/tool/CultureIcu.runtimeconfig.json c230a317a54dd960",
+      "deploy/start.sh 1f41040d9b436887"
+    ],
+    "changed": [
+      "Auto.aspx.cs f84531811d3c0064 (+5 -5 lines)",
+      "LocaleProbe.csproj (project: see projects)"
+    ],
+    "removed": []
+  },
+  "solution": [
+    "BuildType Release",
+    "Project LocaleProbe.csproj"
+  ],
+  "projects": {
+    "Directory.Build.props": [
+      "Project",
+      "Property Configuration = Release [if '$(Configuration)' == '']"
+    ],
+    "LocaleProbe.csproj": [
+      "Compile Include=Auto.aspx.cs",
+      "Compile Include=Auto.aspx.designer.cs",
+      "Compile Include=Form.aspx.cs",
+      "Compile Include=Form.aspx.designer.cs",
+      "Compile Include=Program.cs",
+      "Compile Remove=bin\\**\\*.*",
+      "Content Include=**\\*.aspx;**\\*.ascx;**\\*.master;**\\*.Master;**\\*.ashx;**\\*.asmx;Web.config (CopyToOutputDirectory=Never; Exclude=bin\\**)",
+      "Content Remove=bin\\**\\*.*",
+      "None Remove=bin\\**\\*.*",
+      "PackageReference Include=FrameworkOnCore.Configuration (Version=1.6.5-w2l.31)",
+      "PackageReference Include=FrameworkOnCore.Data.SqlClient (Version=1.6.5-w2l.31)",
+      "PackageReference Include=FrameworkOnCore.Web (Version=1.6.5-w2l.31)",
+      "PackageReference Include=FrameworkOnCore.Web.DynamicData (Version=1.6.5-w2l.31)",
+      "PackageReference Include=FrameworkOnCore.Web.Extensions (Version=1.6.5-w2l.31)",
+      "Project Sdk=Microsoft.NET.Sdk.Web",
+      "ProjectReference Include=$(MSBuildThisFileDirectory)..\\..\\..\\shims\\FrameworkOnCore.Compat.ForDlls\\FrameworkOnCore.Compat.ForDlls.csproj (CopyToOutputDirectory=PreserveNewest; OutputItemType=Content; ReferenceOutputAssembly=false)",
+      "ProjectReference Include=$(MSBuildThisFileDirectory)..\\..\\..\\shims\\FrameworkOnCore.Compat\\FrameworkOnCore.Compat.csproj",
+      "ProjectReference Include=$(MSBuildThisFileDirectory)..\\..\\..\\shims\\QuickIO.NET\\QuickIO.NET.csproj",
+      "ProjectReference Include=$(MSBuildThisFileDirectory)..\\..\\..\\shims\\System.Design\\System.Design.csproj",
+      "ProjectReference Include=$(MSBuildThisFileDirectory)..\\..\\..\\shims\\System.Net.Http.WebRequest\\System.Net.Http.WebRequest.csproj",
+      "ProjectReference Include=$(MSBuildThisFileDirectory)..\\..\\..\\shims\\System.Web.Abstractions\\System.Web.Abstractions.csproj",
+      "ProjectReference Include=$(MSBuildThisFileDirectory)..\\..\\..\\shims\\System.Web.Routing\\System.Web.Routing.csproj",
+      "Property AppendRuntimeIdentifierToOutputPath = false",
+      "Property AppendTargetFrameworkToOutputPath = false",
+      "Property AssemblyName = LocaleProbe",
+      "Property DisableImplicitFrameworkDefines = true",
+      "Property DisableTransitiveProjectReferences = true",
+      "Property EnableDefaultCompileItems = false",
+      "Property EnableDefaultContentItems = false",
+      "Property EnableDefaultEmbeddedResourceItems = false",
+      "Property FocRetargetedAssemblies = $(MSBuildThisFileDirectory)foc-retargeted\\",
+      "Property GenerateAssemblyInfo = false",
+      "Property ImplicitUsings = disable",
+      "Property IntermediateOutputPath = $(BaseIntermediateOutputPath)$(Configuration)\\$(TargetFramework.ToLowerInvariant())\\",
+      "Property NoWarn = $(NoWarn);NU1701;NU1603;NU1608;SYSLIB0011",
+      "Property Nullable = disable",
+      "Property OutputPath = bin",
+      "Property OutputType = Exe",
+      "Property RestoreAdditionalProjectSources = $(MSBuildThisFileDirectory)..\\..\\..\\_feed",
+      "Property RootNamespace = LocaleProbe",
+      "Property StartupObject = Program",
+      "Property TargetFramework = net10.0",
+      "Property WarningsNotAsErrors = $(WarningsNotAsErrors);NU1901;NU1902;NU1903;NU1904",
+      "RuntimeHostConfigurationOption Include=System.Globalization.UseNls (Value=true)",
+      "Target ChangeAliasesOfNugetRefs BeforeTargets=FindReferenceAssembliesForReferences;ResolveReferences: <ItemGroup><ReferencePath Remove=\"%(Identity)\" Condition=\"'%(FileName)' == 'System.Web' AND '%(ReferencePath.FrameworkReferenceName)' != ''\" /><ReferencePath Remove=\"%(Identity)\" Condition=\"'%(FileName)' == 'System.Web.Services.Description'\" /></ItemGroup>",
+      "Target FocUseRetargetedAssemblies BeforeTargets=_CopyFilesMarkedCopyLocal Condition=Exists('$(FocRetargetedAssemblies)'): <ItemGroup><_FocRetargeted Include=\"@(ReferenceCopyLocalPaths)\" Condition=\"'%(Extension)' == '.dll' AND Exists('$(FocRetargetedAssemblies)%(Filename)%(Extension)')\" /><ReferenceCopyLocalPaths Remove=\"@(_FocRetargeted)\" /><ReferenceCopyLocalPaths Include=\"@(_FocRetargeted-&gt;'$(FocRetargetedAssemblies)%(Filename)%(Extension)')\" /></ItemGroup>"
+    ]
+  },
+  "report": {
+    "Error": [],
+    "Raised": [],
+    "Iis": [],
+    "Unsupported": [
+      "Microsoft.CodeAnalysis.Workspaces.dll: type references that neither .NET 10 nor the application has (6; TypeLoadException where they are used): [SQLitePCLRaw.core]SQLitePCL.sqlite3, [SQLitePCLRaw.core]SQLitePCL.sqlite3_stmt, [SQLitePCLRaw.core]SQLitePCL.utf8z, [SQLitePCLRaw.core]SQLitePCL.sqlite3_blob, [SQLitePCLRaw.batteries_v2]SQLitePCL.Batteries_V2, [SQLitePCLRaw.core]SQLitePCL.raw"
+    ],
+    "Stub": [],
+    "Platform": [
+      "Auto.aspx.cs: 2 double/float made text -> FrameworkNumbers (FOC1008: .NET writes 0.1 + 0.2 as 0.30000000000000004, -0, 2.675 as N2 2.67; as .NET Framework: string concatenation x2)",
+      "Auto.aspx.cs:30: System.Globalization.CultureInfo.Parent -> FrameworkOnCore.FrameworkCultures.Parent (.NET Framework's parents of zh-CN and zh-TW (zh-SG, zh-HK, zh-MO) were zh-CHS and zh-CHT, .NET's are zh-Hans and zh-Hant: as .NET Framework)",
+      "Auto.aspx.cs:42: System.Globalization.CultureInfo..ctor -> FrameworkOnCore.FrameworkCultures.Create (a name .NET Framework does not know throws CultureNotFoundException; on Linux ICU makes a culture of any well-formed name (new CultureInfo(\"Auto\"): BlogEngine.NET's admin pages in English, its fallback in the catch skipped): as .NET Framework)",
+      "Auto.aspx.cs:42: System.Globalization.CultureInfo.DisplayName -> FrameworkOnCore.FrameworkCultures.DisplayName (.NET's is in the language of Windows' UI (Linux: ICU's, in the UI culture's); .NET Framework's in the UI culture's language when its language pack was installed, else English: as .NET Framework)",
+      "Auto.aspx.cs:42: System.Globalization.CultureInfo.GetCultureInfo -> FrameworkOnCore.FrameworkCultures.GetCultureInfo (a name .NET Framework does not know throws CultureNotFoundException; on Linux ICU makes a culture of any well-formed name (new CultureInfo(\"Auto\"): BlogEngine.NET's admin pages in English, its fallback in the catch skipped): as .NET Framework)",
+      "Auto.aspx.cs:43: System.Globalization.CultureInfo.EnglishName -> FrameworkOnCore.FrameworkCultures.EnglishName (ICU's names differ from Windows' (Chinese (Taiwan) for Chinese (Traditional, Taiwan)): the original server's, from its culture profile)",
+      "Auto.aspx.cs:43: System.Globalization.CultureInfo.NativeName -> FrameworkOnCore.FrameworkCultures.NativeName (ICU's names differ from Windows' (中文（台灣） for 中文(台灣)): the original server's, from its culture profile)"
+    ],
+    "Project": [
+      "LocaleProbe: 4 files, 5 packages, 0 DLLs -> LocaleProbe.csproj",
+      "LocaleProbe: culture profile placed in App_Data (Windows: UseNls; Linux: ICU data built from it)",
+      "LocaleProbe: session state: InProc, System.Web's own, in the process as on IIS",
+      "build: configuration Release by default (Directory.Build.props: 1 file(s)), as the site was built; not the SDK's Debug (DEBUG defined, not optimized)",
+      "deploy: Dockerfile: localeprobe, site ., culture ja_JP.UTF-8, time zone Asia/Tokyo (the original server's), file names without regard to case (deploy/casefs; FOC_CASE_INSENSITIVE=0 turns it off) (deploy/README.md)",
+      "language-packs: FrameworkOnCore's own translations (ja) of the texts of System.ComponentModel.Annotations, System.Configuration.ConfigurationManager, System.Data.SqlClient, System.Drawing.Common, System.Web, System.Web.ApplicationServices, System.Web.DynamicData, System.Web.Extensions, System.Web.Services, WebFormsForCore.Serialization.Formatters: in that language when the UI culture is (the wording is FrameworkOnCore's, not Microsoft's)",
+      "language-packs: languages: en, ja (the default: the original server's language packs', from its culture profile)"
+    ]
+  },
+  "retargeted": []
+}

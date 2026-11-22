@@ -1,0 +1,149 @@
+{
+  "_comment": "The probes of the corpus (samples/<name>): each converted by the converter, run on Windows and on Linux, its parity scenario's snapshots compared with the answers its original gave on IIS (golden-webforms.json). exclude: the original's sources left out of the conversion's build. known: snapshots that differ for a documented reason (the port cannot give .NET Framework's), with why: the probe passes when only they differ.",
+  "probes": [
+    {
+      "name": "AuthProbe",
+      "project": "AuthProbe.csproj"
+    },
+    {
+      "name": "BclProbe",
+      "project": "BclProbe.csproj",
+      "known": {
+        "snapshots": [
+          "numbers",
+          "strings",
+          "errors",
+          "cultures",
+          "serialization"
+        ],
+        "why": ".NET 10's base class library (its messages, Unicode's data, culture data, serialization) where .NET Framework's differs and the port cannot give it (experiments/wf4c/PORT-CANDIDATES.md: what the port cannot do)"
+      }
+    },
+    {
+      "name": "CachingProbe",
+      "project": "CachingProbe.csproj"
+    },
+    {
+      "name": "CompileProbe",
+      "project": "CompileProbe.csproj"
+    },
+    {
+      "name": "ConcurrencyProbe",
+      "project": "ConcurrencyProbe.csproj"
+    },
+    {
+      "name": "ConfigProbe",
+      "project": "ConfigProbe.csproj"
+    },
+    {
+      "name": "DataFileProbe",
+      "project": "DataFileProbe.csproj",
+      "known": {
+        "snapshots": [
+          "data"
+        ],
+        "why": "DataTable's and DataView's .NET 10 behavior (a double's text: 0.30000000000000004) where .NET Framework's differs (PORT-CANDIDATES.md)"
+      }
+    },
+    {
+      "name": "DefaultsProbe",
+      "project": "DefaultsProbe.csproj"
+    },
+    {
+      "name": "ErrorsProbe",
+      "project": "ErrorsProbe.csproj"
+    },
+    {
+      "name": "HeadersProbe",
+      "project": "HeadersProbe.csproj"
+    },
+    {
+      "name": "LegacyRenderProbe",
+      "project": "LegacyRenderProbe.csproj"
+    },
+    {
+      "name": "LimitsProbe",
+      "project": "LimitsProbe.csproj"
+    },
+    {
+      "name": "LocaleProbe",
+      "project": "LocaleProbe.csproj"
+    },
+    {
+      "name": "MasterProbe",
+      "project": "MasterProbe.csproj"
+    },
+    {
+      "name": "MobileProbe",
+      "project": "MobileProbe.csproj"
+    },
+    {
+      "name": "NavigationProbe",
+      "project": "NavigationProbe.csproj"
+    },
+    {
+      "name": "NestingProbe",
+      "project": "NestingProbe.csproj"
+    },
+    {
+      "name": "OrderAdmin",
+      "project": "OrderAdmin.csproj"
+    },
+    {
+      "name": "PageProbe",
+      "project": "PageProbe.csproj"
+    },
+    {
+      "name": "PipelineProbe",
+      "project": "PipelineProbe.csproj"
+    },
+    {
+      "name": "ProductAdmin",
+      "project": "ProductAdmin.csproj"
+    },
+    {
+      "name": "RewriteProbe",
+      "project": "RewriteProbe.csproj"
+    },
+    {
+      "name": "RoutingProbe",
+      "project": "RoutingProbe.csproj"
+    },
+    {
+      "name": "RuntimeProbe",
+      "project": "RuntimeProbe.csproj"
+    },
+    {
+      "name": "ServicesProbe",
+      "project": "ServicesProbe.csproj"
+    },
+    {
+      "name": "SessionProbe",
+      "project": "SessionProbe.csproj"
+    },
+    {
+      "name": "ShiftJisProbe",
+      "project": "ShiftJisProbe.csproj"
+    },
+    {
+      "name": "ShiftJisVbProbe",
+      "project": "ShiftJisVbProbe.vbproj"
+    },
+    {
+      "name": "Toolkit20Probe",
+      "project": "Toolkit20Probe.csproj"
+    },
+    {
+      "name": "ToolkitProbe",
+      "project": "ToolkitProbe.csproj"
+    },
+    {
+      "name": "VbProbe",
+      "project": "VbProbe.vbproj"
+    },
+    {
+      "name": "WcfProbe",
+      "project": "WcfProbe.csproj"
+    }
+  ]
+}

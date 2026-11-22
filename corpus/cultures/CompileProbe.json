@@ -1,0 +1,1203 @@
+{
+  "Source": {
+    "Machine": "(the machine IIS recorded the golden data on)",
+    "User": "(its administrator)",
+    "Framework": "4.0.30319.42000",
+    "Captured": "2026-11-22T18:51:55"
+  },
+  "DefaultCulture": "ja-JP",
+  "DefaultUICulture": "en-US",
+  "TimeZone": "Tokyo Standard Time",
+  "LanguagePacks": [
+    "ja"
+  ],
+  "Cultures": {
+    "ja-JP": {
+      "EnglishName": "Japanese (Japan)",
+      "NativeName": "日本語 (日本)",
+      "NumberFormat": {
+        "CurrencyDecimalDigits": 0,
+        "CurrencyDecimalSeparator": ".",
+        "CurrencyGroupSizes": [
+          3
+        ],
+        "NumberGroupSizes": [
+          3
+        ],
+        "PercentGroupSizes": [
+          3
+        ],
+        "CurrencyGroupSeparator": ",",
+        "CurrencySymbol": "¥",
+        "NaNSymbol": "NaN",
+        "CurrencyNegativePattern": 1,
+        "NumberNegativePattern": 1,
+        "PercentPositivePattern": 1,
+        "PercentNegativePattern": 1,
+        "NegativeInfinitySymbol": "-∞",
+        "NegativeSign": "-",
+        "NumberDecimalDigits": 2,
+        "NumberDecimalSeparator": ".",
+        "NumberGroupSeparator": ",",
+        "CurrencyPositivePattern": 0,
+        "PositiveInfinitySymbol": "∞",
+        "PositiveSign": "+",
+        "PercentDecimalDigits": 2,
+        "PercentDecimalSeparator": ".",
+        "PercentGroupSeparator": ",",
+        "PercentSymbol": "%",
+        "PerMilleSymbol": "‰",
+        "NativeDigits": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "DigitSubstitution": 1
+      },
+      "DateTimeFormat": {
+        "AMDesignator": "午前",
+        "DateSeparator": "/",
+        "FirstDayOfWeek": 0,
+        "CalendarWeekRule": 0,
+        "FullDateTimePattern": "yyyy'年'M'月'd'日' H:mm:ss",
+        "LongDatePattern": "yyyy'年'M'月'd'日'",
+        "LongTimePattern": "H:mm:ss",
+        "MonthDayPattern": "M月d日",
+        "PMDesignator": "午後",
+        "ShortDatePattern": "yyyy/MM/dd",
+        "ShortTimePattern": "H:mm",
+        "TimeSeparator": ":",
+        "YearMonthPattern": "yyyy'年'M'月'",
+        "AbbreviatedDayNames": [
+          "日",
+          "月",
+          "火",
+          "水",
+          "木",
+          "金",
+          "土"
+        ],
+        "ShortestDayNames": [
+          "日",
+          "月",
+          "火",
+          "水",
+          "木",
+          "金",
+          "土"
+        ],
+        "DayNames": [
+          "日曜日",
+          "月曜日",
+          "火曜日",
+          "水曜日",
+          "木曜日",
+          "金曜日",
+          "土曜日"
+        ],
+        "AbbreviatedMonthNames": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          ""
+        ],
+        "MonthNames": [
+          "1月",
+          "2月",
+          "3月",
+          "4月",
+          "5月",
+          "6月",
+          "7月",
+          "8月",
+          "9月",
+          "10月",
+          "11月",
+          "12月",
+          ""
+        ],
+        "AbbreviatedMonthGenitiveNames": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          ""
+        ],
+        "MonthGenitiveNames": [
+          "1月",
+          "2月",
+          "3月",
+          "4月",
+          "5月",
+          "6月",
+          "7月",
+          "8月",
+          "9月",
+          "10月",
+          "11月",
+          "12月",
+          ""
+        ],
+        "AllDateTimePatterns": {
+          "D": [
+            "yyyy'年'M'月'd'日'",
+            "yyyy'年'MM'月'dd'日'",
+            "yyyy'年'M'月'd'日 'dddd",
+            "yyyy'年'MM'月'dd'日 'dddd",
+            "yyyy'年'MMM'月'd'日'",
+            "yyyy'年'MMM'月'd'日 'dddd",
+            "yyyy'年'MMMMd'日'",
+            "yyyy'年'MMMMd'日 'dddd"
+          ],
+          "T": [
+            "H:mm:ss",
+            "HH:mm:ss",
+            "tt h:mm:ss",
+            "tt hh:mm:ss"
+          ],
+          "Y": [
+            "yyyy'年'M'月'",
+            "yyyy'年'MMM'月'",
+            "yyyy'年'MMMM"
+          ]
+        },
+        "TwoDigitYearMax": 2049
+      }
+    },
+    "en-US": {
+      "EnglishName": "English (United States)",
+      "NativeName": "English (United States)",
+      "NumberFormat": {
+        "CurrencyDecimalDigits": 2,
+        "CurrencyDecimalSeparator": ".",
+        "CurrencyGroupSizes": [
+          3
+        ],
+        "NumberGroupSizes": [
+          3
+        ],
+        "PercentGroupSizes": [
+          3
+        ],
+        "CurrencyGroupSeparator": ",",
+        "CurrencySymbol": "$",
+        "NaNSymbol": "NaN",
+        "CurrencyNegativePattern": 0,
+        "NumberNegativePattern": 1,
+        "PercentPositivePattern": 1,
+        "PercentNegativePattern": 1,
+        "NegativeInfinitySymbol": "-∞",
+        "NegativeSign": "-",
+        "NumberDecimalDigits": 2,
+        "NumberDecimalSeparator": ".",
+        "NumberGroupSeparator": ",",
+        "CurrencyPositivePattern": 0,
+        "PositiveInfinitySymbol": "∞",
+        "PositiveSign": "+",
+        "PercentDecimalDigits": 2,
+        "PercentDecimalSeparator": ".",
+        "PercentGroupSeparator": ",",
+        "PercentSymbol": "%",
+        "PerMilleSymbol": "‰",
+        "NativeDigits": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "DigitSubstitution": 1
+      },
+      "DateTimeFormat": {
+        "AMDesignator": "AM",
+        "DateSeparator": "/",
+        "FirstDayOfWeek": 0,
+        "CalendarWeekRule": 0,
+        "FullDateTimePattern": "dddd, MMMM d, yyyy h:mm:ss tt",
+        "LongDatePattern": "dddd, MMMM d, yyyy",
+        "LongTimePattern": "h:mm:ss tt",
+        "MonthDayPattern": "MMMM d",
+        "PMDesignator": "PM",
+        "ShortDatePattern": "M/d/yyyy",
+        "ShortTimePattern": "h:mm tt",
+        "TimeSeparator": ":",
+        "YearMonthPattern": "MMMM yyyy",
+        "AbbreviatedDayNames": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri",
+          "Sat"
+        ],
+        "ShortestDayNames": [
+          "Su",
+          "Mo",
+          "Tu",
+          "We",
+          "Th",
+          "Fr",
+          "Sa"
+        ],
+        "DayNames": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "AbbreviatedMonthNames": [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+          ""
+        ],
+        "MonthNames": [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+          ""
+        ],
+        "AbbreviatedMonthGenitiveNames": [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+          ""
+        ],
+        "MonthGenitiveNames": [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+          ""
+        ],
+        "AllDateTimePatterns": {
+          "D": [
+            "dddd, MMMM d, yyyy",
+            "MMMM d, yyyy",
+            "dddd, d MMMM, yyyy",
+            "d MMMM, yyyy"
+          ],
+          "T": [
+            "h:mm:ss tt",
+            "hh:mm:ss tt",
+            "H:mm:ss",
+            "HH:mm:ss"
+          ],
+          "Y": [
+            "MMMM yyyy"
+          ]
+        },
+        "TwoDigitYearMax": 2049
+      }
+    },
+    "ja": {
+      "EnglishName": "Japanese",
+      "NativeName": "日本語",
+      "NumberFormat": {
+        "CurrencyDecimalDigits": 0,
+        "CurrencyDecimalSeparator": ".",
+        "CurrencyGroupSizes": [
+          3
+        ],
+        "NumberGroupSizes": [
+          3
+        ],
+        "PercentGroupSizes": [
+          3
+        ],
+        "CurrencyGroupSeparator": ",",
+        "CurrencySymbol": "¥",
+        "NaNSymbol": "NaN",
+        "CurrencyNegativePattern": 1,
+        "NumberNegativePattern": 1,
+        "PercentPositivePattern": 1,
+        "PercentNegativePattern": 1,
+        "NegativeInfinitySymbol": "-∞",
+        "NegativeSign": "-",
+        "NumberDecimalDigits": 2,
+        "NumberDecimalSeparator": ".",
+        "NumberGroupSeparator": ",",
+        "CurrencyPositivePattern": 0,
+        "PositiveInfinitySymbol": "∞",
+        "PositiveSign": "+",
+        "PercentDecimalDigits": 2,
+        "PercentDecimalSeparator": ".",
+        "PercentGroupSeparator": ",",
+        "PercentSymbol": "%",
+        "PerMilleSymbol": "‰",
+        "NativeDigits": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "DigitSubstitution": 1
+      },
+      "DateTimeFormat": {
+        "AMDesignator": "午前",
+        "DateSeparator": "/",
+        "FirstDayOfWeek": 0,
+        "CalendarWeekRule": 0,
+        "FullDateTimePattern": "yyyy'年'M'月'd'日' H:mm:ss",
+        "LongDatePattern": "yyyy'年'M'月'd'日'",
+        "LongTimePattern": "H:mm:ss",
+        "MonthDayPattern": "M月d日",
+        "PMDesignator": "午後",
+        "ShortDatePattern": "yyyy/MM/dd",
+        "ShortTimePattern": "H:mm",
+        "TimeSeparator": ":",
+        "YearMonthPattern": "yyyy'年'M'月'",
+        "AbbreviatedDayNames": [
+          "日",
+          "月",
+          "火",
+          "水",
+          "木",
+          "金",
+          "土"
+        ],
+        "ShortestDayNames": [
+          "日",
+          "月",
+          "火",
+          "水",
+          "木",
+          "金",
+          "土"
+        ],
+        "DayNames": [
+          "日曜日",
+          "月曜日",
+          "火曜日",
+          "水曜日",
+          "木曜日",
+          "金曜日",
+          "土曜日"
+        ],
+        "AbbreviatedMonthNames": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          ""
+        ],
+        "MonthNames": [
+          "1月",
+          "2月",
+          "3月",
+          "4月",
+          "5月",
+          "6月",
+          "7月",
+          "8月",
+          "9月",
+          "10月",
+          "11月",
+          "12月",
+          ""
+        ],
+        "AbbreviatedMonthGenitiveNames": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          ""
+        ],
+        "MonthGenitiveNames": [
+          "1月",
+          "2月",
+          "3月",
+          "4月",
+          "5月",
+          "6月",
+          "7月",
+          "8月",
+          "9月",
+          "10月",
+          "11月",
+          "12月",
+          ""
+        ],
+        "AllDateTimePatterns": {
+          "D": [
+            "yyyy'年'M'月'd'日'",
+            "yyyy'年'MM'月'dd'日'",
+            "yyyy'年'M'月'd'日 'dddd",
+            "yyyy'年'MM'月'dd'日 'dddd",
+            "yyyy'年'MMM'月'd'日'",
+            "yyyy'年'MMM'月'd'日 'dddd",
+            "yyyy'年'MMMMd'日'",
+            "yyyy'年'MMMMd'日 'dddd"
+          ],
+          "T": [
+            "H:mm:ss",
+            "HH:mm:ss",
+            "tt h:mm:ss",
+            "tt hh:mm:ss"
+          ],
+          "Y": [
+            "yyyy'年'M'月'",
+            "yyyy'年'MMM'月'",
+            "yyyy'年'MMMM"
+          ]
+        },
+        "TwoDigitYearMax": 2049
+      }
+    },
+    "fr-FR": {
+      "EnglishName": "French (France)",
+      "NativeName": "français (France)",
+      "NumberFormat": {
+        "CurrencyDecimalDigits": 2,
+        "CurrencyDecimalSeparator": ",",
+        "CurrencyGroupSizes": [
+          3
+        ],
+        "NumberGroupSizes": [
+          3
+        ],
+        "PercentGroupSizes": [
+          3
+        ],
+        "CurrencyGroupSeparator": " ",
+        "CurrencySymbol": "€",
+        "NaNSymbol": "NaN",
+        "CurrencyNegativePattern": 8,
+        "NumberNegativePattern": 1,
+        "PercentPositivePattern": 0,
+        "PercentNegativePattern": 0,
+        "NegativeInfinitySymbol": "-∞",
+        "NegativeSign": "-",
+        "NumberDecimalDigits": 2,
+        "NumberDecimalSeparator": ",",
+        "NumberGroupSeparator": " ",
+        "CurrencyPositivePattern": 3,
+        "PositiveInfinitySymbol": "∞",
+        "PositiveSign": "+",
+        "PercentDecimalDigits": 2,
+        "PercentDecimalSeparator": ",",
+        "PercentGroupSeparator": " ",
+        "PercentSymbol": "%",
+        "PerMilleSymbol": "‰",
+        "NativeDigits": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "DigitSubstitution": 1
+      },
+      "DateTimeFormat": {
+        "AMDesignator": "",
+        "DateSeparator": "/",
+        "FirstDayOfWeek": 1,
+        "CalendarWeekRule": 2,
+        "FullDateTimePattern": "dddd d MMMM yyyy HH:mm:ss",
+        "LongDatePattern": "dddd d MMMM yyyy",
+        "LongTimePattern": "HH:mm:ss",
+        "MonthDayPattern": "d MMMM",
+        "PMDesignator": "",
+        "ShortDatePattern": "dd/MM/yyyy",
+        "ShortTimePattern": "HH:mm",
+        "TimeSeparator": ":",
+        "YearMonthPattern": "MMMM yyyy",
+        "AbbreviatedDayNames": [
+          "dim.",
+          "lun.",
+          "mar.",
+          "mer.",
+          "jeu.",
+          "ven.",
+          "sam."
+        ],
+        "ShortestDayNames": [
+          "di",
+          "lu",
+          "ma",
+          "me",
+          "je",
+          "ve",
+          "sa"
+        ],
+        "DayNames": [
+          "dimanche",
+          "lundi",
+          "mardi",
+          "mercredi",
+          "jeudi",
+          "vendredi",
+          "samedi"
+        ],
+        "AbbreviatedMonthNames": [
+          "janv.",
+          "févr.",
+          "mars",
+          "avr.",
+          "mai",
+          "juin",
+          "juil.",
+          "août",
+          "sept.",
+          "oct.",
+          "nov.",
+          "déc.",
+          ""
+        ],
+        "MonthNames": [
+          "janvier",
+          "février",
+          "mars",
+          "avril",
+          "mai",
+          "juin",
+          "juillet",
+          "août",
+          "septembre",
+          "octobre",
+          "novembre",
+          "décembre",
+          ""
+        ],
+        "AbbreviatedMonthGenitiveNames": [
+          "janv.",
+          "févr.",
+          "mars",
+          "avr.",
+          "mai",
+          "juin",
+          "juil.",
+          "août",
+          "sept.",
+          "oct.",
+          "nov.",
+          "déc.",
+          ""
+        ],
+        "MonthGenitiveNames": [
+          "janvier",
+          "février",
+          "mars",
+          "avril",
+          "mai",
+          "juin",
+          "juillet",
+          "août",
+          "septembre",
+          "octobre",
+          "novembre",
+          "décembre",
+          ""
+        ],
+        "AllDateTimePatterns": {
+          "D": [
+            "dddd d MMMM yyyy",
+            "d MMMM yyyy",
+            "d MMM yy"
+          ],
+          "T": [
+            "HH:mm:ss",
+            "H:mm:ss"
+          ],
+          "Y": [
+            "MMMM yyyy"
+          ]
+        },
+        "TwoDigitYearMax": 2049
+      }
+    },
+    "fr": {
+      "EnglishName": "French",
+      "NativeName": "français",
+      "NumberFormat": {
+        "CurrencyDecimalDigits": 2,
+        "CurrencyDecimalSeparator": ",",
+        "CurrencyGroupSizes": [
+          3
+        ],
+        "NumberGroupSizes": [
+          3
+        ],
+        "PercentGroupSizes": [
+          3
+        ],
+        "CurrencyGroupSeparator": " ",
+        "CurrencySymbol": "€",
+        "NaNSymbol": "NaN",
+        "CurrencyNegativePattern": 8,
+        "NumberNegativePattern": 1,
+        "PercentPositivePattern": 0,
+        "PercentNegativePattern": 0,
+        "NegativeInfinitySymbol": "-∞",
+        "NegativeSign": "-",
+        "NumberDecimalDigits": 2,
+        "NumberDecimalSeparator": ",",
+        "NumberGroupSeparator": " ",
+        "CurrencyPositivePattern": 3,
+        "PositiveInfinitySymbol": "∞",
+        "PositiveSign": "+",
+        "PercentDecimalDigits": 2,
+        "PercentDecimalSeparator": ",",
+        "PercentGroupSeparator": " ",
+        "PercentSymbol": "%",
+        "PerMilleSymbol": "‰",
+        "NativeDigits": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "DigitSubstitution": 1
+      },
+      "DateTimeFormat": {
+        "AMDesignator": "",
+        "DateSeparator": "/",
+        "FirstDayOfWeek": 1,
+        "CalendarWeekRule": 2,
+        "FullDateTimePattern": "dddd d MMMM yyyy HH:mm:ss",
+        "LongDatePattern": "dddd d MMMM yyyy",
+        "LongTimePattern": "HH:mm:ss",
+        "MonthDayPattern": "d MMMM",
+        "PMDesignator": "",
+        "ShortDatePattern": "dd/MM/yyyy",
+        "ShortTimePattern": "HH:mm",
+        "TimeSeparator": ":",
+        "YearMonthPattern": "MMMM yyyy",
+        "AbbreviatedDayNames": [
+          "dim.",
+          "lun.",
+          "mar.",
+          "mer.",
+          "jeu.",
+          "ven.",
+          "sam."
+        ],
+        "ShortestDayNames": [
+          "di",
+          "lu",
+          "ma",
+          "me",
+          "je",
+          "ve",
+          "sa"
+        ],
+        "DayNames": [
+          "dimanche",
+          "lundi",
+          "mardi",
+          "mercredi",
+          "jeudi",
+          "vendredi",
+          "samedi"
+        ],
+        "AbbreviatedMonthNames": [
+          "janv.",
+          "févr.",
+          "mars",
+          "avr.",
+          "mai",
+          "juin",
+          "juil.",
+          "août",
+          "sept.",
+          "oct.",
+          "nov.",
+          "déc.",
+          ""
+        ],
+        "MonthNames": [
+          "janvier",
+          "février",
+          "mars",
+          "avril",
+          "mai",
+          "juin",
+          "juillet",
+          "août",
+          "septembre",
+          "octobre",
+          "novembre",
+          "décembre",
+          ""
+        ],
+        "AbbreviatedMonthGenitiveNames": [
+          "janv.",
+          "févr.",
+          "mars",
+          "avr.",
+          "mai",
+          "juin",
+          "juil.",
+          "août",
+          "sept.",
+          "oct.",
+          "nov.",
+          "déc.",
+          ""
+        ],
+        "MonthGenitiveNames": [
+          "janvier",
+          "février",
+          "mars",
+          "avril",
+          "mai",
+          "juin",
+          "juillet",
+          "août",
+          "septembre",
+          "octobre",
+          "novembre",
+          "décembre",
+          ""
+        ],
+        "AllDateTimePatterns": {
+          "D": [
+            "dddd d MMMM yyyy",
+            "d MMMM yyyy",
+            "d MMM yy"
+          ],
+          "T": [
+            "HH:mm:ss",
+            "H:mm:ss"
+          ],
+          "Y": [
+            "MMMM yyyy"
+          ]
+        },
+        "TwoDigitYearMax": 2049
+      }
+    },
+    "de-DE": {
+      "EnglishName": "German (Germany)",
+      "NativeName": "Deutsch (Deutschland)",
+      "NumberFormat": {
+        "CurrencyDecimalDigits": 2,
+        "CurrencyDecimalSeparator": ",",
+        "CurrencyGroupSizes": [
+          3
+        ],
+        "NumberGroupSizes": [
+          3
+        ],
+        "PercentGroupSizes": [
+          3
+        ],
+        "CurrencyGroupSeparator": ".",
+        "CurrencySymbol": "€",
+        "NaNSymbol": "NaN",
+        "CurrencyNegativePattern": 8,
+        "NumberNegativePattern": 1,
+        "PercentPositivePattern": 0,
+        "PercentNegativePattern": 0,
+        "NegativeInfinitySymbol": "-∞",
+        "NegativeSign": "-",
+        "NumberDecimalDigits": 2,
+        "NumberDecimalSeparator": ",",
+        "NumberGroupSeparator": ".",
+        "CurrencyPositivePattern": 3,
+        "PositiveInfinitySymbol": "∞",
+        "PositiveSign": "+",
+        "PercentDecimalDigits": 2,
+        "PercentDecimalSeparator": ",",
+        "PercentGroupSeparator": ".",
+        "PercentSymbol": "%",
+        "PerMilleSymbol": "‰",
+        "NativeDigits": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "DigitSubstitution": 1
+      },
+      "DateTimeFormat": {
+        "AMDesignator": "",
+        "DateSeparator": ".",
+        "FirstDayOfWeek": 1,
+        "CalendarWeekRule": 2,
+        "FullDateTimePattern": "dddd, d. MMMM yyyy HH:mm:ss",
+        "LongDatePattern": "dddd, d. MMMM yyyy",
+        "LongTimePattern": "HH:mm:ss",
+        "MonthDayPattern": "d. MMMM",
+        "PMDesignator": "",
+        "ShortDatePattern": "dd.MM.yyyy",
+        "ShortTimePattern": "HH:mm",
+        "TimeSeparator": ":",
+        "YearMonthPattern": "MMMM yyyy",
+        "AbbreviatedDayNames": [
+          "So",
+          "Mo",
+          "Di",
+          "Mi",
+          "Do",
+          "Fr",
+          "Sa"
+        ],
+        "ShortestDayNames": [
+          "So",
+          "Mo",
+          "Di",
+          "Mi",
+          "Do",
+          "Fr",
+          "Sa"
+        ],
+        "DayNames": [
+          "Sonntag",
+          "Montag",
+          "Dienstag",
+          "Mittwoch",
+          "Donnerstag",
+          "Freitag",
+          "Samstag"
+        ],
+        "AbbreviatedMonthNames": [
+          "Jan",
+          "Feb",
+          "Mrz",
+          "Apr",
+          "Mai",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Okt",
+          "Nov",
+          "Dez",
+          ""
+        ],
+        "MonthNames": [
+          "Januar",
+          "Februar",
+          "März",
+          "April",
+          "Mai",
+          "Juni",
+          "Juli",
+          "August",
+          "September",
+          "Oktober",
+          "November",
+          "Dezember",
+          ""
+        ],
+        "AbbreviatedMonthGenitiveNames": [
+          "Jan",
+          "Feb",
+          "Mrz",
+          "Apr",
+          "Mai",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Okt",
+          "Nov",
+          "Dez",
+          ""
+        ],
+        "MonthGenitiveNames": [
+          "Januar",
+          "Februar",
+          "März",
+          "April",
+          "Mai",
+          "Juni",
+          "Juli",
+          "August",
+          "September",
+          "Oktober",
+          "November",
+          "Dezember",
+          ""
+        ],
+        "AllDateTimePatterns": {
+          "D": [
+            "dddd, d. MMMM yyyy",
+            "d. MMMM yyyy",
+            "d. MMM. yyyy"
+          ],
+          "T": [
+            "HH:mm:ss",
+            "HH:mm:ss' Uhr'"
+          ],
+          "Y": [
+            "MMMM yyyy"
+          ]
+        },
+        "TwoDigitYearMax": 2049
+      }
+    },
+    "xx-YY": {
+      "EnglishName": "Unknown Locale (xx-YY)",
+      "NativeName": "Unknown Locale (xx-YY)",
+      "NumberFormat": {
+        "CurrencyDecimalDigits": 2,
+        "CurrencyDecimalSeparator": ".",
+        "CurrencyGroupSizes": [
+          3
+        ],
+        "NumberGroupSizes": [
+          3
+        ],
+        "PercentGroupSizes": [
+          3
+        ],
+        "CurrencyGroupSeparator": ",",
+        "CurrencySymbol": "¤",
+        "NaNSymbol": "NaN",
+        "CurrencyNegativePattern": 0,
+        "NumberNegativePattern": 1,
+        "PercentPositivePattern": 0,
+        "PercentNegativePattern": 0,
+        "NegativeInfinitySymbol": "-Infinity",
+        "NegativeSign": "-",
+        "NumberDecimalDigits": 2,
+        "NumberDecimalSeparator": ".",
+        "NumberGroupSeparator": ",",
+        "CurrencyPositivePattern": 0,
+        "PositiveInfinitySymbol": "Infinity",
+        "PositiveSign": "+",
+        "PercentDecimalDigits": 2,
+        "PercentDecimalSeparator": ".",
+        "PercentGroupSeparator": ",",
+        "PercentSymbol": "%",
+        "PerMilleSymbol": "‰",
+        "NativeDigits": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9"
+        ],
+        "DigitSubstitution": 1
+      },
+      "DateTimeFormat": {
+        "AMDesignator": "AM",
+        "DateSeparator": "/",
+        "FirstDayOfWeek": 0,
+        "CalendarWeekRule": 0,
+        "FullDateTimePattern": "dddd, dd MMMM yyyy HH:mm:ss",
+        "LongDatePattern": "dddd, dd MMMM yyyy",
+        "LongTimePattern": "HH:mm:ss",
+        "MonthDayPattern": "MMMM dd",
+        "PMDesignator": "PM",
+        "ShortDatePattern": "MM/dd/yyyy",
+        "ShortTimePattern": "HH:mm",
+        "TimeSeparator": ":",
+        "YearMonthPattern": "yyyy MMMM",
+        "AbbreviatedDayNames": [
+          "Sun",
+          "Mon",
+          "Tue",
+          "Wed",
+          "Thu",
+          "Fri",
+          "Sat"
+        ],
+        "ShortestDayNames": [
+          "Su",
+          "Mo",
+          "Tu",
+          "We",
+          "Th",
+          "Fr",
+          "Sa"
+        ],
+        "DayNames": [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday"
+        ],
+        "AbbreviatedMonthNames": [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+          ""
+        ],
+        "MonthNames": [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+          ""
+        ],
+        "AbbreviatedMonthGenitiveNames": [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+          ""
+        ],
+        "MonthGenitiveNames": [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December",
+          ""
+        ],
+        "AllDateTimePatterns": {
+          "D": [
+            "dddd, dd MMMM yyyy"
+          ],
+          "T": [
+            "HH:mm:ss"
+          ],
+          "Y": [
+            "yyyy MMMM"
+          ]
+        },
+        "TwoDigitYearMax": 2049
+      }
+    }
+  }
+}

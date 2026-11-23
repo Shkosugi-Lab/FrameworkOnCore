@@ -174,7 +174,7 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
         var targets = Path.Combine(folder, "analyzers.targets");
         File.WriteAllText(targets, $"""
             <Project>
-              <ItemGroup Condition="('$(Language)' == 'C#' or '$(Language)' == 'VB') and !$([System.String]::Copy(';$(FrameworkOnCoreKeptProjects);').Contains(';$(MSBuildProjectName);'))">
+              <ItemGroup Condition="('$(Language)' == 'C#' or '$(Language)' == 'VB') and !$([System.String]::Copy('|$(FrameworkOnCoreKeptProjects)|').Contains('|$(MSBuildProjectName)|'))">
                 <Analyzer Include="{System.Security.SecurityElement.Escape(dll)}" />
                 <AdditionalFiles Include="{System.Security.SecurityElement.Escape(platform)}" />
                 <CompilerVisibleProperty Include="FrameworkOnCoreApplicationAssemblies" />
@@ -262,6 +262,10 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
 
     // ------------------------------------------------------------------------------------------
 
+    /// <summary>A value on MSBuild's command line (-p:Name=value) as itself: the characters MSBuild takes there for its own, escaped.</summary>
+    internal static string MSBuildEscape(string value) =>
+        Regex.Replace(value, @"[%$@;,'()*?""]", m => "%" + ((int)m.Value[0]).ToString("X2"));
+
     internal static (int ExitCode, string Output) Dotnet(string arguments, string? log = null)
     {
         if (log != null)
@@ -283,12 +287,16 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     (int, List<BuildError>) Build(string webProject)
     {
         // The application's assemblies: the analyzers tell its own methods from the file APIs (FOC1004).
-        var application = string.Join("%3B", projects.Select(p => p.AssemblyName ?? p.Name).Distinct(StringComparer.OrdinalIgnoreCase));
+        // (a name as a URL's part, its '%' escaped for MSBuild's command line: "App,x @y" and "App;x" are one name each there,
+        // and in the compiler's configuration file the analyzers read them from: Located.Names)
+        static string Names(IEnumerable<string> names) => string.Join("%3B", names.Distinct(StringComparer.OrdinalIgnoreCase).Select(n => Uri.EscapeDataString(n).Replace("%", "%25")));
+        var application = Names(projects.Select(p => p.AssemblyName ?? p.Name));
         // And those built for .NET too: the analyzers leave their Windows paths (FOC1001-1004).
-        var crossPlatform = string.Join("%3B", projects.Where(p => p.CrossPlatform).Select(p => p.AssemblyName ?? p.Name).Distinct(StringComparer.OrdinalIgnoreCase));
+        var crossPlatform = Names(projects.Where(p => p.CrossPlatform).Select(p => p.AssemblyName ?? p.Name));
         // And those kept as they are (analyzers, source generators: they run in the compiler, not the application; some
         // treat warnings as errors): none of the analyzers.
-        var kept = string.Join("%3B", projects.Where(p => p.Kept).Select(p => Path.GetFileNameWithoutExtension(p.TargetPath)).Distinct(StringComparer.OrdinalIgnoreCase));
+        // (the projects' names as MSBuild has them, '|' between: its command line's own characters escaped)
+        var kept = string.Join("|", projects.Where(p => p.Kept).Select(p => Path.GetFileNameWithoutExtension(p.TargetPath)).Distinct(StringComparer.OrdinalIgnoreCase).Select(MSBuildEscape));
         var withAnalyzers = AnalyzersTargets() is { } targets
             ? $" \"-p:CustomAfterMicrosoftCommonTargets={targets}\" \"-p:FrameworkOnCoreApplicationAssemblies={application}\" \"-p:FrameworkOnCoreCrossPlatformAssemblies={crossPlatform}\" \"-p:FrameworkOnCoreKeptProjects={kept}\""
             : "";

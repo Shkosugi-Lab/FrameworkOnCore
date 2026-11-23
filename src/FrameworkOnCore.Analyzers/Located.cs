@@ -27,10 +27,14 @@ public static class Located
     /// <summary>A type's full name as .NET writes it (System.Double, not C#'s double or Visual Basic's Double; System.String for a string?).</summary>
     public static string FullName(ITypeSymbol type) => type.ToDisplayString(qualified);
 
-    /// <summary>A list of assembly names the converter passes as an MSBuild property (CompilerVisibleProperty).</summary>
+    /// <summary>
+    /// A list of assembly names the converter passes as an MSBuild property (CompilerVisibleProperty): ';' between them, each
+    /// escaped as a URL's part (a name with a ',', a ';', a '#' or a space is one name: MSBuild's command line and the
+    /// compiler's configuration file take those for their own).
+    /// </summary>
     public static HashSet<string> Names(AnalyzerConfigOptions options, string property)
     {
         options.TryGetValue("build_property." + property, out var names);
-        return new HashSet<string>((names ?? "").Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(n => n.Trim()), StringComparer.OrdinalIgnoreCase);
+        return new HashSet<string>((names ?? "").Split(new[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries).Select(n => Uri.UnescapeDataString(n.Trim())), StringComparer.OrdinalIgnoreCase);
     }
 }

@@ -134,10 +134,13 @@ if (!File.Exists(project))
 // The code page the sources without a byte order mark that are not UTF-8 were written in.
 if (codePage != null) FrameworkOnCore.Analysis.SourceEncoding.MachineCodePage = codePage;
 
-project = Path.GetFullPath(project);
-var sourceRoot = Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project));
-var outRoot = Path.GetFullPath(outDirectory);
+// (the names as the disk has them: "APP.CSPROJ" given for App.csproj converts as App.csproj)
+project = Paths.OnDisk(project);
+var sourceRoot = Paths.OnDisk(rootDirectory ?? Paths.FindRoot(project));
+var outRoot = Paths.OnDisk(outDirectory);
 if (Paths.OutputOverlap(sourceRoot, outRoot) is { } overlap) { Console.Error.WriteLine(overlap); return 2; }
+if (Paths.OutputNotBuildable(outRoot) is { } notBuildable) { Console.Error.WriteLine(notBuildable); return 2; }
+if (Paths.OutputNotOurs(outRoot) is { } notOurs) { Console.Error.WriteLine(notOurs); return 2; }
 runtimeDirectory = Path.GetFullPath(runtimeDirectory ?? RuntimeSetup.Find() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
 var runtime = new RuntimeLayout(Path.Combine(runtimeDirectory, "_feed"), RuntimeSetup.ShimProjects(runtimeDirectory));
 
@@ -250,7 +253,14 @@ if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot, rule
 }.Run(buildTarget);
 // DLLs without source that refer to types where .NET 10 does not have them: retargeted into foc-retargeted, which
 // the projects' build copies in their place (FocUseRetargetedAssemblies); built again to take them.
-var preferred = AssemblyRetargeter.PreferredAssemblies(runtime.Feed, runtime.ShimProjects);
+HashSet<string> preferred;
+try { preferred = AssemblyRetargeter.PreferredAssemblies(runtime.Feed, runtime.ShimProjects); }
+catch (InvalidDataException e)
+{
+    // A package of the feed that is no ZIP (a download or a copy cut short): told, not an exception's trace.
+    Console.Error.WriteLine($"{runtime.Feed}: {e.Message}");
+    return 1;
+}
 // The choice for them (component dll-references): retargeted (the default), or left as they are.
 var retargetDlls = choices.OptionOf(catalog, "dll-references") != "none";
 if (!retargetDlls) report.Add(Report.Kind.Unsupported, "dll-references", "DLLs' references not retargeted (the choice): a type .NET 10 has in another assembly than the DLL names fails where it is used (TypeLoadException, MissingMethodException)");

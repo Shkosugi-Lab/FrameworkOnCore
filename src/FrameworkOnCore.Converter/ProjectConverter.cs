@@ -141,7 +141,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         var deployed = new List<(string Assembly, string Dll)>();
         foreach (var reference in Elements(document, "ProjectReference").ToList())
         {
-            if (!isSdk && !ItemHolds(reference, name)) continue;
+            if (reference.Attribute("Include") == null || !isSdk && !ItemHolds(reference, name)) continue;
             var referenced = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, Native((string)reference.Attribute("Include")!)));
             // A path that is not there (a project moved in the repository: nopCommerce's promotion providers name
             // ..\Nop.BusinessLogic, which is in Libraries): the repository's project of its GUID, as Visual Studio finds it.
@@ -368,9 +368,50 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
     static IEnumerable<XElement> Elements(XDocument document, string localName) =>
         document.Descendants().Where(e => e.Name.LocalName == localName).ToList();
 
-    bool ItemHolds(XElement item, string subject) =>
+    // An item the project has in the configuration built: its Include (an element with a Remove or an Update only is no
+    // item of its own: ItemsOf).
+    bool ItemHolds(XElement item, string subject) => item.Attribute("Include") != null && ConditionsHold(item, subject);
+
+    bool ConditionsHold(XElement item, string subject) =>
         conditions.Holds((string?)item.Attribute("Condition"), subject) &&
         conditions.Holds((string?)item.Parent?.Attribute("Condition"), subject);
+
+    /// <summary>
+    /// The project's items of a kind as MSBuild takes them, in their order: an Include of several (';' between them, spaces
+    /// and line ends around), each once (a file listed twice is compiled once, as Visual Studio does: openIMIS's
+    /// Resource1.designer.vb); an Exclude (of a wildcard: kept with it; of a file: the file left out); a Remove after them
+    /// (the files of its name taken out, and kept for the wildcards before it).
+    /// </summary>
+    (List<string> Includes, Dictionary<string, string> Excludes, List<string> Removes) ItemsOf(XDocument old, string kind, string subject)
+    {
+        static IEnumerable<string> Parts(string? list) => (list ?? "").Split(';').Select(p => p.Trim()).Where(p => p.Length > 0);
+        static string Key(string spec) => Regex.Replace(spec.Replace('/', '\\'), @"(^|\\)\.(?=\\)", "").TrimStart('\\');
+        static bool Same(string a, string b) => string.Equals(Key(a), Key(b), StringComparison.OrdinalIgnoreCase);
+        var includes = new List<string>();
+        var excludes = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        var removes = new List<string>();
+        foreach (var item in old.Descendants(msbuild + kind).Where(e => ConditionsHold(e, subject)))
+        {
+            if (item.Attribute("Include") is { } include)
+            {
+                var excluded = Parts((string?)item.Attribute("Exclude")).ToList();
+                foreach (var part in Parts(include.Value))
+                {
+                    if (excluded.Any(x => Same(x, part)) || includes.Contains(part, StringComparer.OrdinalIgnoreCase)) continue;
+                    includes.Add(part);
+                    if (excluded.Count > 0 && part.Contains('*')) excludes[part] = string.Join(";", excluded);
+                }
+            }
+            else if (item.Attribute("Remove") is { } remove)
+                foreach (var part in Parts(remove.Value))
+                {
+                    includes.RemoveAll(i => Same(i, part));
+                    removes.Add(part);
+                }
+        }
+        if (!includes.Any(i => i.Contains('*'))) removes.Clear();
+        return (includes, excludes, removes);
+    }
 
     // ------------------------------------------------------------------------------------------
     // Old-style (.NET Framework) projects: a new SDK-style project file with the original's items.
@@ -387,7 +428,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         // repository is copied as a whole). A file listed twice is compiled once, as Visual Studio does (openIMIS's
         // Resource1.designer.vb; the Visual Basic compiler would define its types twice).
         var visualBasic = IsVisualBasic(projectPath);
-        var compile = old.Descendants(msbuild + "Compile").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        var (compile, compileExcludes, compileRemoves) = ItemsOf(old, "Compile", name);
         // A file the project lists that the repository does not have (the original does not build either: CS2001): left
         // out and reported (MvcMovie of AspNetDocs has no Properties\AssemblyInfo.cs).
         foreach (var missing in compile.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(ItemFile(source, c))).ToList())
@@ -395,7 +436,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             compile.Remove(missing);
             report.Add(Report.Kind.Project, name, $"{missing}: listed by the project, not in the repository (the original build fails on it: CS2001); left out");
         }
-        var embedded = old.Descendants(msbuild + "EmbeddedResource").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!).ToList();
+        var (embedded, embeddedExcludes, embeddedRemoves) = ItemsOf(old, "EmbeddedResource", name);
         foreach (var missing in embedded.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(ItemFile(source, c))).ToList())
         {
             embedded.Remove(missing);
@@ -569,11 +610,13 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         }
 
         text.Append("  <ItemGroup>\n");
-        foreach (var c in compile) text.Append($"    <Compile Include=\"{SecurityElement.Escape(c)}\" />\n");
+        foreach (var c in compile) text.Append($"    <Compile Include=\"{SecurityElement.Escape(c)}\"{(compileExcludes.TryGetValue(c, out var without) ? $" Exclude=\"{SecurityElement.Escape(without)}\"" : "")} />\n");
+        foreach (var c in compileRemoves) text.Append($"    <Compile Remove=\"{SecurityElement.Escape(c)}\" />\n");
         if (isWeb) text.Append($"    <Compile Include=\"{ProgramFile(projectPath)}\" />\n");
         foreach (var import in old.Descendants(msbuild + "Import").Where(e => e.Attribute("Include") != null && ItemHolds(e, name)))
             text.Append($"    <Import Include=\"{SecurityElement.Escape((string)import.Attribute("Include")!)}\" />\n");
-        foreach (var e in embedded) text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(e)}\" />\n");
+        foreach (var e in embedded) text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(e)}\"{(embeddedExcludes.TryGetValue(e, out var without) ? $" Exclude=\"{SecurityElement.Escape(without)}\"" : "")} />\n");
+        foreach (var e in embeddedRemoves) text.Append($"    <EmbeddedResource Remove=\"{SecurityElement.Escape(e)}\" />\n");
         // The models embedded for EF6 (entity-framework-4: ef6, the default).
         foreach (var (file, logicalName) in rules.IsChosen("entity-framework-4:ef6") ? EntityDeploy(name, old, source, target) : [])
             text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(file)}\" LogicalName=\"{SecurityElement.Escape(logicalName)}\" />\n");
@@ -598,11 +641,11 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         // Analyzers and source generators referenced as projects (DNN generates the defining parts of
         // partial methods, CS0759 without it): with their metadata, as the original has them.
         var analyzers = old.Descendants(msbuild + "ProjectReference")
-            .Where(r => string.Equals((string?)r.Attribute("OutputItemType"), "Analyzer", StringComparison.OrdinalIgnoreCase))
+            .Where(r => r.Attribute("Include") != null && string.Equals((string?)r.Attribute("OutputItemType"), "Analyzer", StringComparison.OrdinalIgnoreCase))
             .Select(r => Path.GetFullPath(Path.Combine(source, Native((string)r.Attribute("Include")!))))
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
         // extern alias names on project references (Aliases), as the original has them.
-        var aliases = old.Descendants(msbuild + "ProjectReference")
+        var aliases = old.Descendants(msbuild + "ProjectReference").Where(r => r.Attribute("Include") != null)
             .Select(r => (Path: Path.GetFullPath(Path.Combine(source, Native((string)r.Attribute("Include")!))), Aliases: r.Element(msbuild + "Aliases")?.Value ?? (string?)r.Attribute("Aliases")))
             .Where(r => !string.IsNullOrWhiteSpace(r.Aliases)).ToDictionary(r => r.Path, r => r.Aliases!, StringComparer.OrdinalIgnoreCase);
         foreach (var referenced in projectReferences.Concat(builtReferences).Distinct(StringComparer.OrdinalIgnoreCase))
@@ -795,7 +838,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         if (codePage != null) root.Add(new XElement(N("PropertyGroup"), new XElement(N("CodePage"), codePage.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))));
         var itemGroup = new XElement(N("ItemGroup"), added.Items.Select(PackageElement));
         if (itemGroup.HasElements) root.Add(itemGroup);
-        foreach (var reference in itemGroup.Elements().ToList()) ApplyAssets(reference, (string)reference.Attribute("Include")!, name);
+        foreach (var reference in itemGroup.Elements().Where(e => e.Attribute("Include") != null).ToList()) ApplyAssets(reference, (string)reference.Attribute("Include")!, name);
         // As the old-style projects: the shims (types and members .NET Framework had).
         root.Add(new XElement(N("ItemGroup"), runtime.ShimProjects.Select(s => new XElement(N("ProjectReference"), new XAttribute("Include", Paths.FromProject(target, s)),
             RuntimeSetup.ForDllsOnly(s)

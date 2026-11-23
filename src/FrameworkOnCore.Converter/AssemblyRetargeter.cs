@@ -476,7 +476,10 @@ public sealed class AssemblyRetargeter
         {
             foreach (var nupkg in Directory.EnumerateFiles(feed, "*.nupkg"))
             {
-                using var archive = ZipFile.OpenRead(nupkg);
+                ZipArchive archive;
+                try { archive = ZipFile.OpenRead(nupkg); }
+                catch (InvalidDataException) { throw new InvalidDataException($"{Path.GetFileName(nupkg)} is no package (a download or a copy cut short?): delete the feed's folder, the converter fetches the packages again"); }
+                using var opened = archive;
                 foreach (var entry in archive.Entries.Where(e => e.FullName.StartsWith("lib/", StringComparison.OrdinalIgnoreCase) && e.Name.EndsWith(".dll", StringComparison.OrdinalIgnoreCase)))
                     names.Add(Path.GetFileNameWithoutExtension(entry.Name));
             }

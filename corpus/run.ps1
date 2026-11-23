@@ -51,8 +51,10 @@ foreach ($probe in $probes) {
     }.GetNewClosure()
     $arguments = @{ Name = $probe.name; Port = $port; AfterConvert = $afterConvert }
     if ($Linux) { $arguments.Linux = $true } else { $arguments.Windows = $true }
+    # (the probe's own output only: one that throws has no result line, and is no "OK" of the probe before it)
+    $text = ''
     try { $text = & $parity @arguments *>&1 | Out-String }
-    catch { $text = "$text`n$($_.Exception.Message)" }
+    catch { $text = "$($_.Exception.Message)`n" }
     $ErrorActionPreference = 'Stop'
     [IO.File]::WriteAllText($log, $text)
     $line = ($text -split "`n" | Where-Object { $_ -match '^RESULT:' } | Select-Object -Last 1)
@@ -63,7 +65,11 @@ foreach ($probe in $probes) {
         $run = 'OK'
         $line = "$line (known: $($differing -join ', '))"
     }
-    $detail = if ($line) { "$line".Trim() } else { (($text -split "`n" | Where-Object { $_ -match 'Exception|failed|error' } | Select-Object -First 1) -replace '\s+', ' ').Trim() }
+    # (without a result line: what went wrong, else the output's last line: "http://localhost:5096 did not answer")
+    $detail = if ($line) { "$line".Trim() } else {
+        $told = @($text -split "`n" | Where-Object { $_ -match 'Exception|failed|error' } | Select-Object -First 1) + @($text -split "`n" | Where-Object { $_.Trim() } | Select-Object -Last 1)
+        ("$($told | Select-Object -First 1)" -replace '\s+', ' ').Trim()
+    }
 
     $converted = Join-Path $repo "experiments\wf4c\_samples\$($probe.name)\converted"
     $decisions = $holder.Decisions

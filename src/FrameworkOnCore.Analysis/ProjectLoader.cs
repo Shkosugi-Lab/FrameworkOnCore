@@ -77,7 +77,7 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         var properties = Properties(project, projectPath, msbuild);
         string? Property(string p) => properties.TryGetValue(p, out var v) && v.Length > 0 ? v : null;
         IEnumerable<XElement> Items(string kind) => project.Elements(msbuild + "ItemGroup").Where(g => Holds(g, projectPath, properties))
-            .Elements(msbuild + kind).Where(i => Holds(i, projectPath, properties));
+            .Elements(msbuild + kind).Where(i => i.Attribute("Include") != null && Holds(i, projectPath, properties));   // (an element of a Remove or an Update only: no item)
 
         var sources = Items("Compile").SelectMany(i => Expand(directory, Include(i, properties, directory)))
             .Where(f => f.EndsWith(visualBasic ? ".vb" : ".cs", StringComparison.OrdinalIgnoreCase)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
@@ -168,9 +168,9 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         var sources = evaluated?.Compile.Where(f => f.EndsWith(visualBasic ? ".vb" : ".cs", StringComparison.OrdinalIgnoreCase)).ToList() ??
             Directory.EnumerateFiles(directory, visualBasic ? "*.vb" : "*.cs", SearchOption.AllDirectories)
                 .Where(f => !IsSkipped(System.IO.Path.GetRelativePath(directory, f))).ToList();
-        var references = (evaluated?.ProjectReferences ?? project.Descendants(ns + "ProjectReference").Select(r => Full(directory, (string)r.Attribute("Include")!)))
+        var references = (evaluated?.ProjectReferences ?? project.Descendants(ns + "ProjectReference").Where(r => r.Attribute("Include") != null).Select(r => Full(directory, (string)r.Attribute("Include")!)))
             .Where(File.Exists).Select(Load).ToList();
-        var framework = project.Descendants(ns + "Reference").Select(r => ((string)r.Attribute("Include")!).Split(',')[0].Trim())
+        var framework = project.Descendants(ns + "Reference").Where(r => r.Attribute("Include") != null).Select(r => ((string)r.Attribute("Include")!).Split(',')[0].Trim())
             // The SDK's implicit references for .NET Framework.
             .Concat(["mscorlib", "System", "System.Core", "System.Data", "System.Drawing", "System.IO.Compression.FileSystem", "System.Numerics",
                 "System.Runtime.Serialization", "System.Xml", "System.Xml.Linq", "System.Net.Http", "Microsoft.CSharp", "netstandard"]).Distinct().ToList();

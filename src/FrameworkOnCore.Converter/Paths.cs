@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 namespace FrameworkOnCore.Converter;
 
 public static class Paths
@@ -53,6 +54,53 @@ public static class Paths
         if (output.StartsWith(source, comparison))
             return $"--out {outRoot} is in the repository {sourceRoot}: the conversion copies the repository into it (it would copy itself). Give a folder outside the repository";
         return null;
+    }
+
+    /// <summary>
+    /// Why an output folder cannot be built in (null: it can): a "%20" in its path, which MSBuild takes for a space (any
+    /// '%' with two hexadecimal digits: the .NET SDK does not build in such a folder, NETSDK1004 or MSB3202 with the
+    /// path changed).
+    /// </summary>
+    public static string? OutputNotBuildable(string outRoot)
+    {
+        var escape = Regex.Match(outRoot, "%[0-9A-Fa-f]{2}");
+        return escape.Success
+            ? $"--out {outRoot}: its path has {escape.Value}, which MSBuild takes for another character (the .NET SDK does not build in such a folder). Give a folder without it"
+            : null;
+    }
+
+    /// <summary>
+    /// Why an output folder that is there cannot be replaced (null: it can): it has files and is no conversion's (CopyTree
+    /// empties the output folder first: a folder of the user's own given by mistake would lose what it has). A
+    /// conversion's: its report, or its Directory.Build.props (written before the conversion ends).
+    /// </summary>
+    public static string? OutputNotOurs(string outRoot)
+    {
+        if (!Directory.Exists(outRoot) || !Directory.EnumerateFileSystemEntries(outRoot).Any()) return null;
+        if (File.Exists(Path.Combine(outRoot, "CONVERSION-REPORT.md"))) return null;
+        var props = Path.Combine(outRoot, "Directory.Build.props");
+        if (File.Exists(props) && File.ReadAllText(props).Contains("FrameworkOnCore", StringComparison.Ordinal)) return null;
+        return $"--out {outRoot} is a folder with files that no conversion made: the conversion replaces what the output folder has. Give a new folder, an empty one, or an earlier conversion's";
+    }
+
+    /// <summary>
+    /// A path with its folders' and its file's names as the disk has them (Windows: "APP.CSPROJ" given for App.csproj is the
+    /// same file, and the conversion the same: its project's name is the disk's). The path itself where it is not there.
+    /// </summary>
+    public static string OnDisk(string path)
+    {
+        path = Path.GetFullPath(path);
+        var root = Path.GetPathRoot(path);
+        if (string.IsNullOrEmpty(root) || !(File.Exists(path) || Directory.Exists(path))) return path;
+        var result = root;
+        foreach (var part in path.Substring(root.Length).Split(new[] { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries))
+        {
+            string? found = null;
+            try { found = Directory.EnumerateFileSystemEntries(result).Select(Path.GetFileName).FirstOrDefault(n => string.Equals(n, part, StringComparison.OrdinalIgnoreCase) && (n == part || !Directory.EnumerateFileSystemEntries(result).Select(Path.GetFileName).Contains(part))); }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException) { }
+            result = Path.Combine(result, found ?? part);
+        }
+        return result;
     }
 
     /// <summary>Copies the repository as it is, without build output (the target is replaced).</summary>

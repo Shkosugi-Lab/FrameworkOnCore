@@ -274,7 +274,8 @@ public sealed class ConverterSweepTests : IDisposable
         var project = Path.Combine(output, "Web", app.ProjectFile);
         Assert.True(File.Exists(project), $"no {project}:\n{string.Join("\n", Tree(output).Keys)}");
         var xml = XDocument.Load(project);
-        Assert.Equal(app.Name, (string)xml.Root!.Descendants("AssemblyName").Single());
+        // (the assembly's name as MSBuild has it: "App %20" in a project file is "App  ", the original's build's too)
+        Assert.Equal(Regex.Replace(app.Name, "%([0-9A-Fa-f]{2})", m => ((char)System.Convert.ToInt32(m.Groups[1].Value, 16)).ToString()), (string)xml.Root!.Descendants("AssemblyName").Single());
         foreach (var compile in xml.Root.Descendants("Compile").Select(c => (string)c.Attribute("Include")).Where(i => i != null && !i.Contains('*') && !i.Contains("$(")))
             Assert.True(File.Exists(Path.Combine(output, "Web", Uri.UnescapeDataString(compile).Replace('\\', Path.DirectorySeparatorChar))), $"{project}: Compile {compile} is not there");
         foreach (var solution in Directory.GetFiles(output, "*.slnx"))

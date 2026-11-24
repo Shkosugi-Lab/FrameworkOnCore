@@ -17,6 +17,9 @@ public sealed class Conditions(string configuration, string platform, Report rep
     IReadOnlyDictionary<string, string> properties = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
     string directory = ".";
 
+    /// <summary>The project as MSBuild itself evaluated it for the configuration (MSBuildEvaluation); null where it could not: read by hand then.</summary>
+    public FrameworkOnCore.Analysis.EvaluatedProject? Evaluated { get; private set; }
+
     /// <summary>
     /// The project whose conditions follow: its properties for the configuration (MSBuildCondition.Properties, the
     /// analysis' too). Only Configuration and Platform were put in, the rest compared as text, "or" and "and" read left
@@ -25,6 +28,11 @@ public sealed class Conditions(string configuration, string platform, Report rep
     public void Project(System.Xml.Linq.XDocument project, string projectPath, string solutionDirectory, string subject)
     {
         directory = Path.GetDirectoryName(projectPath)!;
+        // MSBuild's own reading of the project: its properties' final values (the items' conditions are read with them, as
+        // MSBuild reads the items after all the properties), its items. By hand where MSBuild cannot.
+        Evaluated = FrameworkOnCore.Analysis.MSBuildEvaluation.Evaluate(projectPath, Configuration, Platform, solutionDirectory, out var why);
+        if (Evaluated != null) { properties = Evaluated.Properties; return; }
+        report.Add(Report.Kind.Project, subject, $"MSBuild did not read the project ({why}): its conditions and items read by hand");
         properties = FrameworkOnCore.Analysis.MSBuildCondition.Properties(project.Root!, projectPath, Configuration, Platform, solutionDirectory,
             condition => report.Add(Report.Kind.Project, subject, $"condition not evaluated (taken as true): {condition}"));
     }

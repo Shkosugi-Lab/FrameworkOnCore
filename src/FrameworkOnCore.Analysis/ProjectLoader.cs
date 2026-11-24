@@ -74,12 +74,16 @@ public sealed class ProjectLoader(string root, string configuration, string plat
     ProjectInput LoadOld(string projectPath, string name, bool visualBasic, XElement project)
     {
         var directory = System.IO.Path.GetDirectoryName(projectPath)!;
-        var properties = Properties(project, projectPath, msbuild);
+        // As MSBuild itself reads it for the configuration (MSBuildEvaluation): its properties' final values, the sources
+        // it compiles. By hand (MSBuildCondition) where MSBuild cannot.
+        var evaluated = MSBuildEvaluation.Evaluate(projectPath, configuration, platform, root, out var notEvaluated);
+        if (evaluated == null) Warnings.Add($"{name}: MSBuild did not read the project ({notEvaluated}): read by hand");
+        var properties = evaluated != null ? new Dictionary<string, string>(evaluated.Properties, StringComparer.OrdinalIgnoreCase) : Properties(project, projectPath, msbuild);
         string? Property(string p) => properties.TryGetValue(p, out var v) && v.Length > 0 ? v : null;
         IEnumerable<XElement> Items(string kind) => project.Elements(msbuild + "ItemGroup").Where(g => Holds(g, projectPath, properties))
             .Elements(msbuild + kind).Where(i => i.Attribute("Include") != null && Holds(i, projectPath, properties));   // (an element of a Remove or an Update only: no item)
 
-        var sources = Items("Compile").SelectMany(i => Expand(directory, Include(i, properties, directory)))
+        var sources = (evaluated != null ? evaluated.ItemsOf("Compile").Select(i => i.FullPath) : Items("Compile").SelectMany(i => Expand(directory, Include(i, properties, directory))))
             .Where(f => f.EndsWith(visualBasic ? ".vb" : ".cs", StringComparison.OrdinalIgnoreCase)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
 
         var framework = new List<string>();

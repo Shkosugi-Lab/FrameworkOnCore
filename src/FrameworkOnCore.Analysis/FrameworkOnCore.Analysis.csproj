@@ -13,6 +13,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.*" />
     <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.*" />
+    <!-- MSBuild itself reads an old-style project (MSBuildEvaluation): the .NET SDK's own MSBuild, found by the locator
+         (its assemblies are the SDK's, not copied here). -->
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.*" />
+    <PackageReference Include="Microsoft.Build" Version="17.11.*" ExcludeAssets="runtime" />
   </ItemGroup>
 
   <ItemGroup>

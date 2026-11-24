@@ -377,6 +377,28 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         conditions.Holds((string?)item.Parent?.Attribute("Condition"), subject);
 
     /// <summary>
+    /// The project's items of a kind as MSBuild evaluated them, in their order, each once: as the project writes it where it
+    /// names one file ("Copy %281%29.cs", a linked "..\Shared\X.cs": the converted project's item is the original's), else
+    /// the files MSBuild made of it (a wildcard's with its Exclude and the Removes after it, a property's list, another
+    /// item's, an imported file's, Choose's), escaped as MSBuild writes names.
+    /// </summary>
+    static (List<string> Includes, Dictionary<string, string> Excludes, List<string> Removes) EvaluatedItems(FrameworkOnCore.Analysis.EvaluatedProject evaluated, string kind, string directory)
+    {
+        static string Escape(string name) => Regex.Replace(name, @"[%$@;?*'()]", m => "%" + ((int)m.Value[0]).ToString("X2"));
+        var includes = new List<string>();
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var item in evaluated.ItemsOf(kind))
+        {
+            if (!seen.Add(item.FullPath)) continue;
+            var literal = !item.Imported && item.Unevaluated.IndexOfAny(['*', '?', ';', '$', '@']) < 0;
+            // (a full path, "$(MSBuildProjectDirectory)\A.cs" evaluated: from the project's folder, as the converted project has it: the original's is not its)
+            var include = Path.IsPathRooted(item.Include) ? Path.GetRelativePath(directory, item.FullPath).Replace('/', '\\') : item.Include;
+            includes.Add(literal ? item.Unevaluated.Trim() : Escape(include));
+        }
+        return (includes, new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase), new List<string>());
+    }
+
+    /// <summary>
     /// The project's items of a kind as MSBuild takes them, in their order: an Include of several (';' between them, spaces
     /// and line ends around), each once (a file listed twice is compiled once, as Visual Studio does: openIMIS's
     /// Resource1.designer.vb); an Exclude (of a wildcard: kept with it; of a file: the file left out); a Remove after them
@@ -422,13 +444,18 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         conditions.Project(old, projectPath, sourceRoot, name);
         var targetPath = TargetOf(projectPath);
         var target = Path.GetDirectoryName(targetPath)!;
-        string? Property(string property) => old.Descendants(msbuild + property).FirstOrDefault()?.Value;
+        // A property the project has: its value as MSBuild evaluated it for the configuration (the last definition that
+        // holds, its $(...) put in: "$(Product).Core", an AssemblyName by the configuration); as its first element writes it
+        // where MSBuild could not read the project. One the project does not define is none (MSBuild's own defaults are not its).
+        var evaluated = conditions.Evaluated;
+        string? Property(string property) =>
+            old.Descendants(msbuild + property).FirstOrDefault() is { } written ? evaluated != null ? evaluated.Property(property) ?? "" : written.Value : null;
 
         // What the original compiled and embedded, in its order (linked files keep their paths: the
         // repository is copied as a whole). A file listed twice is compiled once, as Visual Studio does (openIMIS's
         // Resource1.designer.vb; the Visual Basic compiler would define its types twice).
         var visualBasic = IsVisualBasic(projectPath);
-        var (compile, compileExcludes, compileRemoves) = ItemsOf(old, "Compile", name);
+        var (compile, compileExcludes, compileRemoves) = evaluated != null ? EvaluatedItems(evaluated, "Compile", source) : ItemsOf(old, "Compile", name);
         // A file the project lists that the repository does not have (the original does not build either: CS2001): left
         // out and reported (MvcMovie of AspNetDocs has no Properties\AssemblyInfo.cs).
         foreach (var missing in compile.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(ItemFile(source, c))).ToList())
@@ -436,7 +463,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             compile.Remove(missing);
             report.Add(Report.Kind.Project, name, $"{missing}: listed by the project, not in the repository (the original build fails on it: CS2001); left out");
         }
-        var (embedded, embeddedExcludes, embeddedRemoves) = ItemsOf(old, "EmbeddedResource", name);
+        var (embedded, embeddedExcludes, embeddedRemoves) = evaluated != null ? EvaluatedItems(evaluated, "EmbeddedResource", source) : ItemsOf(old, "EmbeddedResource", name);
         foreach (var missing in embedded.Where(c => !c.Contains('*') && !c.Contains("$(") && !File.Exists(ItemFile(source, c))).ToList())
         {
             embedded.Remove(missing);
@@ -447,9 +474,12 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         // the project's name).
         var rootNamespace = visualBasic ? Property("RootNamespace")?.Trim() ?? "" : Property("RootNamespace") ?? assemblyName;
         // Conditional compilation symbols of the configuration built (NET_4_0 and the like select code).
-        var defines = old.Descendants(msbuild + "DefineConstants")
-            .Where(d => conditions.Holds((string?)d.Parent?.Attribute("Condition"), name))
-            .SelectMany(d => d.Value.Split(';', ','))
+        // (MSBuild's final DefineConstants: a later definition replaces the one before unless it builds on it; by hand, every one that holds)
+        var defines = (evaluated != null
+                ? (evaluated.Property("DefineConstants") ?? "").Split(';', ',')
+                : old.Descendants(msbuild + "DefineConstants")
+                    .Where(d => conditions.Holds((string?)d.Parent?.Attribute("Condition"), name))
+                    .SelectMany(d => d.Value.Split(';', ',')))
             .Select(s => s.Trim()).Where(s => s.Length > 0 && !s.Contains('$')).Distinct().ToList();
         // The code page its sources without a byte order mark that are not UTF-8 are in: the project's (csc /codepage), else
         // the machine's (ProjectConverter.Encodings.cs).

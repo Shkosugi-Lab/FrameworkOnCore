@@ -183,6 +183,36 @@ public class WebFormsProcessTests
         }
     }
 
+    [Fact] // DeleteOthersStaleCopies' summary: another application's copies (one moved or gone: it never starts again from its folder) go too; a running supervisor's stay
+    public void Another_application_s_stale_copies_are_deleted_too()
+    {
+        var own = WebFormsProcess.ShadowBase(Path.Combine(Path.GetTempPath(), "foc-app-own-" + Guid.NewGuid().ToString("N")));
+        var gone = WebFormsProcess.ShadowBase(Path.Combine(Path.GetTempPath(), "foc-app-gone-" + Guid.NewGuid().ToString("N")));
+        var alive = WebFormsProcess.ShadowBase(Path.Combine(Path.GetTempPath(), "foc-app-alive-" + Guid.NewGuid().ToString("N")));
+        using var ended = Process.Start(new ProcessStartInfo(Dotnet, "--version") { UseShellExecute = false, RedirectStandardOutput = true });
+        ended.WaitForExit();
+        var stale = Path.Combine(gone, ended.Id + "-0", "bin");
+        var running = Path.Combine(alive, Environment.ProcessId + "-1", "bin");
+        var ownStale = Path.Combine(own, ended.Id + "-0", "bin");
+        try
+        {
+            foreach (var copy in new[] { stale, running, ownStale })
+            {
+                Directory.CreateDirectory(copy);
+                File.WriteAllText(Path.Combine(copy, "a.dll"), "x");
+            }
+            WebFormsProcess.DeleteOthersStaleCopies(own);
+            Assert.False(Directory.Exists(gone));                            // its copies and the folder left empty
+            Assert.True(File.Exists(Path.Combine(running, "a.dll")));        // a supervisor that runs: kept
+            Assert.True(File.Exists(Path.Combine(ownStale, "a.dll")));       // the application's own: DeleteStaleCopies', before it starts
+        }
+        finally
+        {
+            foreach (var folder in new[] { own, gone, alive })
+                try { if (Directory.Exists(folder)) Directory.Delete(folder, true); } catch (IOException) { }
+        }
+    }
+
     [Fact] // the summary: the worker's application root is the application's (its bin a copy), its working directory too
     public void The_worker_s_root_is_the_application_s()
     {

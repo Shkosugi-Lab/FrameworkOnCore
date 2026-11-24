@@ -57,6 +57,8 @@ namespace System.Web.Hosting
 			var viaDotnet = Path.GetFileNameWithoutExtension(host).Equals("dotnet", StringComparison.OrdinalIgnoreCase);
 			var shadowBase = ShadowBase(appPath);
 			DeleteStaleCopies(shadowBase);
+			// (the other applications' too, while this one starts: theirs are found by no start of their own once they are moved or gone)
+			System.Threading.Tasks.Task.Run(() => DeleteOthersStaleCopies(shadowBase));
 
 			// The listening sockets, kept while the workers come and go (ListenerHandoff): a request during a restart waits.
 			var sockets = ListenerHandoff.Bind(args, appPath);
@@ -178,6 +180,29 @@ namespace System.Web.Hosting
 				try { Directory.Delete(copy, recursive: true); }
 				catch (IOException) { } catch (UnauthorizedAccessException) { }
 			}
+		}
+
+		/// <summary>
+		/// The copies of bin the other applications' supervisors no longer running left (the folders beside the application's
+		/// own): an application that was moved, renamed or deleted never starts again from its folder, and its copies stayed
+		/// (a machine that runs many applications from temporary folders, a test's or a build's: gigabytes). A folder left
+		/// empty goes too.
+		/// </summary>
+		internal static void DeleteOthersStaleCopies(string shadowBase)
+		{
+			try
+			{
+				var all = Path.GetDirectoryName(shadowBase);
+				if (all == null || !Directory.Exists(all)) return;
+				foreach (var other in Directory.EnumerateDirectories(all))
+				{
+					if (string.Equals(other, shadowBase, StringComparison.OrdinalIgnoreCase)) continue;
+					DeleteStaleCopies(other);
+					try { if (!Directory.EnumerateFileSystemEntries(other).Any()) Directory.Delete(other); }
+					catch (IOException) { } catch (UnauthorizedAccessException) { }
+				}
+			}
+			catch (IOException) { } catch (UnauthorizedAccessException) { }
 		}
 
 		static bool Running(int pid)

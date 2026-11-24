@@ -152,7 +152,10 @@ api.MapGet("/analyses/{id}/choices", (string id, AnalysisStore store) => store.L
 api.MapPut("/analyses/{id}/choices", async (string id, HttpRequest request, AnalysisStore store) =>
 {
     if (store.Get(id) is not { State: "done" }) return Results.NotFound();
-    var choices = await JsonSerializer.DeserializeAsync<Choices>(request.Body, Choices.Json);
+    // (a body that is no JSON, or of another shape than the choices': the caller's mistake, told so)
+    Choices? choices;
+    try { choices = await JsonSerializer.DeserializeAsync<Choices>(request.Body, Choices.Json); }
+    catch (JsonException e) { return Results.BadRequest(new { errors = new[] { "not the choices' JSON: " + e.Message } }); }
     if (choices == null) return Results.BadRequest(new { errors = new[] { "no choices" } });
     var errors = choices.Validate(store.Catalog);
     if (errors.Count > 0) return Results.BadRequest(new { errors });
@@ -176,7 +179,10 @@ api.MapGet("/analyses/{id}/source", (string id, string file, int line, AnalysisS
 {
     if (store.Get(id) is not { } entry) return Results.NotFound();
     var root = Path.GetFullPath(entry.Root).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
-    var full = Path.GetFullPath(Path.Combine(root, file.Replace('/', Path.DirectorySeparatorChar)));
+    // (a name no path has, a NUL in it: no file)
+    string full;
+    try { full = Path.GetFullPath(Path.Combine(root, file.Replace('/', Path.DirectorySeparatorChar))); }
+    catch (Exception e) when (e is ArgumentException or NotSupportedException or PathTooLongException) { return Results.NotFound(); }
     if (!full.StartsWith(root, StringComparison.OrdinalIgnoreCase) || !File.Exists(full)) return Results.NotFound();
     var lines = SourceLines(full);
     var (start, end) = Excerpt(line, lines.Length);

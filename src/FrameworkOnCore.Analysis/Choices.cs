@@ -56,7 +56,8 @@ public sealed record Choices
         }
         foreach (var (api, option) in Apis)
         {
-            if (api.Length < 3 || api[1] != ':') { errors.Add($"api {api}: not a documentation id"); continue; }
+            // (a documentation id: its kind, a type's, a method's, a property's, a field's or an event's: "M:System.Web.X.Y"; "C:\\" is none)
+            if (api.Length < 3 || api[1] != ':' || "TMPFEN".IndexOf(api[0]) < 0) { errors.Add($"api {api}: not a documentation id"); continue; }
             var (component, _, _) = catalog.ComponentOf(ApiKey.From(api, ""));
             Check("api", api, catalog.OptionsOf(component), option);
         }

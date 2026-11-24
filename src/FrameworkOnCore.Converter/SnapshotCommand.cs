@@ -54,10 +54,14 @@ public static class SnapshotCommand
             Console.Error.WriteLine("usage: FrameworkOnCore.Converter snapshot <out> --source <root> --baseline <file> [--site <deployed site>] [--exit <code>] [--update] [--diff <file>]");
             return 2;
         }
-        output = Path.GetFullPath(output);
-        source = Path.GetFullPath(source);
-        site = site != null ? Path.GetFullPath(site) : null;
+        output = CommandLine.Folder("the output folder", output);
+        source = CommandLine.Folder("--source", source);
+        site = site != null ? CommandLine.Folder("--site", site) : null;
+        if (Directory.Exists(baseline)) throw new UsageException($"--baseline {baseline}: a folder, not a file");
+        if (diffFile != null && Directory.Exists(diffFile)) throw new UsageException($"--diff {diffFile}: a folder, not a file");
         baseline = Path.GetFullPath(baseline);
+        // (a baseline that is no snapshot's JSON: told as that)
+        if (!update && File.Exists(baseline)) CommandLine.File_("--baseline", baseline, "a snapshot's JSON", f => JsonNode.Parse(File.ReadAllText(f)));
 
         var snapshot = Take(output, source, site, exit);
         var text = snapshot.ToJsonString(json) + "\n";

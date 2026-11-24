@@ -24,8 +24,8 @@ public static class BuildOriginalCommand
             Console.Error.WriteLine("usage: FrameworkOnCore.Converter build-original-advice <web project .csproj|.vbproj> [--root <dir>]");
             return 2;
         }
-        project = Path.GetFullPath(project);
-        var advice = OriginalBuildAdvice.Of(project, Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project)));
+        project = CommandLine.Project(project);
+        var advice = OriginalBuildAdvice.Of(project, rootDirectory != null ? CommandLine.Folder("--root", rootDirectory) : Paths.FindRoot(project));
         Console.WriteLine(advice.Needed ? "--build-original: needed" : "--build-original: not needed (the web project's folder is the site)");
         foreach (var reason in advice.Reasons) Console.WriteLine($"  {reason}");
         return 0;
@@ -56,8 +56,9 @@ public static class BuildOriginalCommand
             Console.Error.WriteLine("usage: FrameworkOnCore.Converter build-original <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--configuration <name>] [--target <name>] [--original-step <project;target>] [--msbuild visualstudio|buildtools|<folder>]");
             return 2;
         }
-        project = Path.GetFullPath(project);
-        var root = Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project));
+        project = CommandLine.Project(project);
+        var root = rootDirectory != null ? CommandLine.Folder("--root", rootDirectory) : Paths.FindRoot(project);
+        if (File.Exists(outDirectory)) throw new UsageException($"--out {outDirectory}: a file, not a folder");
         var work = Path.GetFullPath(outDirectory).TrimEnd('\\', '/');
         var log = work + ".build.log";
         Directory.CreateDirectory(Path.GetDirectoryName(work)!);  // beside --out, whose folder may not be there yet

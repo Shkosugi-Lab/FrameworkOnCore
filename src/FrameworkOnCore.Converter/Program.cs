@@ -61,6 +61,7 @@ using FrameworkOnCore.Converter;
 
 // The code pages .NET Framework had (an XML declaration's shift_jis: web.config; the sources' code page).
 FrameworkOnCore.Analysis.SourceEncoding.Register();
+CommandLine.TellUnhandled();
 if (args.Length > 0 && args[0] == "analyze") return CommandLine.Run(() => AnalyzeCommand.Run(args[1..], RuntimeSetup.Find));
 if (args.Length > 0 && args[0] == "build-original") return CommandLine.Run(() => BuildOriginalCommand.Run(args[1..]));
 if (args.Length > 0 && args[0] == "snapshot") return CommandLine.Run(() => SnapshotCommand.Run(args[1..]));
@@ -126,9 +127,32 @@ if (project == null || outDirectory == null)
     Console.Error.WriteLine("usage: FrameworkOnCore.Converter <web project .csproj|.vbproj> --out <dir> [--root <dir>] [--runtime <dir>] [--culture-profile <file>] [--iis-profile <file>] [--configuration <name>] [--site <dir> | --build-original [target] [--msbuild visualstudio|buildtools|<folder>]] [--deploy container|linux|both|none] [--case-insensitive on|off] [--choices <file>] [--code-page <n>] [--no-build]");
     return 2;
 }
-if (!File.Exists(project))
+// What is given is there, and what it is to be: told before anything is copied (a profile that is no profile ended the
+// conversion half done, with an exception's trace).
+try
 {
-    Console.Error.WriteLine($"{project}: no such project file");
+    project = CommandLine.Project(project);
+    if (rootDirectory != null) rootDirectory = CommandLine.Folder("--root", rootDirectory);
+    if (runtimeDirectory != null) runtimeDirectory = CommandLine.Folder("--runtime", runtimeDirectory);
+    if (site != null) site = CommandLine.Folder("--site", site);
+    if (File.Exists(outDirectory)) throw new UsageException($"--out {outDirectory}: a file, not a folder");
+    if (choicesFile != null) choicesFile = CommandLine.File_("--choices", choicesFile, "the choices' JSON (foc-choices.json)", f => FrameworkOnCore.Analysis.Choices.Load(f));
+    if (cultureProfile != null)
+        cultureProfile = CommandLine.File_("--culture-profile", cultureProfile, "a culture profile (capture-culture.ps1 writes one)", f =>
+        {
+            using var document = System.Text.Json.JsonDocument.Parse(File.ReadAllText(f));
+            if (document.RootElement.ValueKind != System.Text.Json.JsonValueKind.Object || !document.RootElement.TryGetProperty("Cultures", out var cultures) || cultures.ValueKind != System.Text.Json.JsonValueKind.Object)
+                throw new InvalidDataException("no Cultures in it");
+        });
+    if (iisProfile != null)
+        iisProfile = CommandLine.File_("--iis-profile", iisProfile, "an IIS profile (capture-iis.ps1 writes one)", f =>
+        {
+            if (System.Xml.Linq.XDocument.Load(f).Root?.Name.LocalName != "iisProfile") throw new InvalidDataException("its root is not iisProfile");
+        });
+}
+catch (UsageException e)
+{
+    Console.Error.WriteLine(e.Message);
     return 2;
 }
 // The code page the sources without a byte order mark that are not UTF-8 were written in.

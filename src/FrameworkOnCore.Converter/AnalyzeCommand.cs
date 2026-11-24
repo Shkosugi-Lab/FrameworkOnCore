@@ -38,8 +38,10 @@ public static class AnalyzeCommand
             Console.Error.WriteLine("usage: FrameworkOnCore.Converter analyze <project .csproj|.vbproj> --out <dir> [--root <dir>] [--configuration <name>] [--runtime <dir>] [--code-page <n>]");
             return 2;
         }
-        project = Path.GetFullPath(project);
-        var root = Path.GetFullPath(rootDirectory ?? Paths.FindRoot(project));
+        project = CommandLine.Project(project);
+        var root = rootDirectory != null ? CommandLine.Folder("--root", rootDirectory) : Paths.FindRoot(project);
+        if (runtimeDirectory != null) runtimeDirectory = CommandLine.Folder("--runtime", runtimeDirectory);
+        if (File.Exists(outDirectory)) throw new UsageException($"--out {outDirectory}: a file, not a folder");
         runtimeDirectory = Path.GetFullPath(runtimeDirectory ?? findRuntime() ?? throw new InvalidOperationException("--runtime: experiments/wf4c not found"));
         var result = Analyze(project, root, configuration, runtimeDirectory, Console.WriteLine);
 

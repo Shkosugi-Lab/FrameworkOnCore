@@ -53,7 +53,7 @@ public sealed class ConverterSweepTests : IDisposable
     }
 
     // The repository's runtime folder (experiments/wf4c) when its feed is there: the cases that build.
-    static string RealRuntime()
+    internal static string RealRuntime()
     {
         for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory != null; directory = directory.Parent)
         {
@@ -97,7 +97,7 @@ public sealed class ConverterSweepTests : IDisposable
     const string WebGuids = "{349c5851-65df-11da-9384-00065b846f21};";
 
     /// <summary>What an application's files are made of (the sweeps change one of them).</summary>
-    sealed class App
+    internal sealed class App
     {
         public bool VisualBasic;
         public string Name = "App";
@@ -119,7 +119,7 @@ public sealed class ConverterSweepTests : IDisposable
     /// The application in the folder: Web\ (the web project: a page with its code-behind and designer, a class in a folder,
     /// Global.asax, Web.config, packages.config), Library\ (a class library the web project references) and a solution.
     /// </summary>
-    static string Write(string folder, App app)
+    internal static string Write(string folder, App app)
     {
         void Put(string relative, string text, Encoding encoding = null) => PutBytes(relative, (encoding ?? Utf8Bom).GetPreamble().Concat((encoding ?? Utf8Bom).GetBytes(text)).ToArray());
         void PutBytes(string relative, byte[] bytes)
@@ -138,7 +138,7 @@ public sealed class ConverterSweepTests : IDisposable
                 <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
                 <ProjectGuid>{"{"}11111111-1111-1111-1111-111111111111{"}"}</ProjectGuid>
                 <ProjectTypeGuids>{WebGuids}{app.Language}</ProjectTypeGuids>
-                <OutputType>Library</OutputType>
+                <OutputType>Library</OutputType><OutputPath>bin\</OutputPath>
                 <RootNamespace>Sweep</RootNamespace>
                 <AssemblyName>{name}</AssemblyName>
                 <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -164,6 +164,8 @@ public sealed class ConverterSweepTests : IDisposable
               <ItemGroup>
                 <ProjectReference Include="..\Library\Library.{x}proj"><Project>{"{"}22222222-2222-2222-2222-222222222222{"}"}</Project><Name>Library</Name></ProjectReference>
               </ItemGroup>
+              <Import Project="$(MSBuildBinPath)\Microsoft.{(app.VisualBasic ? "VisualBasic" : "CSharp")}.targets" />
+              <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\WebApplications\Microsoft.WebApplication.targets')" />
             </Project>
             """);
         Put($@"Library\Library.{x}proj", $"""
@@ -172,13 +174,14 @@ public sealed class ConverterSweepTests : IDisposable
               <PropertyGroup>
                 <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
                 <ProjectGuid>{"{"}22222222-2222-2222-2222-222222222222{"}"}</ProjectGuid>
-                <OutputType>Library</OutputType>
+                <OutputType>Library</OutputType><OutputPath>bin\$(Configuration)\</OutputPath>
                 <RootNamespace>Library</RootNamespace>
                 <AssemblyName>Library</AssemblyName>
                 <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
               </PropertyGroup>
               <ItemGroup><Reference Include="System" /></ItemGroup>
               <ItemGroup><Compile Include="Greeter.{x}" /></ItemGroup>
+              <Import Project="$(MSBuildBinPath)\Microsoft.{(app.VisualBasic ? "VisualBasic" : "CSharp")}.targets" />
             </Project>
             """);
         Put(@"Web\Web.config", """
@@ -216,7 +219,12 @@ public sealed class ConverterSweepTests : IDisposable
             Put("Sweep.sln", "\r\nMicrosoft Visual Studio Solution File, Format Version 12.00\r\n# Visual Studio Version 17\r\n" +
                 $"Project(\"{app.Language}\") = \"{app.Name}\", \"Web\\{app.ProjectFile}\", \"{{11111111-1111-1111-1111-111111111111}}\"\r\nEndProject\r\n" +
                 $"Project(\"{app.Language}\") = \"Library\", \"Library\\Library.{x}proj\", \"{{22222222-2222-2222-2222-222222222222}}\"\r\nEndProject\r\n" +
-                "Global\r\nEndGlobal\r\n");
+                // (its configurations, as Visual Studio writes them: the original's build builds the solution's Release)
+                "Global\r\n\tGlobalSection(SolutionConfigurationPlatforms) = preSolution\r\n\t\tDebug|Any CPU = Debug|Any CPU\r\n\t\tRelease|Any CPU = Release|Any CPU\r\n\tEndGlobalSection\r\n" +
+                "\tGlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n" +
+                string.Concat(new[] { "11111111-1111-1111-1111-111111111111", "22222222-2222-2222-2222-222222222222" }.SelectMany(guid => new[] { "Debug", "Release" }.Select(c =>
+                    $"\t\t{{{guid}}}.{c}|Any CPU.ActiveCfg = {c}|Any CPU\r\n\t\t{{{guid}}}.{c}|Any CPU.Build.0 = {c}|Any CPU\r\n"))) +
+                "\tEndGlobalSection\r\nEndGlobal\r\n");
         return Path.Combine(folder, "Web", app.ProjectFile);
     }
 
@@ -488,6 +496,74 @@ public sealed class ConverterSweepTests : IDisposable
         var source = Path.Combine(root, "f", "source");
         var (exit, text) = Convert(root, Write(source, new App()), "--out", Path.Combine(root, "f", "output"), "--runtime", runtime, "--no-build", "--deploy", "none");
         Assert.True(exit == 1 && text.Contains("FrameworkOnCore.Broken.1.0.0.nupkg") && !text.Contains("Unhandled exception"), $"exit {exit}\n{text}");
+    }
+
+    // ---- the files the options name, and the other commands, given wrong: told, no exception's trace
+
+    public static IEnumerable<object[]> OptionFileCases =>
+        from option in new[] { "--choices", "--culture-profile", "--iis-profile" }
+        from content in new[] { "(not there)", "(a folder)", "", " ", "{", "[]", "null", "\"text\"", "{\"components\": 1}", "{\"Cultures\": 1}", "<x", "<other />", "\0\0\0", "{\"schema\": 99}" }
+        select new object[] { option, content };
+
+    [Theory]
+    [MemberData(nameof(OptionFileCases))]
+    public void A_file_an_option_names_that_is_not_what_it_is_to_be_is_told(string option, string content)
+    {
+        var runtime = FakeRuntime();
+        var source = Path.Combine(root, "p", "source");
+        var output = Path.Combine(root, "p", "output");
+        var project = Write(source, new App());
+        var file = Path.Combine(root, "p", "given.file");
+        if (content == "(a folder)") Directory.CreateDirectory(file);
+        else if (content != "(not there)") File.WriteAllText(file, content);
+        var before = Tree(source);
+        var (exit, text) = Convert(root, project, "--out", output, "--runtime", runtime, "--no-build", "--deploy", "both", option, file);
+        Assert.False(Regex.IsMatch(text, @"Unhandled exception|^\s+at [\w.]+\(", RegexOptions.Multiline), $"{option} {content}: exit {exit}\n{text}");
+        Assert.True(exit is 0 or 1 or 2, $"exit {exit}\n{text}");
+        // (refused: told with the option's name or the file's)
+        if (exit != 0) Assert.True(text.Contains(option) || text.Contains("given.file"), text);
+        Assert.Equal("", Differences(before, Tree(source)));
+    }
+
+    // The other commands' arguments: "{p}" the project, "{s}" the application's folder, "{o}" a converted output, "{n}" a path not there, "{f}" a file that is no JSON.
+    public static readonly string[] CommandLines =
+    {
+        "analyze", "analyze {p}", "analyze {p} --out", "analyze {n} --out {n}2", "analyze {p} --out {n} --root {n}", "analyze {p} --out {n} --configuration", "analyze {p} --out {n} --nothing",
+        "analyze {f} --out {n}", "analyze {s} --out {n}",
+        "build-original", "build-original {p}", "build-original {n} --out {n}2", "build-original {p} --out {n} --msbuild nothing", "build-original {p} --out {n} --target", "build-original {f} --out {n}",
+        "build-original-advice", "build-original-advice {p}", "build-original-advice {n}", "build-original-advice {p} --root {n}", "build-original-advice {f}", "build-original-advice {p} --nothing",
+        "snapshot", "snapshot {o}", "snapshot {o} --source {s}", "snapshot {o} --source {s} --baseline", "snapshot {n} --source {s} --baseline {n}.json", "snapshot {o} --source {n} --baseline {n}.json",
+        "snapshot {o} --source {s} --baseline {f}", "snapshot {o} --source {s} --baseline {n}.json --exit x", "snapshot {o} --source {s} --baseline {s}", "snapshot {o} --source {s} --baseline {n}.json --site {n}",
+        "snapshot {o} --source {s} --baseline {n}.json --diff {s}", "snapshot {p} --source {s} --baseline {n}.json", "snapshot {o} {o} --source {s} --baseline {n}.json",
+        "{p} --out {n} --site {n}", "{p} --out {n} --site {f}", "{p} --out {n} --root {n}", "{p} --out {n} --root {f}", "{p} --out {n} --runtime {n}", "{p} --out {n} --runtime {f}", "{f} --out {n}", "{s} --out {n}",
+        "{p} --out {f}", "{p} --out {n} --configuration Nothing", "{p} --out {n} --original-step x", "{p} --out {n} --code-page 99999", "{p} --out {n} --case-insensitive", "{p} --out", "--out {n}", "{p}",
+    };
+
+    public static IEnumerable<object[]> CommandCases => CommandLines.Select(l => new object[] { l });
+
+    [Theory]
+    [MemberData(nameof(CommandCases))]
+    public void A_command_given_wrong_is_told(string line)
+    {
+        var runtime = FakeRuntime();
+        var source = Path.Combine(root, "c", "source");
+        var output = Path.Combine(root, "c", "output");
+        var project = Write(source, new App());
+        Converted(root, project, "--out", output, "--runtime", runtime, "--no-build", "--deploy", "none");
+        var garbage = Path.Combine(root, "c", "garbage.json");
+        File.WriteAllText(garbage, "{ not json");
+        var nothing = Path.Combine(root, "c", "nothing", "there");
+        var before = Tree(source);
+        var arguments = line.Split(' ').Select(a => a.Replace("{p}", project).Replace("{s}", source).Replace("{o}", output).Replace("{n}", nothing).Replace("{f}", garbage)).ToList();
+        // (the conversions among them: without a build, with this test's runtime unless the line gives one)
+        if (!line.StartsWith("analyze") && !line.StartsWith("build-original") && !line.StartsWith("snapshot"))
+        {
+            arguments.Add("--no-build");
+            if (!line.Contains("--runtime")) arguments.AddRange(new[] { "--runtime", runtime });
+        }
+        var (exit, text) = Convert(root, arguments.ToArray());
+        Assert.False(Regex.IsMatch(text, @"Unhandled exception|^\s+at [\w.]+\(", RegexOptions.Multiline), $"{line}: exit {exit}\n{text}");
+        Assert.Equal("", Differences(before, Tree(source)));
     }
 
     // ---- 3. the project's and the assembly's name

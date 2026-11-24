@@ -136,7 +136,7 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
             if (type.SpecialType != SpecialType.System_String) continue;
             foreach (var value in values)
             {
-                if (value.IsImplicit && value is not IConversionOperation || !MayCarryWindowsSeparators(value)) continue;
+                if (value.IsImplicit && value is not IConversionOperation || !MayCarryWindowsSeparators(value) || AlreadyNative(value)) continue;
                 context.ReportDiagnostic(Located.Create(Data, value.Syntax, $"{method.ContainingType.Name}.{method.Name}({parameter.Name})"));
             }
         }
@@ -220,12 +220,24 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
         return value;
     }
 
+    // The value is what a method of FrameworkOnCore's is given (WindowsPath.Native(value)): the platform's already.
+    static bool AlreadyNative(IOperation node)
+    {
+        var current = node;
+        while (current.Parent is IParenthesizedOperation or IConversionOperation) current = current.Parent;
+        return current.Parent is IArgumentOperation { Parent: IInvocationOperation call } && call.TargetMethod.ContainingNamespace?.ToDisplayString() == "FrameworkOnCore";
+    }
+
     static void Analyze(OperationAnalysisContext context)
     {
         var node = context.Operation;
         // The text of an interpolated string is its own operation (a literal): the string is analyzed as a whole.
         if (node.Parent is IInterpolatedStringTextOperation) return;
         if (!IsWindowsPathLiteral(node, out var isChar)) return;
+        // Made the platform's already (WindowsPath.Native($"{folder}\{name}"): the converter's own, a source converted before).
+        if (AlreadyNative(node)) return;
+        // (a parameter's default value, the literal of the call that leaves the argument out: the call is what is wrapped)
+        if (node.Parent is IArgumentOperation { ArgumentKind: ArgumentKind.DefaultValue, Parent: { } defaulted } && AlreadyNative(defaulted)) return;
         // In a query's expression tree (LINQ to SQL, Entity Framework): WindowsPath.Native is a call the provider cannot
         // translate, and what the database holds keeps its backslashes.
         if (SpanInExpressionAnalyzer.InExpressionTree(node)) return;
@@ -348,6 +360,22 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
                     };
                     if (method == null || method.ContainingNamespace?.ToDisplayString() == "FrameworkOnCore") return null;
                     var external = !method.Locations.Any(l => l.IsInSource);
+                    // Appended to a StringBuilder that is a path (filePath.Append("\bin\\").Append(name): the builder the calls begin with).
+                    if (call is IInvocationOperation { TargetMethod: { Name: "Append" or "AppendFormat" or "AppendLine" or "Insert", ContainingType.Name: "StringBuilder" } } appendTo)
+                    {
+                        var builder = appendTo.Instance;
+                        while (builder is IInvocationOperation { Instance: { } inner, TargetMethod.ContainingType.Name: "StringBuilder" }) builder = inner;
+                        // (the builder named as a path, or made of one: new StringBuilder(rootPath))
+                        var built = builder switch
+                        {
+                            ILocalReferenceOperation { Local: var local } when IsPathName(local.Name) => local.Name,
+                            IFieldReferenceOperation { Field: var builderField } when IsPathName(builderField.Name) => builderField.Name,
+                            IParameterReferenceOperation { Parameter: var builderParameter } when IsPathName(builderParameter.Name) => builderParameter.Name,
+                            IObjectCreationOperation creation => creation.Arguments.Select(a => Pathish(a.Value, 0)).FirstOrDefault(r => r != null),
+                            _ => null,
+                        };
+                        return built != null ? $"appended to {built}" : null;
+                    }
                     if (external && pathParameters.Contains(parameter.Name)) return $"{method.ContainingType.Name}.{method.Name}({parameter.Name})";
                     if (method.ContainingType.SpecialType == SpecialType.System_String)
                     {
@@ -463,6 +491,9 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
             case IInterpolatedStringOperation s:
                 return s.Parts.OfType<IInterpolationOperation>().Select(i => Pathish(i.Expression, depth + 1)).FirstOrDefault(r => r != null);
             case IInvocationOperation { TargetMethod: var method } invocation:
+                // A path's parts (filePath.Split('\'): joined again with a separator, they are a path).
+                if (method.Name == "Split" && method.ContainingType?.SpecialType == SpecialType.System_String && invocation.Instance is { } split)
+                    return Pathish(split, depth + 1) is { } whole ? $"the parts of {whole}" : null;
                 if (method.ReturnType.SpecialType != SpecialType.System_String) return null;
                 if (method.ContainingType?.ToDisplayString() == "System.IO.Path") return $"Path.{method.Name}()";
                 if (IsPathName(method.Name) || method.Name == "MapPath") return $"{method.Name}()";
@@ -484,7 +515,7 @@ public sealed class WindowsPathAnalyzer : DiagnosticAnalyzer
                 if (parameter.ContainingSymbol is IMethodSymbol { ContainingType: { } owner } && IsPathName(owner.Name)) return $"{owner.Name}'s {parameter.Name}";
                 return null;
             case ILocalReferenceOperation { Local: var local } reference:
-                if (local.Type.SpecialType != SpecialType.System_String) return null;
+                if (local.Type.SpecialType != SpecialType.System_String && local.Type is not IArrayTypeSymbol { ElementType.SpecialType: SpecialType.System_String }) return null;
                 if (IsPathName(local.Name)) return local.Name;
                 // What it was declared with (in the same file).
                 if (local.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax() is { } declaration && declaration.SyntaxTree == reference.Syntax.SyntaxTree &&

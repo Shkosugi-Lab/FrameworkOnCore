@@ -144,7 +144,8 @@ public sealed class ProjectShapeTests : IDisposable
     static Read MSBuild(string project, bool original)
     {
         var arguments = new List<string> { "msbuild", project, "-nologo", "-getProperty:AssemblyName", "-getProperty:DefineConstants", "-getItem:Compile" };
-        if (original) arguments.AddRange(new[] { "-p:Configuration=Release", "-p:Platform=AnyCPU" });
+        // (the original's build's system is Windows, wherever it is converted: "'$(OS)' == 'Windows_NT'" holds on Linux too)
+        if (original) arguments.AddRange(new[] { "-p:Configuration=Release", "-p:Platform=AnyCPU", "-p:OS=Windows_NT" });
         var (exit, output, error) = Run(Path.GetDirectoryName(project)!, arguments.ToArray());
         Assert.True(exit == 0, $"MSBuild does not read {project}:\n{output}\n{error}");
         using var json = JsonDocument.Parse(output);

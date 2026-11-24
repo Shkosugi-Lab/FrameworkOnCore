@@ -34,6 +34,13 @@ public static class CommandLine
         return Paths.OnDisk(given);
     }
 
+    /// <summary>A setup step's project ("project;target"): a file of the repository; else a usage error.</summary>
+    public static void Step(string root, string project)
+    {
+        var full = Path.GetFullPath(Path.Combine(root, project.Replace('\\', '/').Replace('/', Path.DirectorySeparatorChar)));
+        if (!File.Exists(full)) throw new UsageException($"--original-step {project}: no such project in the repository ({root})");
+    }
+
     /// <summary>An option's folder that is to be there (its full path).</summary>
     public static string Folder(string option, string given)
     {

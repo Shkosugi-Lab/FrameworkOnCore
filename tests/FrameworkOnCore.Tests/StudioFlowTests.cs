@@ -334,6 +334,25 @@ public sealed class StudioFlowTests : IClassFixture<StudioFlowTests.Server>
         Until(() => PortListens(port) ? null : "free", s => s != null, 30, "the site's port free after the stop");
         Assert.True((int)Send("DELETE", $"api/analyses/{id}/native").Status < 500);   // (stopped already: nothing to stop)
 
+        // -- run on Linux, in a container: its page answers as on this machine; stopped. Where Docker runs, and when asked for
+        // (FOC_STUDIO_CONTAINER=1: an image is built, minutes; one container at a time).
+        if (Environment.GetEnvironmentVariable("FOC_STUDIO_CONTAINER") == "1" && (bool?)Json("api/docker")["available"] == true)
+        {
+            var (contained, containedText) = Send("POST", $"api/analyses/{id}/container", "{}");
+            Assert.True(contained == HttpStatusCode.OK, containedText);
+            var container = Until(() => Json($"api/analyses/{id}/container"), c => (string)c["container"]?["state"] is "running" or "failed" or "stopped", 1800, "the container run");
+            Assert.True((string)container["container"]!["state"] == "running", container.ToJsonString(new JsonSerializerOptions { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping, WriteIndented = true }));
+            using (var browser = new HttpClient { Timeout = TimeSpan.FromSeconds(120) })
+            {
+                var page = browser.GetAsync((string)container["container"]!["url"] + "Default.aspx").Result;
+                var html = page.Content.ReadAsStringAsync().Result;
+                Assert.True(page.StatusCode == HttpStatusCode.OK && html.Contains("hello world"), $"{(int)page.StatusCode} {Short(html)}");
+            }
+            Assert.True((int)Send("GET", $"api/analyses/{id}/container/log").Status == 200);
+            Assert.Equal(HttpStatusCode.NoContent, Send("DELETE", $"api/analyses/{id}/container").Status);
+            Assert.Equal("stopped", (string)Json($"api/analyses/{id}/container")["container"]!["state"]);
+        }
+
         // -- converted again, and cancelled while it runs: told cancelled, and the next conversion starts
         Assert.Equal(HttpStatusCode.OK, Send("POST", $"api/analyses/{id}/conversion").Status);
         Until(() => Json($"api/analyses/{id}/conversion"), c => (string)c["conversion"]?["state"] is "running" or "done" or "failed", 120, "the second conversion running");

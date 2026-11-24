@@ -59,6 +59,7 @@ public static class BuildOriginalCommand
         project = CommandLine.Project(project);
         var root = rootDirectory != null ? CommandLine.Folder("--root", rootDirectory) : Paths.FindRoot(project);
         if (File.Exists(outDirectory)) throw new UsageException($"--out {outDirectory}: a file, not a folder");
+        foreach (var (stepProject, _) in steps) CommandLine.Step(root, stepProject);
         var work = Path.GetFullPath(outDirectory).TrimEnd('\\', '/');
         var log = work + ".build.log";
         Directory.CreateDirectory(Path.GetDirectoryName(work)!);  // beside --out, whose folder may not be there yet

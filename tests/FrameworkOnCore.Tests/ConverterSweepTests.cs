@@ -64,7 +64,7 @@ public sealed class ConverterSweepTests : IDisposable
         return null;
     }
 
-    static (int Exit, string Output) Run(string workingDirectory, string file, params string[] arguments)
+    internal static (int Exit, string Output) Run(string workingDirectory, string file, params string[] arguments)
     {
         var start = new ProcessStartInfo(file)
         {
@@ -234,7 +234,7 @@ public sealed class ConverterSweepTests : IDisposable
     /// The folder's files, each by its path ('/') and its content's hash; a text file's with the paths of this run taken out
     /// (the folders given, written "{name}"), and the project's feed (a path from the output to the runtime: where they are).
     /// </summary>
-    static SortedDictionary<string, string> Tree(string folder, params (string Path, string Name)[] places)
+    internal static SortedDictionary<string, string> Tree(string folder, params (string Path, string Name)[] places)
     {
         var tree = new SortedDictionary<string, string>(StringComparer.Ordinal);
         if (!Directory.Exists(folder)) return tree;
@@ -255,7 +255,7 @@ public sealed class ConverterSweepTests : IDisposable
         return tree;
     }
 
-    static string Differences(SortedDictionary<string, string> expected, SortedDictionary<string, string> actual)
+    internal static string Differences(SortedDictionary<string, string> expected, SortedDictionary<string, string> actual)
     {
         var lines = new List<string>();
         foreach (var name in expected.Keys.Union(actual.Keys).OrderBy(n => n, StringComparer.Ordinal))

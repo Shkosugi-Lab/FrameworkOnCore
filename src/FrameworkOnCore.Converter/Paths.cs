@@ -32,7 +32,37 @@ public static class Paths
             if (directory.EnumerateFiles("*.sln").Any(f => f.Extension.Equals(".sln", StringComparison.OrdinalIgnoreCase))) top = directory.FullName;
             if (Directory.Exists(Path.Combine(directory.FullName, ".git"))) break;
         }
+        return Covering(top, projectPath, new HashSet<string>(StringComparer.OrdinalIgnoreCase));
+    }
+
+    // The folder widened to the projects the project references (and theirs): without a solution above it, the project's
+    // own folder was the repository, and a library beside it ("..\Library\Library.csproj") was not copied: the application did
+    // not build, its reference "not there". No further than three folders up, and never a drive's root (a reference to a
+    // shared folder far away is not the repository's).
+    static string Covering(string top, string projectPath, HashSet<string> seen)
+    {
+        if (!seen.Add(projectPath) || seen.Count > 200) return top;
+        List<string> references;
+        try
+        {
+            references = System.Xml.Linq.XDocument.Load(projectPath).Descendants().Where(e => e.Name.LocalName == "ProjectReference")
+                .Select(e => (string?)e.Attribute("Include")).Where(i => !string.IsNullOrWhiteSpace(i) && !i!.Contains("$("))
+                .Select(i => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, Uri.UnescapeDataString(i!).Replace('\\', Path.DirectorySeparatorChar)))).ToList();
+        }
+        catch (Exception e) when (e is System.Xml.XmlException || e is IOException || e is UnauthorizedAccessException || e is ArgumentException) { return top; }
+        foreach (var reference in references.Where(File.Exists))
+        {
+            var limit = Path.GetDirectoryName(projectPath)!;
+            for (var up = 0; up < 3 && Path.GetDirectoryName(limit) is { } parent; up++) limit = parent;
+            var candidate = top;
+            while (!IsUnder(reference, candidate) && Path.GetDirectoryName(candidate) is { } above) candidate = above;
+            if (IsUnder(reference, candidate) && IsUnder(candidate + Path.DirectorySeparatorChar + "x", limit) && Path.GetPathRoot(candidate) != candidate) top = candidate;
+            top = Covering(top, reference, seen);
+        }
         return top;
+
+        static bool IsUnder(string path, string folder) =>
+            path.StartsWith(folder.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
     }
 
     /// <summary>A folder CopyTree leaves out: build output, tooling, NuGet's packages (SnapshotCommand compares the trees so).</summary>

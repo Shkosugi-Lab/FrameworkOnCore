@@ -136,6 +136,7 @@ try
     if (runtimeDirectory != null) runtimeDirectory = CommandLine.Folder("--runtime", runtimeDirectory);
     if (site != null) site = CommandLine.Folder("--site", site);
     if (File.Exists(outDirectory)) throw new UsageException($"--out {outDirectory}: a file, not a folder");
+    foreach (var (stepProject, _) in originalSteps) CommandLine.Step(rootDirectory ?? Paths.FindRoot(project), stepProject);
     if (choicesFile != null) choicesFile = CommandLine.File_("--choices", choicesFile, "the choices' JSON (foc-choices.json)", f => FrameworkOnCore.Analysis.Choices.Load(f));
     if (cultureProfile != null)
         cultureProfile = CommandLine.File_("--culture-profile", cultureProfile, "a culture profile (capture-culture.ps1 writes one)", f =>

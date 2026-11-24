@@ -540,6 +540,11 @@ public sealed partial class OriginalBuild(Report report, string log, string? con
             UseShellExecute = false,
         };
         foreach (var (key, value) in environment) start.Environment[key] = value;
+        // The .NET SDK's MSBuild's own variables (this process read a project with it, or was started by one that did:
+        // MSBuildEvaluation) are not Visual Studio's MSBuild's: with them its tasks do not load ("the .NET Runtime Task
+        // Host could not be found").
+        foreach (var name in new[] { "MSBUILD_EXE_PATH", "MSBuildSDKsPath", "MSBuildExtensionsPath", "MSBUILDSDKSPATH", "MSBUILDEXTENSIONSPATH", "DOTNET_HOST_PATH", "MSBUILD_NUGET_PATH" })
+            start.Environment.Remove(name);
         if (path.Count > 0) start.Environment["PATH"] = string.Join(Path.PathSeparator, path) + Path.PathSeparator + start.Environment["PATH"];
         if (!quiet) Console.WriteLine($"> {file} {arguments}");
         using var writer = new StreamWriter(log, append: true, new UTF8Encoding(false)) { AutoFlush = true };  // read while it runs (Studio)

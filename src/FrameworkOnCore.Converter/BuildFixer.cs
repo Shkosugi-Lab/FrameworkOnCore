@@ -167,8 +167,19 @@ public sealed partial class BuildFixer(Report report, IReadOnlyCollection<Conver
     {
         var dll = Path.Combine(AppContext.BaseDirectory, "FrameworkOnCore.Analyzers.dll");
         if (!File.Exists(dll)) return null;
-        var folder = Path.Combine(Path.GetTempPath(), "FrameworkOnCore");
+        // A folder of this conversion's own: two conversions at the same time wrote the same files (the second could not:
+        // "being used by another process"; or built with the first one's rules). Gone with the process; one a process that
+        // was stopped left, a day later.
+        var shared = Path.Combine(Path.GetTempPath(), "FrameworkOnCore");
+        var folder = Path.Combine(shared, $"build-{Environment.ProcessId}-{Guid.NewGuid():N}");
         Directory.CreateDirectory(folder);
+        AppDomain.CurrentDomain.ProcessExit += (_, _) => { try { Directory.Delete(folder, true); } catch (IOException) { } catch (UnauthorizedAccessException) { } };
+        try
+        {
+            foreach (var stale in Directory.EnumerateDirectories(shared, "build-*").Where(d => Directory.GetLastWriteTimeUtc(d) < DateTime.UtcNow.AddDays(-1)))
+                try { Directory.Delete(stale, true); } catch (IOException) { } catch (UnauthorizedAccessException) { }
+        }
+        catch (IOException) { } catch (UnauthorizedAccessException) { }
         var platform = Path.Combine(folder, "frameworkoncore.platform.txt");
         File.WriteAllLines(platform, rules.PlatformReplacements.Select(r => r.Line));
         var targets = Path.Combine(folder, "analyzers.targets");

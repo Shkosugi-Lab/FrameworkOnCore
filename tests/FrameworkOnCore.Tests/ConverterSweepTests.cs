@@ -819,6 +819,23 @@ public sealed class ConverterSweepTests : IDisposable
     // items to MSBuild (MSB4094), one with ',' several files to the Visual Basic compiler (BC2001); the conversion of such a
     // project is still done and told: A_project_of_any_name_is_converted)
 
+    [Fact] // two conversions at the same time (two applications, Studio and a command line): each builds with its own
+    // rules' files (they wrote the same ones in the temporary folder: "being used by another process")
+    public void Two_conversions_at_the_same_time_both_build()
+    {
+        var runtime = RealRuntime();
+        if (runtime == null) return;   // (no feed here)
+        var runs = Enumerable.Range(1, 3).Select(i =>
+        {
+            var source = Path.Combine(root, "t" + i, "source");
+            var project = Write(source, new App { Name = "App" + i, VisualBasic = i == 2 });
+            return Task.Run(() => Convert(root, project, "--out", Path.Combine(root, "t" + i, "output"), "--runtime", runtime, "--deploy", "none"));
+        }).ToArray();
+        Task.WaitAll(runs);
+        foreach (var run in runs)
+            Assert.True(run.Result.Exit == 0 && run.Result.Output.Contains("build succeeded"), run.Result.Output);
+    }
+
     [Theory]
     [MemberData(nameof(BuildCases))]
     public void The_converted_application_builds(string name, bool visualBasic, string folder)

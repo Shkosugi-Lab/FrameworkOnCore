@@ -271,6 +271,24 @@ var succeeded = true;
 // The builds' log (next to the output, as the original's is): what is being built, while it is (Studio shows it).
 var buildLog = outRoot.TrimEnd('\\', '/') + ".build.log";
 File.Delete(buildLog);
+// One conversion's build at a time for a runtime folder: the converted projects reference its shim projects, built
+// where they are (two builds at once: "Cannot open ...FrameworkOnCore.Compat.ForDlls.dll for writing"). Held until this
+// process ends; without it where the folder cannot be written.
+FileStream? buildLock = null;
+if (build)
+{
+    var lockFile = Path.Combine(runtimeDirectory, ".build.lock");
+    for (var waited = 0; buildLock == null && waited < 3600; waited++)
+    {
+        try { buildLock = new FileStream(lockFile, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None, 1, FileOptions.DeleteOnClose); }
+        catch (UnauthorizedAccessException) { break; }
+        catch (IOException)
+        {
+            if (waited == 0) Console.WriteLine($"waiting for another conversion's build to end (they share {runtimeDirectory})");
+            Thread.Sleep(1000);
+        }
+    }
+}
 if (build) succeeded = new BuildFixer(report, converter.Converted, outRoot, rules)
 {
     Log = buildLog,
@@ -357,6 +375,7 @@ if (build && succeeded)
 var reportPath = Path.Combine(outRoot, "CONVERSION-REPORT.md");
 File.WriteAllText(reportPath, report.ToMarkdown($"FrameworkOnCore: {Path.GetFileName(project)}"), new UTF8Encoding(false));
 Console.WriteLine($"{(build ? (succeeded ? "build succeeded" : "build FAILED") : "not built")}; web project: {web.TargetPath}; report: {reportPath}");
+GC.KeepAlive(buildLock);   // (held to the end: the builds after the first, the site's assembly)
 return succeeded ? 0 : 1;
 
 // Program.cs (Program.vb) of the web project, and the culture profile. An application that routes

@@ -65,9 +65,20 @@ public static class MSBuildEvaluation
                 why = unavailable = "MSBuild was not found (the .NET SDK's): " + e.Message;
                 return null;
             }
+            // (and what MSBuild sets while it reads a project: taken back too, kept for its next reading)
+            var environment = Environment.GetEnvironmentVariables().Cast<System.Collections.DictionaryEntry>().ToDictionary(v => (string)v.Key, v => (string?)v.Value, StringComparer.OrdinalIgnoreCase);
             foreach (var (name, (value, _)) in theirs) Environment.SetEnvironmentVariable(name, value);
             try { return TryLoad(System.IO.Path.GetFullPath(projectPath), configuration, platform, solutionDirectory, out why); }
-            finally { Restore(); }
+            finally
+            {
+                foreach (System.Collections.DictionaryEntry variable in Environment.GetEnvironmentVariables())
+                {
+                    var name = (string)variable.Key;
+                    environment.TryGetValue(name, out var was);
+                    if (was != (string?)variable.Value && !theirs.ContainsKey(name)) theirs[name] = ((string?)variable.Value, was);
+                }
+                Restore();
+            }
         }
     }
 

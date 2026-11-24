@@ -59,7 +59,9 @@ sealed class UsageSink(string root)
 /// <summary>
 /// The APIs one source file uses: every name the compiler binds to a symbol (a type, a member, a constructor, an indexer,
 /// a member overridden), in C# or Visual Basic, counted where it is written. A .NET Framework API goes to the sink by its
-/// documentation id; another assembly's is counted for that assembly.
+/// documentation id; another assembly's is counted for that assembly. Not an operator or a conversion a type defines
+/// (a + b, (T)x: no name is written; a DLL's reading has them, its calls of op_Addition): .NET has every one of the types
+/// it has (BinaryScanVersusSourceTests looked), so that none changes what there is to decide.
 /// </summary>
 sealed class UsageCollector(Compilation compilation, SyntaxTree tree, string project, Func<IAssemblySymbol, bool> isFramework,
     Func<IAssemblySymbol, string> originOf, UsageSink sink)

@@ -139,9 +139,13 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
 
         var references = new List<string>();
         var deployed = new List<(string Assembly, string Dll)>();
-        foreach (var reference in Elements(document, "ProjectReference").ToList())
+        // An old-style project's references as MSBuild evaluated them for the configuration (Items): the conditions were read
+        // with the properties of the project converted before this one, a reference of a Choose taken whatever its
+        // condition, one of an imported file or with a property in its path not found.
+        if (!isSdk) conditions.Project(document, projectPath, sourceRoot, name);
+        foreach (var reference in isSdk ? Elements(document, "ProjectReference").ToList() : Items(document, "ProjectReference", name))
         {
-            if (reference.Attribute("Include") == null || !isSdk && !ItemHolds(reference, name)) continue;
+            if (reference.Attribute("Include") == null) continue;
             var referenced = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, Native((string)reference.Attribute("Include")!)));
             // A path that is not there (a project moved in the repository: nopCommerce's promotion providers name
             // ..\Nop.BusinessLogic, which is in Libraries): the repository's project of its GUID, as Visual Studio finds it.
@@ -164,6 +168,13 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
                 continue;
             }
             if (!File.Exists(referenced)) { report.Add(Report.Kind.Error, name, $"project reference not found: {referenced}"); continue; }
+            // A project outside the repository's folder is not copied, and its converted project's place (its path from the
+            // repository's, in the output) is outside the output folder: it was written there, over what there was.
+            if (!Paths.IsUnder(referenced, sourceRoot))
+            {
+                report.Add(Report.Kind.Error, name, $"project reference outside the repository's folder ({sourceRoot}): {referenced}, not converted. Give the folder that has both with --root");
+                continue;
+            }
             Convert(referenced, false);
             references.Add(referenced);
         }
@@ -377,6 +388,31 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         conditions.Holds((string?)item.Parent?.Attribute("Condition"), subject);
 
     /// <summary>
+    /// An old-style project's items of a kind that are references (Reference, ProjectReference, PackageReference, Visual
+    /// Basic's Import), for the configuration built: as MSBuild evaluated them (EvaluatedProject.ElementsOf: those of a
+    /// Choose, of an imported file, updated, removed; the Include and the metadata with their properties put in and
+    /// unescaped), else the project file's elements whose conditions hold, read by hand. The project is the one
+    /// conditions.Project named last.
+    /// </summary>
+    List<XElement> Items(XDocument old, string kind, string subject) =>
+        conditions.Evaluated is { } evaluated ? evaluated.ElementsOf(kind, msbuild).ToList()
+            : old.Descendants(msbuild + kind).Where(e => ItemHolds(e, subject)).Select(Unescaped).ToList();
+
+    // (read by hand: MSBuild's escapes of the Include undone, "..\Lib%20Two\Second.csproj")
+    static XElement Unescaped(XElement item)
+    {
+        var copy = new XElement(item);
+        if (copy.Attribute("Include") is { } include) include.Value = MSBuildUnescape(include.Value);
+        return copy;
+    }
+
+    static string MSBuildUnescape(string value) => Regex.Replace(value, "%([0-9A-Fa-f]{2})", m => ((char)System.Convert.ToInt32(m.Groups[1].Value, 16)).ToString());
+
+    // An item's metadata, written as a child element (the last that holds) or as an attribute.
+    string? Meta(XElement item, string name, string subject) =>
+        item.Elements().LastOrDefault(e => e.Name.LocalName == name && conditions.Holds((string?)e.Attribute("Condition"), subject))?.Value ?? (string?)item.Attribute(name);
+
+    /// <summary>
     /// The project's items of a kind as MSBuild evaluated them, in their order, each once: as the project writes it where it
     /// names one file ("Copy %281%29.cs", a linked "..\Shared\X.cs": the converted project's item is the original's), else
     /// the files MSBuild made of it (a wildcard's with its Exclude and the Removes after it, a property's list, another
@@ -508,32 +544,43 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             if (pinned.Count > 0)
                 report.Add(Report.Kind.Project, name, $"replaced packages kept at their version with nothing of them used (ExcludeAssets all), for the packages that depend on them: {string.Join(", ", pinned)}");
         }
-        foreach (var p in old.Descendants(msbuild + "PackageReference").Where(e => ItemHolds(e, name)))
+        foreach (var p in Items(old, "PackageReference", name))
         {
-            AddListed((string)p.Attribute("Include")!, (string?)p.Attribute("Version") ?? p.Element(msbuild + "Version")?.Value ?? "*");
+            AddListed((string)p.Attribute("Include")!, Meta(p, "Version", name) is { Length: > 0 } packageVersion ? packageVersion : "*");
         }
         if (isWeb) AddWebPackages(name, source, AddPackage);
 
         var binaryReferences = deployed.Select(d => (d.Assembly, HintPath: Paths.FromProject(target, d.Dll), Aliases: (string?)null)).ToList();
         var builtReferences = new List<string>();
-        foreach (var reference in old.Descendants(msbuild + "Reference").Where(e => ItemHolds(e, name)))
+        var external = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var reference in Items(old, "Reference", name))
         {
             var assembly = ((string)reference.Attribute("Include")!).Split(',')[0].Trim();
-            var hint = reference.Element(msbuild + "HintPath")?.Value;
-            if (hint != null)
+            var hint = Meta(reference, "HintPath", name);
+            if (hint != null && evaluated == null) hint = MSBuildUnescape(hint);
+            // The DLL's path as the reference ("..\lib\Dep.dll", no HintPath): that file, as MSBuild takes it.
+            if (string.IsNullOrEmpty(hint) && (assembly.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) || assembly.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) &&
+                File.Exists(Path.Combine(source, Native(assembly))))
             {
-                // A package's DLL is covered by the PackageReference.
-                if (Regex.IsMatch(hint, @"(^|\\)packages\\", RegexOptions.IgnoreCase)) continue;
+                hint = assembly;
+                assembly = Path.GetFileNameWithoutExtension(Native(assembly));
+            }
+            if (!string.IsNullOrEmpty(hint))
+            {
                 var dll = Path.GetFullPath(Path.Combine(source, Native(hint)));
+                // (the path from the project's folder, as projects write it: MSBuild's evaluation gives "$(SolutionDir)lib\X.dll" in full)
+                var written = Path.GetRelativePath(source, dll).Replace('/', '\\');
+                // A package's DLL is covered by the PackageReference.
+                if (Regex.IsMatch(written, @"(^|\\)packages\\", RegexOptions.IgnoreCase)) continue;
                 // Another project's build output: that project, by reference.
                 var producer = ProjectOfAssembly(assembly);
-                if (producer != null && (Regex.IsMatch(hint, @"(^|\\)bin\\", RegexOptions.IgnoreCase) || !File.Exists(dll)))
+                if (producer != null && (Regex.IsMatch(written, @"(^|\\)bin\\", RegexOptions.IgnoreCase) || !File.Exists(dll)))
                 {
                     if (!IsConvertible(producer))
                     {
                         if (DeployedAssembly(producer) is { } deployedDll)
                         {
-                            binaryReferences.Add((deployedDll.Assembly, Paths.FromProject(target, deployedDll.Dll), reference.Element(msbuild + "Aliases")?.Value));
+                            binaryReferences.Add((deployedDll.Assembly, Paths.FromProject(target, deployedDll.Dll), Meta(reference, "Aliases", name)));
                             report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}, not converted (only C# and Visual Basic projects): its .NET Framework assembly in the deployed site is referenced as it is");
                         }
                         else report.Add(Report.Kind.Unsupported, name, $"{assembly} is built by {Path.GetFileName(producer)}: not converted (only C# and Visual Basic projects); the code using it is stubbed");
@@ -554,8 +601,28 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
                     report.Add(Report.Kind.Project, name, $"{assembly}: a DLL in the repository ({hint}), replaced by the package {replacement.Id} {replacement.Version} (replacedPackages)");
                     continue;
                 }
-                // A DLL checked into the repository: referenced where it is.
-                binaryReferences.Add((assembly, hint, reference.Element(msbuild + "Aliases")?.Value));
+                // A DLL checked into the repository: referenced where it is, by its path from the converted project (the
+                // original's path was written again: one with "$(SolutionDir)" or a property of the project's, or a full
+                // path, named nothing in the converted project, or the original's folder).
+                if (Paths.IsUnder(dll, sourceRoot))
+                {
+                    binaryReferences.Add((assembly, Paths.FromProject(target, TargetOf(dll)), Meta(reference, "Aliases", name)));
+                    continue;
+                }
+                // A DLL outside the repository (a shared folder of the original's machine): a copy in the converted project,
+                // which builds where the conversion is taken (a container, another machine).
+                if (!external.TryGetValue(dll, out var copy))
+                {
+                    var folder = Path.Combine(target, "foc-external");
+                    Directory.CreateDirectory(folder);
+                    copy = Path.Combine(folder, Path.GetFileName(dll));
+                    for (var n = 2; external.Values.Contains(copy, StringComparer.OrdinalIgnoreCase); n++) copy = Path.Combine(folder, n.ToString(), Path.GetFileName(dll));
+                    Directory.CreateDirectory(Path.GetDirectoryName(copy)!);
+                    File.Copy(dll, copy, overwrite: true);
+                    external[dll] = copy;
+                    report.Add(Report.Kind.Project, name, $"{assembly}: a DLL outside the repository ({dll}), copied into the converted project ({Paths.FromProject(target, copy)}); the files beside it are not");
+                }
+                binaryReferences.Add((assembly, Paths.FromProject(target, copy), Meta(reference, "Aliases", name)));
             }
             else AddFrameworkReference(name, assembly, AddPackage);
         }
@@ -643,7 +710,7 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         foreach (var c in compile) text.Append($"    <Compile Include=\"{SecurityElement.Escape(c)}\"{(compileExcludes.TryGetValue(c, out var without) ? $" Exclude=\"{SecurityElement.Escape(without)}\"" : "")} />\n");
         foreach (var c in compileRemoves) text.Append($"    <Compile Remove=\"{SecurityElement.Escape(c)}\" />\n");
         if (isWeb) text.Append($"    <Compile Include=\"{ProgramFile(projectPath)}\" />\n");
-        foreach (var import in old.Descendants(msbuild + "Import").Where(e => e.Attribute("Include") != null && ItemHolds(e, name)))
+        foreach (var import in Items(old, "Import", name))
             text.Append($"    <Import Include=\"{SecurityElement.Escape((string)import.Attribute("Include")!)}\" />\n");
         foreach (var e in embedded) text.Append($"    <EmbeddedResource Include=\"{SecurityElement.Escape(e)}\"{(embeddedExcludes.TryGetValue(e, out var without) ? $" Exclude=\"{SecurityElement.Escape(without)}\"" : "")} />\n");
         foreach (var e in embeddedRemoves) text.Append($"    <EmbeddedResource Remove=\"{SecurityElement.Escape(e)}\" />\n");
@@ -670,14 +737,15 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
         }
         // Analyzers and source generators referenced as projects (DNN generates the defining parts of
         // partial methods, CS0759 without it): with their metadata, as the original has them.
-        var analyzers = old.Descendants(msbuild + "ProjectReference")
-            .Where(r => r.Attribute("Include") != null && string.Equals((string?)r.Attribute("OutputItemType"), "Analyzer", StringComparison.OrdinalIgnoreCase))
+        var projectItems = Items(old, "ProjectReference", name);
+        var analyzers = projectItems
+            .Where(r => string.Equals(Meta(r, "OutputItemType", name), "Analyzer", StringComparison.OrdinalIgnoreCase))
             .Select(r => Path.GetFullPath(Path.Combine(source, Native((string)r.Attribute("Include")!))))
             .ToHashSet(StringComparer.OrdinalIgnoreCase);
         // extern alias names on project references (Aliases), as the original has them.
-        var aliases = old.Descendants(msbuild + "ProjectReference").Where(r => r.Attribute("Include") != null)
-            .Select(r => (Path: Path.GetFullPath(Path.Combine(source, Native((string)r.Attribute("Include")!))), Aliases: r.Element(msbuild + "Aliases")?.Value ?? (string?)r.Attribute("Aliases")))
-            .Where(r => !string.IsNullOrWhiteSpace(r.Aliases)).ToDictionary(r => r.Path, r => r.Aliases!, StringComparer.OrdinalIgnoreCase);
+        var aliases = projectItems
+            .Select(r => (Path: Path.GetFullPath(Path.Combine(source, Native((string)r.Attribute("Include")!))), Aliases: Meta(r, "Aliases", name)))
+            .Where(r => !string.IsNullOrWhiteSpace(r.Aliases)).DistinctBy(r => r.Path, StringComparer.OrdinalIgnoreCase).ToDictionary(r => r.Path, r => r.Aliases!, StringComparer.OrdinalIgnoreCase);
         foreach (var referenced in projectReferences.Concat(builtReferences).Distinct(StringComparer.OrdinalIgnoreCase))
         {
             var metadata = analyzers.Contains(referenced) ? " ReferenceOutputAssembly=\"false\" OutputItemType=\"Analyzer\"" : "";
@@ -685,10 +753,12 @@ public sealed partial class ProjectConverter(Rules rules, Report report, Conditi
             text.Append($"    <ProjectReference Include=\"{SecurityElement.Escape(Paths.FromProject(source, referenced))}\"{metadata} />\n");
         }
         // Analyzers checked into the repository (not the ones of packages: the PackageReference brings them).
-        foreach (var analyzer in old.Descendants(msbuild + "Analyzer").Where(e => ItemHolds(e, name)).Select(e => (string)e.Attribute("Include")!))
+        // (as the DLLs referenced: MSBuild's evaluation of the items, the path from the converted project)
+        foreach (var analyzer in Items(old, "Analyzer", name).Select(e => (string)e.Attribute("Include")!))
         {
-            if (Regex.IsMatch(analyzer, @"(^|\\)packages\\", RegexOptions.IgnoreCase) || !File.Exists(ItemFile(source, analyzer))) continue;
-            text.Append($"    <Analyzer Include=\"{SecurityElement.Escape(analyzer)}\" />\n");
+            var file = Path.GetFullPath(Path.Combine(source, Native(analyzer)));
+            if (Regex.IsMatch(Path.GetRelativePath(source, file).Replace('/', '\\'), @"(^|\\)packages\\", RegexOptions.IgnoreCase) || !File.Exists(file) || !Paths.IsUnder(file, sourceRoot)) continue;
+            text.Append($"    <Analyzer Include=\"{SecurityElement.Escape(Paths.FromProject(target, TargetOf(file)))}\" />\n");
         }
         text.Append("  </ItemGroup>\n");
 

@@ -28,14 +28,22 @@ public sealed class Conditions(string configuration, string platform, Report rep
     public void Project(System.Xml.Linq.XDocument project, string projectPath, string solutionDirectory, string subject)
     {
         directory = Path.GetDirectoryName(projectPath)!;
+        // (read once: a project is the one whose conditions follow before its references are converted, and again after them)
+        if (read.TryGetValue(projectPath, out var known)) { (Evaluated, properties) = known; return; }
         // MSBuild's own reading of the project: its properties' final values (the items' conditions are read with them, as
         // MSBuild reads the items after all the properties), its items. By hand where MSBuild cannot.
         Evaluated = FrameworkOnCore.Analysis.MSBuildEvaluation.Evaluate(projectPath, Configuration, Platform, solutionDirectory, out var why);
-        if (Evaluated != null) { properties = Evaluated.Properties; return; }
-        report.Add(Report.Kind.Project, subject, $"MSBuild did not read the project ({why}): its conditions and items read by hand");
-        properties = FrameworkOnCore.Analysis.MSBuildCondition.Properties(project.Root!, projectPath, Configuration, Platform, solutionDirectory,
-            condition => report.Add(Report.Kind.Project, subject, $"condition not evaluated (taken as true): {condition}"));
+        if (Evaluated != null) properties = Evaluated.Properties;
+        else
+        {
+            report.Add(Report.Kind.Project, subject, $"MSBuild did not read the project ({why}): its conditions and items read by hand");
+            properties = FrameworkOnCore.Analysis.MSBuildCondition.Properties(project.Root!, projectPath, Configuration, Platform, solutionDirectory,
+                condition => report.Add(Report.Kind.Project, subject, $"condition not evaluated (taken as true): {condition}"));
+        }
+        read[projectPath] = (Evaluated, properties);
     }
+
+    readonly Dictionary<string, (FrameworkOnCore.Analysis.EvaluatedProject? Evaluated, IReadOnlyDictionary<string, string> Properties)> read = new(StringComparer.OrdinalIgnoreCase);
 
     public bool Holds(string? condition, string subject)
     {

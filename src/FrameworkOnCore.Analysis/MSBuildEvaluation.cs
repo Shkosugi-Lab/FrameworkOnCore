@@ -5,7 +5,11 @@ using Microsoft.Build.Locator;
 namespace FrameworkOnCore.Analysis;
 
 /// <summary>An item of a project as MSBuild evaluated it: its kind, its name (unescaped), as the project writes it, its file.</summary>
-public sealed record EvaluatedItem(string Kind, string Include, string Unevaluated, string FullPath, bool Imported);
+public sealed record EvaluatedItem(string Kind, string Include, string Unevaluated, string FullPath, bool Imported)
+{
+    /// <summary>Its metadata as evaluated (unescaped): a reference's HintPath with its properties put in, the one that holds.</summary>
+    public IReadOnlyDictionary<string, string> Metadata { get; init; } = new Dictionary<string, string>();
+}
 
 /// <summary>A project as MSBuild evaluated it for a configuration: its properties' final values, its items in their order.</summary>
 public sealed class EvaluatedProject
@@ -15,6 +19,16 @@ public sealed class EvaluatedProject
 
     public string? Property(string name) => Properties.TryGetValue(name, out var value) && value.Length > 0 ? value : null;
     public IEnumerable<EvaluatedItem> ItemsOf(string kind) => Items.Where(i => i.Kind.Equals(kind, StringComparison.OrdinalIgnoreCase));
+
+    /// <summary>
+    /// The items of a kind as the elements a project file would have them written plainly: the Include as evaluated, each
+    /// metadata a child element with its evaluated value, no condition. For the readers of a project's references (the
+    /// analysis, the converter), which read the file's elements: the references of a Choose, of an imported file, with a
+    /// property in the path, updated, removed are what MSBuild made of them.
+    /// </summary>
+    public IEnumerable<System.Xml.Linq.XElement> ElementsOf(string kind, System.Xml.Linq.XNamespace ns) =>
+        ItemsOf(kind).Select(i => new System.Xml.Linq.XElement(ns + kind, new System.Xml.Linq.XAttribute("Include", i.Include),
+            i.Metadata.Where(m => System.Xml.XmlReader.IsName(m.Key)).Select(m => new System.Xml.Linq.XElement(ns + m.Key, m.Value))));
 }
 
 /// <summary>
@@ -134,7 +148,9 @@ public static class MSBuildEvaluation
                 string full;
                 try { full = System.IO.Path.GetFullPath(System.IO.Path.Combine(directory, include.Replace('\\', System.IO.Path.DirectorySeparatorChar))); }
                 catch (Exception e) when (e is ArgumentException || e is NotSupportedException || e is PathTooLongException) { full = include; }
-                return new EvaluatedItem(item.ItemType, include, item.UnevaluatedInclude, full, item.IsImported);
+                var metadata = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var data in item.Metadata) metadata[data.Name] = data.EvaluatedValue;
+                return new EvaluatedItem(item.ItemType, include, item.UnevaluatedInclude, full, item.IsImported) { Metadata = metadata };
             }).ToList();
             return new EvaluatedProject { Properties = properties, Items = items };
         }

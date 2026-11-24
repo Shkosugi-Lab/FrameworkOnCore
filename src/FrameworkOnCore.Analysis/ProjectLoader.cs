@@ -80,8 +80,11 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         if (evaluated == null) Warnings.Add($"{name}: MSBuild did not read the project ({notEvaluated}): read by hand");
         var properties = evaluated != null ? new Dictionary<string, string>(evaluated.Properties, StringComparer.OrdinalIgnoreCase) : Properties(project, projectPath, msbuild);
         string? Property(string p) => properties.TryGetValue(p, out var v) && v.Length > 0 ? v : null;
-        IEnumerable<XElement> Items(string kind) => project.Elements(msbuild + "ItemGroup").Where(g => Holds(g, projectPath, properties))
-            .Elements(msbuild + kind).Where(i => i.Attribute("Include") != null && Holds(i, projectPath, properties));   // (an element of a Remove or an Update only: no item)
+        // The references as MSBuild evaluated them too (those of a Choose, of an imported file, updated, removed, the
+        // HintPath that holds with its properties put in: only the project file's own item groups were read, by hand).
+        IEnumerable<XElement> Items(string kind) => evaluated != null ? evaluated.ElementsOf(kind, msbuild)
+            : project.Elements(msbuild + "ItemGroup").Where(g => Holds(g, projectPath, properties))
+                .Elements(msbuild + kind).Where(i => i.Attribute("Include") != null && Holds(i, projectPath, properties));   // (an element of a Remove or an Update only: no item)
 
         var sources = (evaluated != null ? evaluated.ItemsOf("Compile").Select(i => i.FullPath) : Items("Compile").SelectMany(i => Expand(directory, Include(i, properties, directory))))
             .Where(f => f.EndsWith(visualBasic ? ".vb" : ".cs", StringComparison.OrdinalIgnoreCase)).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
@@ -92,18 +95,29 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         foreach (var reference in Items("Reference"))
         {
             var assembly = ((string)reference.Attribute("Include")!).Split(',')[0].Trim();
-            var hint = reference.Element(msbuild + "HintPath")?.Value;
-            var dll = hint != null ? Full(directory, ExpandProperties(hint, properties, directory)) : null;
+            var hint = reference.Elements(msbuild + "HintPath").LastOrDefault(h => Holds(h, projectPath, properties))?.Value ?? (string?)reference.Attribute("HintPath");
+            // (read by hand, MSBuild's escapes are still there: "lib%20two")
+            var dll = hint != null ? Full(directory, evaluated != null ? hint : Unescape(ExpandProperties(hint, properties, directory))) : null;
+            // The DLL's path as the reference ("..\lib\Dep.dll", no HintPath): that file, as MSBuild takes it.
+            if (dll == null && (assembly.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) || assembly.EndsWith(".exe", StringComparison.OrdinalIgnoreCase)) &&
+                File.Exists(Full(directory, assembly)))
+            {
+                binaries.Add(Full(directory, assembly));
+                continue;
+            }
+            // (the path from the project's folder, as projects write it: MSBuild's evaluation gives "$(SolutionDir)lib\X.dll" in
+            // full, and a repository in a folder named bin or packages is no project's output, no package)
+            var written = dll != null ? System.IO.Path.GetRelativePath(directory, dll) : null;
             // Another project's output (bin\X.dll, built or not): that project.
             if (ProjectOfAssembly(assembly) is { } producer && !producer.Equals(projectPath, StringComparison.OrdinalIgnoreCase) &&
-                (dll == null || !File.Exists(dll) || Regex.IsMatch(hint!, @"(^|[\\/])bin[\\/]", RegexOptions.IgnoreCase)))
+                (dll == null || !File.Exists(dll) || Regex.IsMatch(written!, @"(^|[\\/])bin[\\/]", RegexOptions.IgnoreCase)))
             {
                 references.Add(Load(producer));
                 continue;
             }
             if (dll != null && File.Exists(dll)) { binaries.Add(dll); continue; }
             // A package's DLL where the packages are not restored (packages\<id>.<version>\lib\...): the package's.
-            if (dll != null && Regex.Match(hint!, @"[\\/]packages[\\/](?<id>[^\\/]+?)\.(?<version>\d+(\.\d+)+(-[\w.-]+)?)[\\/]", RegexOptions.IgnoreCase) is { Success: true } package)
+            if (dll != null && Regex.Match(written!, @"(^|[\\/])packages[\\/](?<id>[^\\/]+?)\.(?<version>\d+(\.\d+)+(-[\w.-]+)?)[\\/]", RegexOptions.IgnoreCase) is { Success: true } package)
             {
                 IReadOnlyList<string>? assemblies = null;
                 try { assemblies = ReferencePacks.FrameworkPackage(package.Groups["id"].Value, package.Groups["version"].Value); }
@@ -119,7 +133,7 @@ public sealed class ProjectLoader(string root, string configuration, string plat
         }
         foreach (var reference in Items("ProjectReference"))
         {
-            var path = Full(directory, ExpandProperties((string)reference.Attribute("Include")!, properties, directory));
+            var path = Full(directory, evaluated != null ? (string)reference.Attribute("Include")! : Unescape(ExpandProperties((string)reference.Attribute("Include")!, properties, directory)));
             if (!File.Exists(path))
             {
                 // As Visual Studio: the project of its GUID; else one of its file name.

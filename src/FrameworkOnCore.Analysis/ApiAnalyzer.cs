@@ -80,12 +80,16 @@ public sealed class ApiAnalyzer(TargetApis target, Catalog catalog, IEnumerable<
 
         // The DLLs without source (not .NET Framework's) the converted application keeps.
         var binaryFiles = new List<BinaryFile>();
+        // .NET Framework's members by id, for the DLLs' accessors with parameters (an indexer, or a property of that name).
+        var frameworkMembers = new Lazy<Compilation>(() => CSharpCompilation.Create("framework", [], framework.Values.Select(f => MetadataReference.CreateFromFile(f))));
+        var isMember = new Dictionary<string, bool>(StringComparer.Ordinal);
+        bool IsMember(string id) => isMember.TryGetValue(id, out var known) ? known : isMember[id] = DocumentationCommentId.GetFirstSymbolForDeclarationId(id, frameworkMembers.Value) != null;
         foreach (var dll in binaries.Where(b => !frameworkFiles.Contains(b)).Order(StringComparer.OrdinalIgnoreCase))
         {
             var skipped = Replaced(dll);
             if (skipped == null)
             {
-                try { BinaryScanner.Scan(dll, framework.ContainsKey, sink); }
+                try { BinaryScanner.Scan(dll, framework.ContainsKey, sink, IsMember); }
                 catch (Exception e) when (e is BadImageFormatException or IOException) { skipped = $"not read ({e.Message})"; }
             }
             binaryFiles.Add(new BinaryFile(sink.Relative(dll), skipped));

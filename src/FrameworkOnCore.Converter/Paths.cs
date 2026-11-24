@@ -32,38 +32,80 @@ public static class Paths
             if (directory.EnumerateFiles("*.sln").Any(f => f.Extension.Equals(".sln", StringComparison.OrdinalIgnoreCase))) top = directory.FullName;
             if (Directory.Exists(Path.Combine(directory.FullName, ".git"))) break;
         }
-        return Covering(top, projectPath, new HashSet<string>(StringComparer.OrdinalIgnoreCase));
+        // (without a solution, the projects are read as MSBuild evaluates them: what they reference is all there is to go by)
+        return Covering(top, projectPath, new HashSet<string>(StringComparer.OrdinalIgnoreCase), evaluate: top == Path.GetDirectoryName(projectPath));
     }
 
     // The folder widened to the projects the project references (and theirs): without a solution above it, the project's
     // own folder was the repository, and a library beside it ("..\Library\Library.csproj") was not copied: the application did
     // not build, its reference "not there". No further than three folders up, and never a drive's root (a reference to a
     // shared folder far away is not the repository's).
-    static string Covering(string top, string projectPath, HashSet<string> seen)
+    static string Covering(string top, string projectPath, HashSet<string> seen, bool evaluate)
     {
         if (!seen.Add(projectPath) || seen.Count > 200) return top;
-        List<string> references;
+        var folder = Path.GetDirectoryName(projectPath)!;
+        // The project as MSBuild evaluates it (an old-style one, for Release): the references of an imported file, the
+        // paths with a property the project or an imported file defines. With the project file's own elements, whatever
+        // their conditions.
+        var evaluated = evaluate && !IsSdkStyle(projectPath) ? FrameworkOnCore.Analysis.MSBuildEvaluation.Evaluate(projectPath, "Release", "AnyCPU", top, out _) : null;
+        // A path as the project writes it, with the properties that name a folder known here (the solution's: the folder so
+        // far; the project's); one with another property is not followed.
+        string? Written(string? path)
+        {
+            if (string.IsNullOrWhiteSpace(path)) return null;
+            path = Regex.Replace(path.Trim(), @"\$\((SolutionDir|ProjectDir|MSBuildProjectDirectory|MSBuildThisFileDirectory)\)", m =>
+                m.Groups[1].Value == "SolutionDir" ? top + "\\" : m.Groups[1].Value == "MSBuildProjectDirectory" ? folder : folder + "\\", RegexOptions.IgnoreCase);
+            if (evaluated != null) path = Regex.Replace(path, @"\$\((\w+)\)", m => evaluated.Properties.TryGetValue(m.Groups[1].Value, out var value) ? value : m.Value);
+            if (path.Contains("$(")) return null;
+            try { return Path.GetFullPath(Path.Combine(folder, Uri.UnescapeDataString(path).Replace('\\', Path.DirectorySeparatorChar))); }
+            catch (Exception e) when (e is ArgumentException || e is NotSupportedException || e is PathTooLongException || e is UriFormatException) { return null; }
+        }
+        List<string> references, dlls;
         try
         {
-            references = System.Xml.Linq.XDocument.Load(projectPath).Descendants().Where(e => e.Name.LocalName == "ProjectReference")
-                .Select(e => (string?)e.Attribute("Include")).Where(i => !string.IsNullOrWhiteSpace(i) && !i!.Contains("$("))
-                .Select(i => Path.GetFullPath(Path.Combine(Path.GetDirectoryName(projectPath)!, Uri.UnescapeDataString(i!).Replace('\\', Path.DirectorySeparatorChar)))).ToList();
+            var document = System.Xml.Linq.XDocument.Load(projectPath);
+            references = document.Descendants().Where(e => e.Name.LocalName == "ProjectReference").Select(e => Written((string?)e.Attribute("Include"))).OfType<string>().ToList();
+            dlls = document.Descendants().Where(e => e.Name.LocalName == "HintPath").Select(e => Written(e.Value))
+                .Concat(document.Descendants().Where(e => e.Name.LocalName == "Reference").Select(e => (string?)e.Attribute("HintPath") ?? (string?)e.Attribute("Include"))
+                    .Where(i => i != null && (i.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) || i.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))).Select(Written))
+                .OfType<string>().ToList();
         }
         catch (Exception e) when (e is System.Xml.XmlException || e is IOException || e is UnauthorizedAccessException || e is ArgumentException) { return top; }
-        foreach (var reference in references.Where(File.Exists))
+        if (evaluated != null)
         {
-            var limit = Path.GetDirectoryName(projectPath)!;
-            for (var up = 0; up < 3 && Path.GetDirectoryName(limit) is { } parent; up++) limit = parent;
-            var candidate = top;
-            while (!IsUnder(reference, candidate) && Path.GetDirectoryName(candidate) is { } above) candidate = above;
-            if (IsUnder(reference, candidate) && IsUnder(candidate + Path.DirectorySeparatorChar + "x", limit) && Path.GetPathRoot(candidate) != candidate) top = candidate;
-            top = Covering(top, reference, seen);
+            references.AddRange(evaluated.ItemsOf("ProjectReference").Select(i => i.FullPath));
+            dlls.AddRange(evaluated.ItemsOf("Reference").Select(i => i.Metadata.TryGetValue("HintPath", out var hint) && hint.Length > 0 ? Written(hint) : null).OfType<string>());
         }
+        string Widened(string file, int folders)
+        {
+            var limit = folder;
+            for (var up = 0; up < folders && Path.GetDirectoryName(limit) is { } parent; up++) limit = parent;
+            var candidate = top;
+            while (!IsUnder(file, candidate) && Path.GetDirectoryName(candidate) is { } above) candidate = above;
+            return IsUnder(file, candidate) && IsUnder(candidate + Path.DirectorySeparatorChar + "x", limit) && Path.GetPathRoot(candidate) != candidate ? candidate : top;
+        }
+        foreach (var reference in references.Where(File.Exists).Distinct(StringComparer.OrdinalIgnoreCase))
+        {
+            top = Widened(reference, 3);
+            top = Covering(top, reference, seen, evaluate);
+        }
+        // And to the DLLs the project is built with (HintPath: "..\lib\Dep.dll", the solution's packages folder), no further
+        // than two folders up: without a solution above the project they were not copied, the converted project's
+        // references named nothing and the code using them did not compile. One farther away is copied on its own
+        // (ProjectConverter: foc-external).
+        foreach (var dll in dlls.Where(File.Exists)) top = Widened(dll, 2);
         return top;
-
-        static bool IsUnder(string path, string folder) =>
-            path.StartsWith(folder.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
     }
+
+    static bool IsSdkStyle(string projectPath)
+    {
+        try { return System.Xml.Linq.XDocument.Load(projectPath).Root?.Attribute("Sdk") != null; }
+        catch (Exception e) when (e is System.Xml.XmlException || e is IOException || e is UnauthorizedAccessException) { return true; }
+    }
+
+    /// <summary>A path is in a folder (by the file system's case).</summary>
+    public static bool IsUnder(string path, string folder) =>
+        path.StartsWith(folder.TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar, OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
 
     /// <summary>A folder CopyTree leaves out: build output, tooling, NuGet's packages (SnapshotCommand compares the trees so).</summary>
     public static bool NotCopied(DirectoryInfo directory) =>
@@ -199,5 +241,6 @@ public static class Paths
 
     /// <summary>A relative path as MSBuild reads it, from the project's folder.</summary>
     public static string FromProject(string projectDirectory, string path) =>
-        "$(MSBuildThisFileDirectory)" + Path.GetRelativePath(projectDirectory, path).Replace('/', '\\');
+        // (a '%' with two hexadecimal digits after it is MSBuild's escape of another character: written as itself, "%25")
+        "$(MSBuildThisFileDirectory)" + Regex.Replace(Path.GetRelativePath(projectDirectory, path).Replace('/', '\\'), "%(?=[0-9A-Fa-f]{2})", "%25");
 }

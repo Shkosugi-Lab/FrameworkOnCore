@@ -20,7 +20,13 @@ $baselines = Join-Path $PSScriptRoot 'baseline'
 $parity = Join-Path $repo 'experiments\wf4c\sample-parity.ps1'
 $converter = Join-Path $repo 'src\FrameworkOnCore.Converter\bin\Debug\net10.0\FrameworkOnCore.Converter.dll'
 $probes = (Get-Content (Join-Path $PSScriptRoot 'probes.json') -Raw -Encoding UTF8 | ConvertFrom-Json).probes
-if ($Only) { $probes = @($probes | Where-Object { $Only -contains $_.name }) }
+# (-Only A,B from powershell -File is one argument "A,B": each name of each)
+if ($Only) { $Only = @($Only | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ }) }
+if ($Only) {
+    $unknown = @($Only | Where-Object { @($probes | ForEach-Object { $_.name }) -notcontains $_ })
+    if ($unknown.Count -gt 0) { throw "-Only: no such probe: $($unknown -join ', ') (corpus\probes.json)" }
+    $probes = @($probes | Where-Object { $Only -contains $_.name })
+}
 New-Item -ItemType Directory -Force $out, $baselines | Out-Null
 # The culture profile of the machine the golden data was recorded on (corpus\culture-profile.json: ja-JP and en-US, its
 # defaults ja-JP), for the probes without cultures.txt: the converter's own capture is its caller's UI language's (a

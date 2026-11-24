@@ -17,23 +17,53 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+# A path as given, from PowerShell's location when relative (.NET's is the process's); as it is ([ ] are no wildcards).
+# Started by powershell -File in a folder with [ ] in its name, Windows PowerShell cannot make that folder its location
+# and is in its own ($PSHOME) instead: the folder it was started in then (the process's).
+function Full-Path([string]$Path) {
+    $from = (Get-Location).ProviderPath
+    if ($from -eq $PSHOME -and [Environment]::CurrentDirectory -ne $from -and [Environment]::CurrentDirectory -match '[\[\]]') { $from = [Environment]::CurrentDirectory }
+    [IO.Path]::GetFullPath($(if ([IO.Path]::IsPathRooted($Path)) { $Path } else { Join-Path $from $Path }))
+}
+
 # An XML file in the encoding it says (its declaration, UTF-8 without one), as IIS reads it. Get-Content read it in the
 # system's code page on Windows PowerShell: a Japanese site's name or folder garbled, the file no XML (the capture failed).
-function Read-Xml([string]$Path) {
+# Read as a file, not as a URL (XmlDocument.Load of a name: a '#' or a '%' in a folder's name is a URL's). What it is
+# not is told with its name: not there, a folder, no XML.
+function Read-Xml([string]$Path, [string]$What) {
+    $full = Full-Path $Path
+    if (Test-Path -LiteralPath $full -PathType Container) { throw "${What}: $full is a folder, not a file" }
+    if (-not (Test-Path -LiteralPath $full -PathType Leaf)) { throw "${What}: $full is not there" }
     $document = New-Object System.Xml.XmlDocument
-    # (relative to PowerShell's location: .NET's is the process's)
-    $document.Load($(if ([IO.Path]::IsPathRooted($Path)) { $Path } else { Join-Path (Get-Location).ProviderPath $Path }))
+    $stream = $null
+    try {
+        $stream = [IO.File]::OpenRead($full)
+        $document.Load($stream)
+    }
+    catch [System.Xml.XmlException] { throw "${What}: $full is no XML ($($_.Exception.Message))" }
+    catch [System.Management.Automation.MethodInvocationException] {
+        if ($_.Exception.InnerException -is [System.Xml.XmlException]) { throw "${What}: $full is no XML ($($_.Exception.InnerException.Message))" }
+        throw "${What}: $full cannot be read ($($_.Exception.InnerException.Message))"
+    }
+    finally { if ($stream) { $stream.Dispose() } }
     $document
 }
 
 # A shared configuration: applicationHost.config is where redirection.config says.
+$ApplicationHost = Full-Path $ApplicationHost
 $redirection = Join-Path (Split-Path $ApplicationHost) 'redirection.config'
-if (Test-Path $redirection) {
-    $redirect = (Read-Xml $redirection).configuration.'configurationRedirection'
-    if ($redirect -and $redirect.enabled -eq 'true' -and $redirect.path) { $ApplicationHost = Join-Path $redirect.path 'applicationHost.config' }
+if (Test-Path -LiteralPath $redirection -PathType Leaf) {
+    $redirect = (Read-Xml $redirection 'redirection.config').SelectSingleNode('/configuration/configurationRedirection')
+    if ($redirect -and $redirect.GetAttribute('enabled') -eq 'true' -and $redirect.GetAttribute('path')) { $ApplicationHost = Join-Path $redirect.GetAttribute('path') 'applicationHost.config' }
 }
-$config = Read-Xml $ApplicationHost
-$root = $config.configuration
+$config = Read-Xml $ApplicationHost 'applicationHost.config'
+$root = $config.SelectSingleNode('/configuration')
+if (-not $root) { throw "applicationHost.config: $ApplicationHost is no IIS configuration (its root is <$($config.DocumentElement.Name)>, not <configuration>)" }
+$sitesNode = $root.SelectSingleNode('system.applicationHost/sites')
+if (-not $sitesNode) { throw "applicationHost.config: $ApplicationHost has no sites (system.applicationHost/sites): not a server's applicationHost.config" }
+# The output: a file's path (told before anything is read into it).
+$target = Full-Path $Out
+if (Test-Path -LiteralPath $target -PathType Container) { throw "-Out $Out is a folder: give the profile's file (iis-profile.config)" }
 
 # The system.webServer sections IIS applies to a site's requests (the server's and the site's); not the ones about the
 # server itself.
@@ -51,12 +81,21 @@ $iisProfile.SetAttribute('computer', $env:COMPUTERNAME)
 $inetstp = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\InetStp' -ErrorAction SilentlyContinue
 if ($inetstp) { $iisProfile.SetAttribute('iisVersion', "$($inetstp.MajorVersion).$($inetstp.MinorVersion)") }
 
-# Secrets out: password attributes, encrypted values.
+# Secrets out: password attributes, encrypted values; and the secrets inside a value: a connection string's password
+# ("...;Password=x;", "pwd=x"), a URL's ("https://user:x@host"), the value of an entry named as a secret (a custom header
+# X-Api-Password, a setting ApiKey: its name, key or header says password, secret, token or key).
+$secretName = 'password|passwd|pwd|secret|token|api[-_]?key|credential'
 function Copy-Clean([Xml.XmlNode]$node) {
     $copy = $document.ImportNode($node, $true)
     foreach ($element in @($copy.SelectNodes('descendant-or-self::*'))) {
+        $named = @('name', 'key', 'header') | ForEach-Object { $element.GetAttribute($_) } | Where-Object { $_ -match $secretName }
         foreach ($attribute in @($element.Attributes)) {
-            if ($attribute.Name -match 'password' -or $attribute.Value -match '^\[enc:') { [void]$element.Attributes.Remove($attribute) }
+            if ($attribute.Name -match 'password' -or $attribute.Value -match '^\[enc:') { [void]$element.Attributes.Remove($attribute); continue }
+            if ($named -and $attribute.Name -eq 'value') { [void]$element.Attributes.Remove($attribute); continue }
+            $value = $attribute.Value
+            $value = [regex]::Replace($value, "(?i)\b($secretName)\s*=\s*[^;]*", '$1=')
+            $value = [regex]::Replace($value, '(?i)\b([a-z][a-z0-9+.-]*://[^/:@\s]*):[^@/\s]*@', '$1@')
+            if ($value -cne $attribute.Value) { $attribute.Value = $value }
         }
     }
     $copy
@@ -84,7 +123,6 @@ $globalModules = $root.SelectSingleNode('system.webServer/globalModules')
 if ($globalModules) { [void]$iisProfile.AppendChild((Copy-Clean $globalModules)) }
 
 # The site: its id (W3SVC<id>), its log file, its limits; the sites' defaults; the server's log.
-$sitesNode = $root.SelectSingleNode('system.applicationHost/sites')
 $siteNode = @($sitesNode.SelectNodes('site')) | Where-Object { $_.name -eq $Site } | Select-Object -First 1
 if (-not $siteNode) { throw "no site '$Site' in $ApplicationHost (sites: $((@($sitesNode.SelectNodes('site')) | ForEach-Object { $_.name }) -join ', '))" }
 $siteCopy = $iisProfile.AppendChild($document.CreateElement('site'))
@@ -106,8 +144,9 @@ if ($log) { [void]$iisProfile.AppendChild((Copy-Clean $log)) }
 
 # The site's <location>s (the site and its folders): their paths relative to the site.
 foreach ($location in @($root.SelectNodes('location'))) {
+    # (without regard to case, as IIS takes a location's path: "app/Admin" is the site App's)
     $path = [string]$location.path
-    if ($path -ne $Site -and -not $path.StartsWith("$Site/")) { continue }
+    if ($path -ne $Site -and -not $path.StartsWith("$Site/", [StringComparison]::OrdinalIgnoreCase)) { continue }
     $copy = $iisProfile.AppendChild($document.CreateElement('location'))
     $copy.SetAttribute('path', $path.Substring($Site.Length).TrimStart('/'))
     Copy-Sections $location $copy
@@ -116,7 +155,8 @@ foreach ($location in @($root.SelectNodes('location'))) {
 $settings = New-Object Xml.XmlWriterSettings
 $settings.Indent = $true
 $settings.Encoding = New-Object Text.UTF8Encoding($false)
-$target = if ([IO.Path]::IsPathRooted($Out)) { $Out } else { Join-Path (Get-Location) $Out }
+# (its folder made when it is not there, as capture-culture.ps1 does)
+[void][IO.Directory]::CreateDirectory((Split-Path $target -Parent))
 $writer = [Xml.XmlWriter]::Create($target, $settings)
 $document.Save($writer)
 $writer.Dispose()

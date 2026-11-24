@@ -31,4 +31,7 @@ jobs:
         run: |
           $PSVersionTable.PSVersion
           powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/scripts/ScriptTests.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          # The capture scripts on inputs of every shape (their output is not given to the converter here: it is not built)
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File tests/scripts/CaptureSweep.ps1
           exit $LASTEXITCODE

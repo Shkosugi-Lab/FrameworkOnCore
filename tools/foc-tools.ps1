@@ -16,6 +16,14 @@ function Invoke-FocGit {
     git @args 2>$null
 }
 
+# Arguments for a native command (dotnet) as they are: Windows PowerShell (and PowerShell before 7.3) gives a '"' in an
+# argument to the command unescaped (--a"b arrived as --ab joined with the next argument): escaped as the command line
+# takes it, the backslashes before it doubled.
+function ConvertTo-FocNativeArguments([string[]]$Arguments) {
+    if ($PSVersionTable.PSVersion -ge [version]'7.3' -and "$PSNativeCommandArgumentPassing" -ne 'Legacy') { return $Arguments }
+    @($Arguments | ForEach-Object { $_ -replace '(\\*)"', ('$1$1' + [char]92 + '"') })
+}
+
 function Get-FocTools([switch]$Build) {
     $repo = Split-Path $PSScriptRoot -Parent
     $reason = $null

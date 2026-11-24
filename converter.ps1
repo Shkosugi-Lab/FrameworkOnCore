@@ -5,7 +5,11 @@
 #   .\converter.ps1 analyze <Web project> --out <folder>
 #   .\converter.ps1 <Web project> --out <folder> [--choices foc-choices.json] [--build-original]
 #   .\converter.ps1 -Build ...       # built here
-param([switch]$Build, [Parameter(ValueFromRemainingArguments = $true)][string[]]$Arguments = @())
+# No param block: the arguments are the tool's, as they are ($args). With one, Windows PowerShell started as
+# "powershell -File <script> <project> --out <folder>" took --out for a parameter of its own (-OutVariable, -OutBuffer:
+# "the parameter name 'out' is ambiguous") and --b... for -Build. -Build alone (as written) is the script's.
+$Build = @($args | Where-Object { $_ -is [string] -and $_ -ceq '-Build' }).Count -gt 0
+$Arguments = @($args | Where-Object { -not ($_ -is [string] -and $_ -ceq '-Build') } | ForEach-Object { "$_" })
 
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'tools\foc-tools.ps1')
@@ -14,5 +18,6 @@ $tools = Get-FocTools -Build:$Build
 # the project (the last argument without an option is the project).
 $takesRuntime = -not ($Arguments.Count -gt 0 -and $Arguments[0] -in 'build-original', 'build-original-advice', 'snapshot')
 $runtime = if ($Arguments -contains '--runtime' -or -not $takesRuntime) { @() } else { @('--runtime', (Join-Path $PSScriptRoot 'experiments\wf4c')) }
+$Arguments = @(ConvertTo-FocNativeArguments $Arguments)
 dotnet (Join-Path $tools 'FrameworkOnCore.Converter.dll') @Arguments @runtime
 exit $LASTEXITCODE

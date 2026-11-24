@@ -20,6 +20,24 @@ if ($PSVersionTable.PSEdition -eq 'Core') {
     throw 'Run this with Windows PowerShell (powershell.exe): PowerShell 7 runs on .NET, whose culture data are the ones to be replaced.'
 }
 
+# A path as given, from PowerShell's location when relative (.NET's is the process's); as it is ([ ] are no wildcards).
+# Started by powershell -File in a folder with [ ] in its name, Windows PowerShell cannot make that folder its location
+# and is in its own ($PSHOME) instead: the folder it was started in then (the process's).
+function Full-Path([string]$Path) {
+    $from = (Get-Location).ProviderPath
+    if ($from -eq $PSHOME -and [Environment]::CurrentDirectory -ne $from -and [Environment]::CurrentDirectory -match '[\[\]]') { $from = [Environment]::CurrentDirectory }
+    [IO.Path]::GetFullPath($(if ([IO.Path]::IsPathRooted($Path)) { $Path } else { Join-Path $from $Path }))
+}
+# The output: a file's path (told before anything is captured).
+$path = Full-Path $Out
+if (Test-Path -LiteralPath $path -PathType Container) { throw "-Out $Out is a folder: give the profile's file (culture-profile.json)" }
+# -Cultures as powershell -File gives them: "en-US,fr-FR" is one argument there (an array only to a script called from
+# PowerShell); each name of each argument.
+$Cultures = @($Cultures | ForEach-Object { $_ -split ',' } | ForEach-Object { $_.Trim() } | Where-Object { $_ })
+# The cultures named (web.config's, -Cultures): a neutral one of them is captured too.
+$named = New-Object Collections.Generic.List[string]
+$Cultures | ForEach-Object { $named.Add($_) }
+
 $names = New-Object Collections.Generic.List[string]
 $default = [Globalization.CultureInfo]::CurrentCulture.Name
 $defaultUI = [Globalization.CultureInfo]::CurrentUICulture.Name
@@ -28,16 +46,27 @@ $names.Add($defaultUI)
 if ($WebConfig) {
     # In the encoding it says (an application's may be encoding="shift_jis"); a path as it is ([ ] in a folder's name,
     # WingtipToys VB's "[VB]-...", are no wildcards).
+    # Read as a file, not as a URL (a '#' or a '%' in a folder's name is a URL's); what it is not is told with its name.
+    $full = Full-Path $WebConfig
+    if (Test-Path -LiteralPath $full -PathType Container) { throw "-WebConfig $WebConfig is a folder: give the application's web.config" }
+    if (-not (Test-Path -LiteralPath $full -PathType Leaf)) { throw "-WebConfig $WebConfig (web.config) is not there" }
     $config = New-Object System.Xml.XmlDocument
-    # (relative to PowerShell's location: .NET's is the process's)
-    $config.Load($(if ([IO.Path]::IsPathRooted($WebConfig)) { $WebConfig } else { Join-Path (Get-Location).ProviderPath $WebConfig }))
-    $globalization = $config.SelectSingleNode('/configuration/system.web/globalization')
-    if ($globalization) {
+    $stream = $null
+    try {
+        $stream = [IO.File]::OpenRead($full)
+        $config.Load($stream)
+    }
+    catch { throw "-WebConfig $WebConfig (web.config) is no XML: $(if ($_.Exception.InnerException) { $_.Exception.InnerException.Message } else { $_.Exception.Message })" }
+    finally { if ($stream) { $stream.Dispose() } }
+    # Its globalization elements: the application's (system.web under configuration, or in a <location> for the
+    # application itself or a folder), whatever the namespace (an old web.config has .NET 2.0's on configuration).
+    $globalizations = @($config.SelectNodes("/*[local-name()='configuration']/*[local-name()='system.web']/*[local-name()='globalization'] | /*[local-name()='configuration']/*[local-name()='location']/*[local-name()='system.web']/*[local-name()='globalization']"))
+    foreach ($globalization in $globalizations) {
         foreach ($attribute in 'culture', 'uiCulture') {
             $value = $globalization.GetAttribute($attribute)
             # "auto:ja-JP" falls back to ja-JP; plain "auto" follows the browser (name them in -Cultures).
             if ($value -like 'auto:*') { $value = $value.Substring(5) }
-            if ($value -and $value -ne 'auto') { $names.Add($value) }
+            if ($value -and $value -ne 'auto') { $names.Add($value); $named.Add($value) }
         }
     }
 }
@@ -76,10 +105,14 @@ $profile = [ordered]@{
     Cultures         = [ordered]@{}
 }
 foreach ($name in ($names | Where-Object { $_ } | Select-Object -Unique)) {
-    $culture = New-Object Globalization.CultureInfo $name
+    # (a name that is no culture's, a typing mistake: told with the name; .NET Framework's own word for it is "not supported")
+    try { $culture = [Globalization.CultureInfo]::GetCultureInfo($name) }
+    catch { throw "'$name' is no culture this machine has (given in -Cultures or named by web.config's globalization): a name as en-US, ja-JP, de" }
+    $culture = New-Object Globalization.CultureInfo $culture.Name
     if ($culture.Name -eq '') { continue }   # no formats of its own
-    # A neutral culture only when named (a page's UICulture="zh-Hans", Culture="de"): .NET Framework gives it formats.
-    if ($culture.IsNeutralCulture -and $Cultures -notcontains $name) { continue }
+    # A neutral culture only when named (a page's UICulture="zh-Hans", Culture="de"; web.config's): .NET Framework gives it formats.
+    if ($culture.IsNeutralCulture -and $named -notcontains $name) { continue }
+    if ($profile.Cultures.Contains($culture.Name)) { continue }   # (named twice, in another case)
     $date = Get-Settable $culture.DateTimeFormat
     $all = [ordered]@{}
     foreach ($format in 'd', 'D', 't', 'T', 'y', 'Y') { $all[$format] = @($culture.DateTimeFormat.GetAllDateTimePatterns([char]$format)) }
@@ -96,7 +129,6 @@ foreach ($name in ($names | Where-Object { $_ } | Select-Object -Unique)) {
 }
 
 $json = $profile | ConvertTo-Json -Depth 6
-$path = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Out)
-New-Item -ItemType Directory (Split-Path $path -Parent) -Force | Out-Null
+[void][IO.Directory]::CreateDirectory((Split-Path $path -Parent))
 [IO.File]::WriteAllText($path, $json, (New-Object Text.UTF8Encoding $false))
 "captured $($profile.Cultures.Count) culture(s) ($($profile.Cultures.Keys -join ', ')); default $default / $defaultUI -> $Out"

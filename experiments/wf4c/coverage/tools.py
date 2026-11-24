@@ -1,11 +1,23 @@
 # Line and branch coverage of the tools written new (the converter, its analysis and analyzers, Studio) by the unit tests:
-#   dotnet-coverage collect -s experiments/wf4c/coverage/collect-tools.config -f cobertura -o experiments/wf4c/coverage/results/tools.cobertura.xml "dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj --no-build -nologo"
-#   python experiments/wf4c/coverage/tools.py [file-name-part]     (a file: its lines no test runs)
+#   python experiments/wf4c/coverage/tools.py --collect            (runs the tests under dotnet-coverage: results/tools.cobertura.xml)
+#   python experiments/wf4c/coverage/tools.py [file-name-part]     (the summary; a file: its lines no test runs)
 # Each assembly's and each file's lines and branches, the least covered first.
+# --collect runs the tests without the compiler's server and MSBuild's kept nodes (UseSharedCompilation=false,
+# MSBUILDDISABLENODEREUSE=1): the builds the tests start (the converted applications') would start them under the
+# collector, they outlive it, and the next dotnet build that finds the compiler's server waits on it without end.
 import os, re, sys, collections
 import xml.etree.ElementTree as ET
 
 here = os.path.dirname(os.path.abspath(__file__))
+if len(sys.argv) > 1 and sys.argv[1] == '--collect':
+    import subprocess
+    repo = os.path.abspath(os.path.join(here, '..', '..', '..'))
+    environment = dict(os.environ, UseSharedCompilation='false', MSBUILDDISABLENODEREUSE='1', DOTNET_CLI_DO_NOT_USE_MSBUILD_SERVER='1')
+    code = subprocess.call(['dotnet-coverage', 'collect', '-s', os.path.join(here, 'collect-tools.config'), '-f', 'cobertura',
+                            '-o', os.path.join(here, 'results', 'tools.cobertura.xml'),
+                            'dotnet test tests/FrameworkOnCore.Tests/FrameworkOnCore.Tests.csproj --no-build -nologo'], cwd=repo, env=environment)
+    subprocess.call(['dotnet', 'build-server', 'shutdown'], cwd=repo, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    sys.exit(code)
 tree = ET.parse(os.path.join(here, 'results', 'tools.cobertura.xml'))
 files = collections.defaultdict(lambda: {'lines': {}, 'branches': {}})
 for package in tree.getroot().iter('package'):

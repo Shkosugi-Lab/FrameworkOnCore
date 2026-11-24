@@ -160,4 +160,54 @@ public sealed class OriginalBuildSweepTests : IDisposable
         else Assert.True(exit is 1 or 2, $"exit {exit}\n{output}");
         Assert.True((output + log).Contains(tells), $"{tells} is not told\n{output}\n{log}");
     }
+
+    // ---- a repository built by a Cake script (build.cake: run as it is, with the target given)
+
+    const string CakeScript = """
+        var target = Argument("target", "Default");
+        Task("Default").Does(() => { MSBuild("./Sweep.sln", settings => settings.SetConfiguration("Release")); });
+        Task("Marked").IsDependentOn("Default").Does(() => { System.IO.File.WriteAllText("./Web/marked.txt", "marked"); });
+        Task("Linked").IsDependentOn("Default").Does(() => { StartProcess("cmd", "/c mklink /J Web\\Shared Library"); });
+        Task("Broken").Does(() => { throw new Exception("the script's own failure"); });
+        RunTarget(target);
+        """;
+
+    [Theory]
+    [InlineData("the default target", null)]
+    [InlineData("a target", "Marked")]
+    [InlineData("a link the script makes", "Linked")]
+    [InlineData("a script that fails", "Broken")]
+    [InlineData("a target the script has not", "Nothing")]
+    public void A_repository_built_by_a_Cake_script(string shape, string target)
+    {
+        if (!Available) return;
+        var app = new ConverterSweepTests.App();
+        var source = Path.Combine(root, "source");
+        var work = Path.Combine(root, "work", "original");
+        var project = ConverterSweepTests.Write(source, app);
+        File.WriteAllText(Path.Combine(source, "build.cake"), CakeScript);
+        var before = ConverterSweepTests.Tree(source);
+        var (exit, output) = BuildOriginal(project, work, target != null ? new[] { "--target", target } : Array.Empty<string>());
+        var log = File.Exists(work + ".build.log") ? File.ReadAllText(work + ".build.log") : "";
+        Assert.False(Regex.IsMatch(output, @"Unhandled exception|^\s+at [\w.]+\(", RegexOptions.Multiline), output);
+        Assert.Equal("", ConverterSweepTests.Differences(before, ConverterSweepTests.Tree(source)));
+        Assert.Contains("Cake script: build.cake", output);
+        if (shape is "a script that fails" or "a target the script has not")
+        {
+            Assert.True(exit == 1 && output.Contains("original build FAILED"), $"exit {exit}\n{output}");
+            Assert.True(log.Contains(shape == "a script that fails" ? "the script's own failure" : "Nothing"), log);
+            return;
+        }
+        Assert.True(exit == 0, $"exit {exit}\n{output}\n{log}");
+        AssertSite(output, app.Name, false);
+        var site = Site(output);
+        if (target == "Marked") Assert.True(File.Exists(Path.Combine(site, "marked.txt")), output);
+        if (target == "Linked")
+        {
+            // The link the script made (through the build's drive) is a folder of the site's own now: what it pointed to, copied.
+            var linked = Path.Combine(site, "Shared");
+            Assert.True(Directory.Exists(linked) && (new DirectoryInfo(linked).Attributes & FileAttributes.ReparsePoint) == 0, output);
+            Assert.True(File.Exists(Path.Combine(linked, "Greeter.cs")), output);
+        }
+    }
 }

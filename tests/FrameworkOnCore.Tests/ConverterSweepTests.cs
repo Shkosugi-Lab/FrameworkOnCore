@@ -103,6 +103,8 @@ public sealed class ConverterSweepTests : IDisposable
         public string Name = "App";
         /// <summary>More items of the web project (its ItemGroup's XML), and the files they are (relative to the web project's folder; null: none).</summary>
         public string Items = "";
+        /// <summary>More references of the web project (its Reference items' XML).</summary>
+        public string References = "";
         public List<(string Path, byte[] Bytes)> Files = new();
         /// <summary>The page's code-behind's bytes instead of the default's (the encodings' and line ends' cases).</summary>
         public byte[] CodeBehind;
@@ -147,6 +149,7 @@ public sealed class ConverterSweepTests : IDisposable
                 <Reference Include="System" />
                 <Reference Include="System.Web" />
                 <Reference Include="System.Configuration" />
+            {app.References}
               </ItemGroup>
               <ItemGroup>
                 <Content Include="Default.aspx" />

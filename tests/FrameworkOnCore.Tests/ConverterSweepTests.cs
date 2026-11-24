@@ -681,7 +681,7 @@ public sealed class ConverterSweepTests : IDisposable
             if ((string)item.Attribute("Remove") is { } remove)
                 foreach (var file in Expand(web, remove)) compiled.Remove(file);
         }
-        compiled.ExceptWith(own);
+        compiled.ExceptWith(own.Select(o => o.Replace('\\', Path.DirectorySeparatorChar)).ToList());
         compiled.RemoveWhere(f => f.StartsWith("bin" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase) || f.StartsWith("obj" + Path.DirectorySeparatorChar, StringComparison.OrdinalIgnoreCase));
         Assert.Equal(shape.Compiled.Select(c => c.Replace('\\', Path.DirectorySeparatorChar)).OrderBy(c => c, StringComparer.OrdinalIgnoreCase), compiled);
     }

@@ -52,8 +52,11 @@ foreach ($probe in $probes) {
     if ($UpdateBaseline) { $snapshotArguments += '--update' }
     $afterConvert = {
         param($converted)
-        & dotnet $converter snapshot $converted @snapshotArguments | Out-Null
-        $holder.Decisions = $UpdateBaseline -or $LASTEXITCODE -eq 0
+        # (what it says kept: a difference without its file, a failure of the command itself, were told by nothing)
+        & dotnet $converter snapshot $converted @snapshotArguments *>&1 | Out-File (Join-Path $out "$($probe.name).decisions.log") -Encoding utf8
+        # (the command's own exit code: in this closure $LASTEXITCODE was the one of the probe before, and a probe after one
+        # with known differences was told to differ from its baseline when it was the same)
+        $holder.Decisions = $UpdateBaseline -or $global:LASTEXITCODE -eq 0
     }.GetNewClosure()
     $arguments = @{ Name = $probe.name; Port = $port; AfterConvert = $afterConvert }
     if ($Linux) { $arguments.Linux = $true } else { $arguments.Windows = $true }
